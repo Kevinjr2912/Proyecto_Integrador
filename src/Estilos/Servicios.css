@@ -1,0 +1,11 @@
+.box_servicios{
+    width: 100vw;
+    background-color: #1B1A1A;
+    display: flex;
+    gap: 50px;
+    justify-content: space-evenly;
+}
+
+.box_entrega{
+    background-color: cadetblue;
+}
