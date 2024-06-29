@@ -23,23 +23,6 @@
     gap: 50px;
 }
 
-.nav_rutas{
-    list-style:none;
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    padding-right: 30px;
-    font-size: 17px;
-}
-
-.nav_rutas li a{
-    color: #FFFFFF;
-}
-
-.nav_rutas li a:hover{
-    color: #2DC289;
-}
-
 .nav_iconos{
     display: flex;
     align-items: center;

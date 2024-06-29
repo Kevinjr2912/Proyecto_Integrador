@@ -1,5 +1,21 @@
-.img_home{
-    width: 100vw;
-    height: 400px;
-    margin-top: -215px;
+.home {
+  min-height: 100vh;
+  background-color: rgb(0, 0, 0);
 }
+
+.contenedor_carro {
+  margin-top: 80px;
+}
+
+.img_home {
+  width: 100vw;
+  height: 300px;
+}
+
+.secciones{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

@@ -1,0 +1,7 @@
+.carrusel{
+    width: 90%;
+    margin-left: 5%;
+    display: flex;
+    gap: 50px;
+    margin-top: 100px;
+}
