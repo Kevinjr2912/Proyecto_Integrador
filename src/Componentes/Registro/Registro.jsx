@@ -7,8 +7,8 @@ export default function Registro() {
     return(
         <>
         <div className="registro-container">
-                <div className="registro-box">
-        <img className="img-helmet" src={helmet} alt="helmet" />
+            <div className="registro-box">
+                <img className="img-helmet" src={helmet} alt="helmet" />
                     <h2>Registro</h2>
                     <div className="login-prompt">
                         <span>¿Ya tienes una cuenta? </span>

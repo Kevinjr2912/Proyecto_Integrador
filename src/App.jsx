@@ -1,14 +1,11 @@
 import './App.css'
-import RegistroPagina from './Paginas/RegistroPagina.jsx';
+import OverolesPagina from './Paginas/OverolesPagina.jsx';
 
 
 function App() {
   return (
     <>
-      
-      <RegistroPagina />
-
-      
+      <OverolesPagina></OverolesPagina>
     </>
   );
 }
