@@ -8,7 +8,7 @@ export default function NavBar(){
     return(
         <nav className="box-nav">
             <div className="box_img">
-                <img className="logo_img" src={LogoF1} alt="Logo F1" />
+                <img className="logo_img" src={LogoF1} alt="Logo" />
             </div>
             <div className="actions_general">
                 <SeccionesTienda />
