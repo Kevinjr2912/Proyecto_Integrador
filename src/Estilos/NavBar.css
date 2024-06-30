@@ -51,6 +51,8 @@
     flex: auto;
     padding: 5px;
     font-size: 15px;
+    background-color: white;
+    color: black;
 }
 
 .search-bar .actions {
