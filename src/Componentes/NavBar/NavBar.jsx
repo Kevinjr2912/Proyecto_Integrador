@@ -13,9 +13,9 @@ export default function NavBar(){
             <div className="actions_general">
                 <SeccionesTienda />
                 <div className="nav_iconos">
-                    <div class="search-bar">
+                    <div className="search-bar">
                         <input type="text" />
-                        <div class="actions">
+                        <div className="actions">
                             <FontAwesomeIcon className="search_button" icon={faMagnifyingGlass} />
                         </div>
                     </div>
