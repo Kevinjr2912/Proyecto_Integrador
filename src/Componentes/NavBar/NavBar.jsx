@@ -23,6 +23,6 @@ export default function NavBar(){
                     <FontAwesomeIcon className="actions" icon={faCartShopping} />
                 </div>
             </div>  
-        </nav>
+       </nav>
     );
 }
