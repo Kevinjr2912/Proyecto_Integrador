@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import NavBar from "../Componentes/NavBar/NavBar";
 import ImagenesReferencia from "../Componentes/ImagenesReferencia/ImagenesReferencia";
@@ -32,5 +33,14 @@ export default function InformationProduct(){
            
         </div>
         
+=======
+import NavBar from "../Componentes/NavBar/NavBar";
+
+export default function InformationProduct(){
+    return(
+        <div className="box-container">
+            <NavBar/>
+        </div>
+>>>>>>> main
     );
 }
