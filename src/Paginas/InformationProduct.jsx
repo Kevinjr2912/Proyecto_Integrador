@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import NavBar from "../Componentes/NavBar/NavBar";
 import ImagenesReferencia from "../Componentes/ImagenesReferencia/ImagenesReferencia";
@@ -6,6 +5,7 @@ import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/InformationProduct.css';
 import NombrePrecioProducto from "../Componentes/NombrePrecioProducto/NombrePrecioProducto";
 import AccionesProducto from "../Componentes/AccionesProducto/AccionesProducto";
+import StarRating from "../Componentes/StartRating/StartRating";
 
 export default function InformationProduct(){
     return(
@@ -32,15 +32,5 @@ export default function InformationProduct(){
             </div>
            
         </div>
-        
-=======
-import NavBar from "../Componentes/NavBar/NavBar";
-
-export default function InformationProduct(){
-    return(
-        <div className="box-container">
-            <NavBar/>
-        </div>
->>>>>>> main
     );
 }

@@ -16,10 +16,10 @@ export default function AccionesProducto(){
     }
 
     return(
-        <div className="container">
-            <div className="btnRemove"></div>
+        <div className="containerBtn">
+            <button className="btn" onClick={amountRest}>-</button>
             <div className="amount">{count}</div>
-            <div className="btnAdd" onClick={handleClick}></div>
+            <button className="btn" onClick={handleClick}>+</button>
         </div>
     );
 }
