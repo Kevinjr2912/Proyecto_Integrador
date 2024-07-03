@@ -1,11 +1,11 @@
 import './App.css'
-import PersonalizarProductoP from './Paginas/PersonalizarProductoP.jsx';
+import MetodoEnvio from './Componentes/MetodoEnvio/MetodoEnvio.jsx';
 
 
 function App() {
   return (
     <>
-      <PersonalizarProductoP></PersonalizarProductoP>
+      <MetodoEnvio></MetodoEnvio>
     </>
   );
 }
