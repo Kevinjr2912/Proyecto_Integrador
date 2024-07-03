@@ -10,18 +10,18 @@
 }
 
 .cardProducto:hover {
-    transform: perspective(1000px) translateZ(50px); 
+    transform: perspective(1000px) translateZ(70px); 
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); 
 }
 
 .producto {
     width: 300px;
     height: 250px;
-    transition: transform 0.3s ease; 
+    transition: transform 0.8s ease-in-out; 
 }
 
 .cardProducto:hover .producto {
-    transform: perspective(1000px) translateZ(100px);
+    transform: perspective(1000px) translateZ(150px);
 }
 
 

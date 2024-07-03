@@ -4,9 +4,11 @@ import SeccionesTienda from '../Componentes/SeccionesTienda/SeccionesTienda.jsx'
 import CarruselProducto from '../Componentes/CarruselProducto/CarruselProducto.jsx';
 import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/Home.css';
+import Footer from '../Componentes/Footer/Footer.jsx';
 
 export default function Home(){
     return(
+        <>
         <div className="home">
             <NavBar />
             <div className='contenedor_carro'>
@@ -19,5 +21,7 @@ export default function Home(){
             <CarruselProducto />
             <CarruselProducto />
         </div>
+        <Footer></Footer>
+        </>
     );
 }

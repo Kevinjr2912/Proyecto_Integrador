@@ -1,11 +1,11 @@
 import './App.css'
-import OverolesPagina from './Paginas/OverolesPagina.jsx';
+import PersonalizarProductoP from './Paginas/PersonalizarProductoP.jsx';
 
 
 function App() {
   return (
     <>
-      <OverolesPagina></OverolesPagina>
+      <PersonalizarProductoP></PersonalizarProductoP>
     </>
   );
 }
