@@ -1,4 +1,4 @@
-import SeccionesTienda from "../SeccionesTienda/SeccionesTienda";
+import SeccionesTienda from "./SeccionesTienda";
 import LogoF1 from '../../Imagenes/LogoF1.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser,faCartShopping,faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
