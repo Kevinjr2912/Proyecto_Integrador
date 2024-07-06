@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import InformationProduct from './Paginas/InformationProduct';
-import Home from './Paginas/Home'
+import ShippingData from './Componentes/ShippingData/ShippingData';
+import AddProduct from './Componentes/AddProduct/AddProduct';
 
 function App() {
   return (
     <>
-      <InformationProduct/>
+      <AddProduct/>
     </>
   );
 }

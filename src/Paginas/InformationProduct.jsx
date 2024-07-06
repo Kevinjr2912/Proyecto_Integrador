@@ -5,7 +5,6 @@ import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/InformationProduct.css';
 import NombrePrecioProducto from "../Componentes/NombrePrecioProducto/NombrePrecioProducto";
 import AccionesProducto from "../Componentes/AccionesProducto/AccionesProducto";
-import StarRating from "../Componentes/StartRating/StartRating";
 
 export default function InformationProduct(){
     return(

@@ -1,0 +1,58 @@
+.containerShippingData{
+    background-color: #282828;
+    width: 45vw;
+    display: flex;
+    flex-direction: column;
+    padding: 3.5vw;
+    border-radius: 2vw;
+}
+
+.referencias{
+    display: flex;
+    gap: 7vw;
+}
+
+.box_estado{
+    display: flex;
+    flex-direction: column;
+}
+
+.box_municipio{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-top: 1vw;
+    color: white;
+    font-weight: 500;
+}
+
+input{
+    width: 17vw;
+    height: 3.6vh;
+    margin-top: 1vw;
+    border-radius: 0.3vw;
+    outline: none;
+}
+
+.referencia_cercana{
+    display: flex;
+    gap: 7vw;
+}
+
+.box_calle, .box_numeroExterior{
+    display: flex;
+    flex-direction: column;
+}
+
+#textReferencia{
+    max-width: 41.3vw;
+    min-width: 41.3vw;
+    max-height: 10vh;
+    min-height: 10vh;
+}
+
+.actionsData{
+    margin-top: 3vw;
+}
