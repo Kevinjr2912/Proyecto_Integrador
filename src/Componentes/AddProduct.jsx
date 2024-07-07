@@ -7,7 +7,7 @@ export default function AddProduct() {
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
     const imagePreviews = files.map((file) => URL.createObjectURL(file));
-    // Limitar a 5 imágenes en total
+
     setImages((prevImages) => {
       const totalImages = prevImages.length + imagePreviews.length;
       if (totalImages > 5) {
