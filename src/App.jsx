@@ -4,7 +4,7 @@ import Registro from './Paginas/'
 function App() {
   return (
     <>
-      <Registro></Registro>
+      <Login/>
 
       
     </>

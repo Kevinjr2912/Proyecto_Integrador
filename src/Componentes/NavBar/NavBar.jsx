@@ -1,8 +1,8 @@
-import React from "react";
-import '../../Estilos/NavBar.css';
+import SeccionesTienda from "../SeccionesTienda/SeccionesTienda";
 import LogoF1 from "../../Imagenes/LogoF1.png";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser,faCartShopping,faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import '../../Estilos/NavBar.css';
 
 export default function NavBar(){
     return(
@@ -11,13 +11,7 @@ export default function NavBar(){
                 <img className="logo_img" src={LogoF1} alt="Logo F1" />
             </div>
             <div className="actions_general">
-                <ul className="nav_rutas">
-                    <li><a href="#">ABOUT US</a></li>
-                    <li><a href="#">OVERALLS</a></li>
-                    <li><a href="#">HELMETS</a></li>
-                    <li><a href="#">OFFERS</a></li>
-                    <li><a href="#">REVIEWS</a></li>
-                </ul>
+                <SeccionesTienda />
                 <div className="nav_iconos">
                     <div class="search-bar">
                         <input type="text" />
