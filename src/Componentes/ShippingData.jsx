@@ -1,4 +1,4 @@
-import '../../Estilos/ShippingData.css';
+import '../Estilos/ShippingData.css';
 
 export default function ShippingData(){
     return(

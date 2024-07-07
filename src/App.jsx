@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import ShippingData from './Componentes/ShippingData/ShippingData';
-import AddProduct from './Componentes/AddProduct/AddProduct';
+import PageProduct from './Paginas/PageProducto';
 
 function App() {
   return (
     <>
-      <AddProduct/>
+      <PageProduct/>
     </>
   );
 }

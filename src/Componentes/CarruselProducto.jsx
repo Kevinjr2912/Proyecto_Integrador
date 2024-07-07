@@ -1,7 +1,7 @@
 import React from "react";
-import CardProducto from "../CardProducto/CardProducto";
-import '../../Estilos/CarruselProducto.css';
-import imagen_home from '../../Imagenes/imagen_home.jpg';
+import CardProducto from '../Componentes/CardProducto';
+import imagen_home from '../Imagenes/imagen_home.jpg';
+import '../Estilos/CarruselProducto.css'
 
 export default function CarruselProducto(){
     return(

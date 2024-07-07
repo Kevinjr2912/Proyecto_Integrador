@@ -1,5 +1,5 @@
 import React from "react";
-import '../../Estilos/AccionesProducto.css';
+import '../Estilos/AccionesProducto.css';
 import { useState } from 'react';
 
 export default function AccionesProducto(){

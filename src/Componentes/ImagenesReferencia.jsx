@@ -1,5 +1,5 @@
 import React from "react";
-import '../../Estilos/ImagenesReferencia.css'
+import '../Estilos/ImagenesReferencia.css'
 
 export default function ImagenesReferencia( {img_principal, img1, img2, img3, img4} ){
     return(

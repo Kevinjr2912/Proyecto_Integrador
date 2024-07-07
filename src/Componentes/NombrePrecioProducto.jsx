@@ -1,5 +1,5 @@
 import React from "react";
-import '../../Estilos/NombrePrecioProducto.css';
+import '../Estilos/NombrePrecioProducto.css';
 
 export default function NombrePrecioProducto( {nombre,precio} ){
     return(

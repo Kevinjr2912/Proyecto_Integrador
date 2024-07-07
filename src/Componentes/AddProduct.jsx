@@ -1,4 +1,4 @@
-import "../../Estilos/AddProduct.css";
+import "../Estilos/AddProduct.css";
 import { useState } from "react";
 
 export default function AddProduct() {

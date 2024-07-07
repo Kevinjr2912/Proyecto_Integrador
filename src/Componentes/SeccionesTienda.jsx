@@ -1,13 +1,21 @@
-import '../../Estilos/SeccionTienda.css';
+import '../Estilos/SeccionTienda.css';
 
-export default function SeccionesTienda({ className }){
-    return(
-        <ul className="nav_rutas">
-            <li><a href="#" className={className}>ABOUT US</a></li>
-            <li><a href="#" className={className}>OVERALLS</a></li>
-            <li><a href="#" className={className}>HELMETS</a></li>
-            <li><a href="#" className={className}>OFFERS</a></li>
-            <li><a href="#" className={className}>REVIEWS</a></li>
-        </ul>
+export default function SeccionesTienda({ seccionesNav,esSeccionCliente,className }){
+    if(esSeccionCliente){
+        const listaAccionesCliente = seccionesNav.map(seccion =>
+            <li key={seccion.id}>
+              <a className={className}>{seccion.nombre}</a>
+            </li>
+        );
+
+        return <ul className='nav_rutas'>{listaAccionesCliente}</ul>
+    }
+
+    const listaAccionesAdministrador = seccionesNav.map(seccion => 
+        <li key={seccion.id}>
+              <a className={className}>{seccion.nombre}</a>
+        </li>
     );
+
+    return <ul className='nav_rutas'>{listaAccionesAdministrador}</ul>
 }

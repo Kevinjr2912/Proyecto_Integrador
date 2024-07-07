@@ -1,7 +1,7 @@
 import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTruck,faPhone,faCreditCard} from '@fortawesome/free-solid-svg-icons';
-import '../../Estilos/Servicios.css';
+import '../Estilos/Servicios.css';
 
 export default function Servicios(){
     return(

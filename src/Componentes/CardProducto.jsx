@@ -1,5 +1,5 @@
 import React from "react";
-import '../../Estilos/CardProducto.css';
+import '../Estilos/CardProducto.css';
 
 export default function CardProducto(props){
     return(
