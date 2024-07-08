@@ -52,8 +52,8 @@
   }
   
   .file-input-container {
-    width: 6vw;
-    height: 3.7vw;
+    width: 7vw;
+    height: 3.9vw;
     border: 2px solid #828282;
     border-radius: 10px;
     display: flex;
@@ -65,6 +65,10 @@
     cursor: pointer;
     flex-shrink: 0;
   }
+
+  .file-input-container:hover{
+    background-color: #f9f9f9;
+  }
   
   .file-input-container input[type="file"] {
     display: none;
@@ -73,7 +77,7 @@
   .file-input-label {
     position: absolute;
     margin-top: -1vw;
-    margin-left: -0.3vw;
+    margin-left: -0.09vw;
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -89,7 +93,7 @@
   
   .text {
     color: #7A7A7A;
-    font-size: 0.9vw;
+    font-size: 0.8vw;
     font-weight: 700;
     flex-shrink: 0;
   }
@@ -133,9 +137,15 @@
   
   .btn_addP {
     width: 9vw;
+    border-radius: 1vw;
     background-color: #2dc289;
     color: white;
     flex-shrink: 0;
+  }
+
+  .btn_cancelar{
+    width: 5vw;
+    border-radius: 1vw;
   }
   
   .btn_cancelar:hover {

@@ -1,13 +1,22 @@
-import React from 'react';
 import './App.css';
-import PageProduct from './Paginas/PageProducto';
+import AddProduct from './Componentes/AddProduct';
+
 
 function App() {
+
   return (
     <>
-      <PageProduct/>
+      <AddProduct />
+      {/* <div className="card">
+        <ul>
+          {error && <li>Error: {error}</li>}
+          {data.map((cliente) => (
+            <li key={cliente.id_cliente}>{cliente.primer_nombre}</li>
+          ))}
+        </ul>
+      </div> */}
     </>
   );
 }
 
-export default App
+export default App;
