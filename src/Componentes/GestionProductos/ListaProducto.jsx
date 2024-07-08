@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import AddProduct from "./AddProduct";
-import TablaProducto from "./TablaProducto";
+import AddProduct from "../GestionProductos/AddProduct";
+import TablaProducto from "../GestionProductos/TablaProducto";
+import "../../Estilos/ListaProducto.css"
 
 const ProductList = () => {
   const [products, setProducts] = useState([
@@ -32,10 +33,16 @@ const ProductList = () => {
   };
 
   return (
-    <div>
-      <AddProduct onAddProduct={addProduct} />
-      <TablaProducto products={products} />
+    <>
+    
+    <AddProduct onAddProduct={addProduct} />
+    <div className="container-main">
+    <div className="tabla" >
+      <TablaProducto className="owo" products={products} />
     </div>
+    </div>
+
+    </>
   );
 };
 

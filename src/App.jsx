@@ -1,12 +1,12 @@
 import './App.css'
-import MetodoEnvio from './Componentes/MetodoEnvio/MetodoEnvio.jsx';
+
+import GestionarProductos from './Paginas/GestionarProductosP';
 
 
 function App() {
   return (
     <>
-      <h1>Product Management</h1>
-      <ProductList />
+    <GestionarProductos></GestionarProductos>
     </>
   );
 }
