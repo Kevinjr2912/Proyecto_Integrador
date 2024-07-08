@@ -1,28 +1,34 @@
 import SeccionesTienda from "./SeccionesTienda";
-import LogoF1 from "../Imagenes/LogoF1.png";
+import EncabezadoPagina from "./EncabezadoPagina";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser,faCartShopping,faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import {faUser,faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import '../Estilos/NavBar.css';
+import Buscador from "./Buscador";
 
-export default function NavBar(){
+export default function NavBar({seccionesNav,esSeccionCliente,titulo}){
+    
     return(
         <nav className="box-nav">
             <div className="box_img">
-                <img className="logo_img" src={LogoF1} alt="Logo F1" />
+               <EncabezadoPagina
+                    esSeccionCliente = {esSeccionCliente}
+                    titulo={titulo}
+               />
             </div>
+            
             <div className="actions_general">
-                <SeccionesTienda />
+                <SeccionesTienda
+                    seccionesNav = {seccionesNav}
+                    esSeccionCliente = {esSeccionCliente}
+                />
+
+                {esSeccionCliente && (
                 <div className="nav_iconos">
-                    <div class="search-bar">
-                        <input type="text" />
-                        <div class="actions">
-                            <FontAwesomeIcon className="search_button" icon={faMagnifyingGlass} />
-                        </div>
-                    </div>
+                    <Buscador/>
                     <FontAwesomeIcon className="actions" icon={faUser} />
                     <FontAwesomeIcon className="actions" icon={faCartShopping} />
-                </div>
+                </div>)}
             </div>  
-        </nav>
+       </nav>
     );
 }

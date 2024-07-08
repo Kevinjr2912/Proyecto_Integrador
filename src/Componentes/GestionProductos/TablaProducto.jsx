@@ -112,7 +112,6 @@ function TablaProducto({ products }) {
     <>
       <div>
         <div className="header-container">
-          <button className="agregarProducto">Agregar producto</button>
           <input className="buscador" type="text" onChange={handleChange} placeholder="Buscar..." />
         </div>
         <div className="container-tabla">
