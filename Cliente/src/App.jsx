@@ -1,12 +1,12 @@
 import './App.css';
-import AddProduct from './Componentes/AddProduct';
+import Principal from "./Paginas/Principal"
 
 
 function App() {
 
   return (
     <>
-      <AddProduct />
+      <Principal></Principal>
       {/* <div className="card">
         <ul>
           {error && <li>Error: {error}</li>}
