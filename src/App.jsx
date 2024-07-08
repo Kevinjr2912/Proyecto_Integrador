@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
-import ProductList from './Componentes/ProductList';
+import './App.css'
+import MetodoEnvio from './Componentes/MetodoEnvio/MetodoEnvio.jsx';
+
 
 function App() {
   return (
