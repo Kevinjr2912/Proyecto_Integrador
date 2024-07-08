@@ -1,12 +1,24 @@
+.agregar-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px); /* Efecto de desenfoque */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 .box-addInformationProduct {
   background-color: #1b1a1a;
   width: 30vw;
-  height: 49vw;
+  height: 41vw;
   border-radius: 2.5vw;
-  margin-left: 5vw;
   display: flex;
   justify-content: center;
-  margin-top: 5cm;
 }
 
 .box-sonAdd {
@@ -103,7 +115,7 @@ select {
   width: 20vw;
   display: flex;
   justify-content: space-evenly;
-  margin-top: 3vw;
+  margin-top: 1vw;
   flex-shrink: 0;
 }
 

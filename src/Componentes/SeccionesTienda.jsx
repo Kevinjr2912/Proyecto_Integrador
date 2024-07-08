@@ -1,4 +1,4 @@
-import '../../Estilos/SeccionTienda.css';
+import '../Estilos/SeccionTienda.css';
 
 export default function SeccionesTienda({ className }){
     return(

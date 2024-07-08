@@ -1,5 +1,5 @@
 import React from "react";
-import '../../Estilos/Footer.css'
+import '../Estilos/Footer.css'
 
 export default function Footer(){
     return(

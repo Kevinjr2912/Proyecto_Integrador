@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../../Estilos/AddProduct.css";
+import "../../Estilos/AgregarModal.css";
 
-export default function AddProduct({ onAddProduct, onClose }) {
+export default function AgregarModal({ isOpen, onClose, onAddProduct }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Overol");
   const [price, setPrice] = useState("");
@@ -44,6 +44,7 @@ export default function AddProduct({ onAddProduct, onClose }) {
 
       const result = await response.json();
 
+      // Llama a la prop onAddProduct para agregar el producto a la lista
       onAddProduct({
         nombre: name,
         categoria: category,
@@ -54,25 +55,29 @@ export default function AddProduct({ onAddProduct, onClose }) {
         images: images.map(image => URL.createObjectURL(image)),
       });
 
+      // Reseteo del formulario
       setName('');
       setCategory('Overol');
       setPrice('');
       setDescription('');
       setEquipment('');
       setImages([]);
-
+      
       alert("Producto agregado exitosamente");
-      onClose();
 
     } catch (error) {
       alert(`Error al agregar producto: ${error.message}`);
     }
+
+    onClose();
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="agregar-modal-overlay">
-      <div className="box-addInformationProduct">
-        <form className="box-sonAdd" onSubmit={handleSubmit} encType="multipart/form-data">
+      <div className="agregar-modal-content">
+        <form className="agregar-box-sonAdd" onSubmit={handleSubmit} encType="multipart/form-data">
           <label htmlFor="name">Nombre</label>
           <input
             name="nombre"
@@ -82,7 +87,7 @@ export default function AddProduct({ onAddProduct, onClose }) {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label>Categoría</label>
+          <h4>Categoría</h4>
           <select
             name="categoria"
             id="category"
@@ -146,11 +151,12 @@ export default function AddProduct({ onAddProduct, onClose }) {
               />
             ))}
           </div>
-          <div className="actionsProduct">
-            <button type="button" className="btn_cancelar" onClick={onClose}>
+
+          <div className="agregar-actionsProduct">
+            <button type="button" className="agregar-btn_cancelar" onClick={onClose}>
               Cancelar
             </button>
-            <button type="submit" className="btn_addP">
+            <button type="submit" className="agregar-btn_addP">
               Agregar producto
             </button>
           </div>
