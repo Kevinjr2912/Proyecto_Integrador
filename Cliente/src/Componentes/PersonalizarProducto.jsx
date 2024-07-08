@@ -1,5 +1,5 @@
 import React from "react";
-import "../../Estilos/PersonalizarProducto.css";
+import "../Estilos/PersonalizarProducto.css";
 
 export default function PersonalizarProducto() {
   return (

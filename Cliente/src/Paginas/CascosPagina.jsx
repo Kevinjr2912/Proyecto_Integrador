@@ -1,8 +1,8 @@
 import React from "react";
-import NavBar from "../Componentes/NavBar/NavBar";
-import Filtros from "../Componentes/Filtros/Filtros";
-import CarruselProducto from "../Componentes/CarruselProducto/CarruselProducto.jsx";
-import Footer from "../Componentes/Footer/Footer.jsx";
+import NavBar from "../Componentes/NavBar";
+import Filtros from "../Componentes/Filtros";
+import CarruselProducto from "../Componentes/CarruselProducto.jsx";
+import Footer from "../Componentes/Footer.jsx";
 import "../Estilos/CascosPagina.css";
 
 export default function CascosPagina() {

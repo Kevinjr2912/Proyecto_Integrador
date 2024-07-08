@@ -1,5 +1,5 @@
 import React from "react";
-import "../../Estilos/MetodoEnvio.css";
+import "../Estilos/MetodoEnvio.css";
 
 export default function MetodoEnvio() {
   return (

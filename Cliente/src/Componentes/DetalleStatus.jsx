@@ -1,5 +1,5 @@
 import React from "react";
-import "../../Estilos/DetalleStatus.css";
+import "../Estilos/DetalleStatus.css";
 
 export default function DetalleStatus() {
   return (

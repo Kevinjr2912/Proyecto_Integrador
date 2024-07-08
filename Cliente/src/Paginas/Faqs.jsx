@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../Componentes/NavBar/NavBar";
-import Footer from "../Componentes/Footer/Footer";
+import NavBar from "../Componentes/NavBar";
+import Footer from "../Componentes/Footer";
 import "../Estilos/Faqs.css";
 
 export default function Faqs() {

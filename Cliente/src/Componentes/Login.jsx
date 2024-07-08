@@ -1,6 +1,6 @@
 import React from "react";
-import helmet from '../../Imagenes/helmet.svg'
-import '../../Estilos/Login.css';
+import helmet from '../Imagenes/helmet.svg'
+import '../Estilos/Login.css';
 export default function Login() {
 
     return(

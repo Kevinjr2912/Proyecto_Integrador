@@ -1,6 +1,6 @@
 import React from "react";
-import helmet from '../../Imagenes/helmet.svg'
-import '../../Estilos/Registro.css';
+import helmet from '../Imagenes/helmet.svg'
+import '../Estilos/Registro.css';
 
 export default function Registro() {
 

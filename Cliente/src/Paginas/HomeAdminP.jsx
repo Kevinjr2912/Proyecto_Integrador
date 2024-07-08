@@ -1,16 +1,14 @@
 import React from "react";
 import '../Estilos/HomeAdmin.css'
-import NavBar from "../Componentes/NavBar/NavBar";
-import Footer from "../Componentes/Footer/Footer";
+import NavBar from "../Componentes/NavBar";
+import Footer from "../Componentes/Footer";
 import HomeAdmin from "../Componentes/HomeAdmin";
-import DetalleStatus from "../Componentes/DetalleStatus/DetalleStatus";
+import DetalleStatus from "../Componentes/DetalleStatus";
 
 
 export default function HomeAdminP(){
 
     return(
-
-
         <>
     
         <NavBar></NavBar>

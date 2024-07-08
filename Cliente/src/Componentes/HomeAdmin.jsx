@@ -1,5 +1,5 @@
 import React from "react";
-import "../../Estilos/HomeAdmin.css";
+import "../Estilos/HomeAdmin.css";
 
 export default function HomeAdmin() {
   return (

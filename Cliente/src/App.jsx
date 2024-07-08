@@ -1,20 +1,12 @@
-import './App.css';
-import Principal from "./Paginas/Principal"
+import './App.css'
+
+import GestionarProductos from './Paginas/GestionarProductosP';
 
 
 function App() {
-
   return (
     <>
-      <Principal></Principal>
-      {/* <div className="card">
-        <ul>
-          {error && <li>Error: {error}</li>}
-          {data.map((cliente) => (
-            <li key={cliente.id_cliente}>{cliente.primer_nombre}</li>
-          ))}
-        </ul>
-      </div> */}
+    <GestionarProductos></GestionarProductos>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import '../../Estilos/Filtros.css'
+import '../Estilos/Filtros.css'
 
 export default function Filtros(){
     return(

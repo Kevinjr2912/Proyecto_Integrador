@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ListaProducto from "../Componentes/GestionProductos/ListaProducto";
-import NavBar from "../../../src/Componentes/NavBar.jsx";
-import Footer from "../../../src/Componentes/Footer.jsx";
+import NavBar from "../Componentes/NavBar.jsx";
+import Footer from "../Componentes/Footer.jsx";
 import AddProduct from "../Componentes/GestionProductos/AddProduct";
 import '../Estilos/GestionarProductosP.css';
 
