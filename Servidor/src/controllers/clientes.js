@@ -95,4 +95,14 @@ exports.addCustomer = (req, res) => {
   });
 };
 
+//Obtener todos los clientes
+exports.allCustomers = (req, res) => {
+  db.query('SELECT * FROM Cliente', (err, result) => {
+    if (err) {
+      res.status(500).send('Error al obtener los usuarios');
+      throw err;
+    }
+    res.json(result);
+  });
+};
 

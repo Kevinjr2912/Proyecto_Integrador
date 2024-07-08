@@ -4,6 +4,9 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const path = require('path');
+const fs = require('fs');
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
@@ -38,50 +41,54 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-exports.addProduct = [
-  authenticateJWT,
-  (req, res) => {
-    const newProduct = req.body;
+//Configurar multer
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, '../images'),
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname)
+  }
+})
 
-    db.query(
-      "INSERT INTO Productos (nombre, precio, descripcion, equipo) VALUES (?, ?, ?, ?)",
-      [
-        newProduct.nombre,
-        newProduct.precio,
-        newProduct.descripcion,
-        newProduct.equipo,
-      ],
-      (err, result) => {
+const upload = multer({ storage: storage }).array("dato_imagen", 5);
+
+// Ruta para agregar producto y subir imágenes
+exports.addProduct = (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      return res.status(500).json({message: 'Eror al cargar los archivos'});
+    }
+
+    const { nombre, precio, nombreCategoria, descripcion, equipo } = req.body;
+    const files = req.files;
+
+    db.query('INSERT INTO Productos (nombre, precio, descripcion, equipo) VALUES (?, ?, ?, ?)',[nombre, precio, descripcion, equipo],(err, result) => {
         if (err) {
-          res.status(500).send("Error al agregar dicho producto");
-          throw err;
+          return res.status(500).json({message: 'Error al agregar el producto'});
         }
 
         const idProducto = result.insertId;
-        console.log(idProducto);
 
-        const imageValues = newProduct.imagen_producto.map(
-          (imagen_producto) => [idProducto, imagen_producto]
-        );
-
-        db.query(
-          "INSERT INTO ImagenProducto (idProducto, imagen_producto ) VALUES ?",
-          [imageValues],
-          (err, result) => {
+        db.query('INSERT INTO Categoria (nombreCategoria, idProductos) VALUES (?, ?)',[nombreCategoria, idProducto],(err, result) => {
             if (err) {
-              res
-                .status(500)
-                .send("Error al agregar las imágenes del producto");
-              throw err;
+              return res.status(500).json({message: 'Error al agregar la categoría del producto'});
             }
 
-            res.status(201).send("Producto y imágenes agregadas exitosamente");
+            const imageValues = files.map(file => [idProducto,fs.readFileSync(path.join(__dirname, '../images/' + file.filename))]);
+
+            db.query('INSERT INTO ImagenProducto (idProducto, dato_imagen) VALUES ?',[imageValues],(err, result) => {
+                if (err) {
+                  return res.status(500).json({message: 'Error al agregar las imágenes del producto'});
+                }
+
+                return res.status(201).json({ message: 'Producto e imágenes agregadas exitosamente'});
+              }
+            );
           }
         );
       }
     );
-  },
-];
+  });
+};
 
 exports.updateProduct = [
   authenticateJWT,
@@ -106,32 +113,35 @@ exports.updateProduct = [
   },
 ];
 
-exports.deleteImgProduct = [authenticateJWT,(req, res) => {
-  const idProduct = req.params.idProducto;
-  const img = req.body;
-  const arrayImgDelete = img.idImagenProducto;
-  const hasError = false;
+exports.deleteImgProduct = [
+  authenticateJWT,
+  (req, res) => {
+    const idProduct = req.params.idProducto;
+    const img = req.body;
+    const arrayImgDelete = img.idImagenProducto;
+    const hasError = false;
 
-  for (let i = 0; i < arrayImgDelete.length; i++) {
-    db.query(
-      "DELETE FROM ImagenProducto WHERE idImagenProducto = ? AND idProducto = ?",
-      [arrayImgDelete[i], idProduct],
-      (err, result) => {
-        if (err) {
-          if (!hasError) {
-            hasError = true;
-            res.status(500).send("Error al eliminar las imágenes");
+    for (let i = 0; i < arrayImgDelete.length; i++) {
+      db.query(
+        "DELETE FROM ImagenProducto WHERE idImagenProducto = ? AND idProducto = ?",
+        [arrayImgDelete[i], idProduct],
+        (err, result) => {
+          if (err) {
+            if (!hasError) {
+              hasError = true;
+              res.status(500).send("Error al eliminar las imágenes");
+            }
+            return;
           }
-          return;
-        }
 
-        if (i === arrayImgDelete.length - 1 && !hasError) {
-          res.status(200).send("Imágenes eliminadas correctamente");
+          if (i === arrayImgDelete.length - 1 && !hasError) {
+            res.status(200).send("Imágenes eliminadas correctamente");
+          }
         }
-      }
-    );
-  }
-}];
+      );
+    }
+  },
+];
 
 exports.deleteProduct = [
   authenticateJWT,
