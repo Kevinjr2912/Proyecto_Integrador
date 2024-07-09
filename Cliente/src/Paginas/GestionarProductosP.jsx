@@ -36,12 +36,16 @@ export default function GestionarProductosP() {
   const seccionesNav = [
     {
       id: 0,
-      nombre: 'GESTIÓN PRODUCTO',
-    },
-    {
+      nombre: 'INICIO',
+  },
+  {
       id: 1,
+      nombre: 'GESTIÓN PRODUCTO',
+  },
+  {
+      id: 2,
       nombre: 'DETALLES DE VENTA',
-    }
+  }
   ];
 
   return (

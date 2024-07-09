@@ -1,20 +1,21 @@
-
-
+import FrameTruck from "../Icons/FrameTruck.svg";
+import FrameWhatsApp from "../Icons/FrameWhatsApp.svg";
+import FrameCard1 from "../Icons/FrameCard1.svg";
 import '../Estilos/Servicios.css';
 
 export default function Servicios(){
     return(
         <div className="box_servicios">
             <div className="box_servicioInformacion">
-                <FontAwesomeIcon className='icon_servicio' icon={faTruck} />
+               <img src={FrameTruck} alt="img" />
                 <p className='informacion_servicios'>ENVÍOS A TODA LA <br /> REPÚBLICA MEXICANA</p>
             </div>
             <div className="box_servicioInformacion">
-                <FontAwesomeIcon className='icon_servicio' icon={faPhone} />
-                <p className='informacion_servicios'>SERVICIO AL CLIENTE</p>
+                <img className="imgwhatsapp" src={FrameWhatsApp} alt="img" />
+                <p className='informacion_servicios whatsapp'>SERVICIO AL CLIENTE</p>
             </div>
             <div className="box_servicioInformacion">
-                <FontAwesomeIcon className='icon_servicio' icon={faCreditCard} />
+            <img src={FrameCard1} alt="img" />
                 <p className='informacion_servicios'>PAGOS SEGUROS</p>
             </div>
         </div> 
