@@ -5,8 +5,6 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const path = require('path');
-const fs = require('fs');
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
@@ -42,47 +40,46 @@ const authenticateJWT = (req, res, next) => {
 };
 
 //Configurar multer
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, '../images'),
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname)
-  }
-})
-
-const upload = multer({ storage: storage }).array("dato_imagen", 5);
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).array('imagen',5);
 
 // Ruta para agregar producto y subir imágenes
 exports.addProduct = (req, res) => {
   upload(req, res, (err) => {
-    if (err) {
-      return res.status(500).json({message: 'Eror al cargar los archivos'});
+    const files = req.files;
+
+    if (!files) {
+      return res.status(404).json({ message: "Imagenes no recibidas" });
     }
 
     const { nombre, precio, nombreCategoria, descripcion, equipo } = req.body;
-    const files = req.files;
+    
+    
+    let idCategoria = 0;
 
-    db.query('INSERT INTO Productos (nombre, precio, descripcion, equipo) VALUES (?, ?, ?, ?)',[nombre, precio, descripcion, equipo],(err, result) => {
+    if (nombreCategoria == "Overol") {
+      idCategoria = 2;
+    } else {
+      idCategoria = 1;
+    }
+
+    db.query("INSERT INTO Productos (nombre, precio, descripcion, equipo, id_categoria) VALUES (?, ?, ?, ?, ?)",[nombre, precio, descripcion, equipo, idCategoria],
+      (err, result) => {
         if (err) {
-          return res.status(500).json({message: 'Error al agregar el producto'});
+          return res.status(500).json({ message: "Error al agregar el producto" });
         }
 
         const idProducto = result.insertId;
+        const imageValues = files.map((file) => [idProducto,file.buffer]);
 
-        db.query('INSERT INTO Categoria (nombreCategoria, idProductos) VALUES (?, ?)',[nombreCategoria, idProducto],(err, result) => {
+        db.query("INSERT INTO ImagenProducto (idProducto,imagen) VALUES ?",[imageValues],(err, result) => {
             if (err) {
-              return res.status(500).json({message: 'Error al agregar la categoría del producto'});
+              console.log("Sucedio un error");
+
+              return res.status(500).json({message: "Error al agregar las imágenes del producto"});
+              
             }
-
-            const imageValues = files.map(file => [idProducto,fs.readFileSync(path.join(__dirname, '../images/' + file.filename))]);
-
-            db.query('INSERT INTO ImagenProducto (idProducto, dato_imagen) VALUES ?',[imageValues],(err, result) => {
-                if (err) {
-                  return res.status(500).json({message: 'Error al agregar las imágenes del producto'});
-                }
-
-                return res.status(201).json({ message: 'Producto e imágenes agregadas exitosamente'});
-              }
-            );
+            return res.status(201).json({ message: "Producto e imágenes agregadas exitosamente" });
           }
         );
       }
@@ -90,9 +87,18 @@ exports.addProduct = (req, res) => {
   });
 };
 
-exports.updateProduct = [
-  authenticateJWT,
-  (req, res) => {
+
+exports.getAllProducts = (req, res) => {
+  db.query('SELECT Productos.nombre, Productos.precio, Productos.descripcion, Categoria.nombreCategoria FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria', (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error al obtener los elementos'});
+    }
+    console.log(result);
+    return res.json(result);
+  });
+}
+
+exports.updateProduct = (req, res) => {
     const productId = req.params.id;
     const updateP = req.body;
 
@@ -110,42 +116,26 @@ exports.updateProduct = [
         res.status(200).send("Cambios realizados exitosamente");
       }
     );
-  },
-];
+  };
 
-exports.deleteImgProduct = [
-  authenticateJWT,
-  (req, res) => {
-    const idProduct = req.params.idProducto;
-    const img = req.body;
-    const arrayImgDelete = img.idImagenProducto;
-    const hasError = false;
+  exports.searchProduct = (req, res) => {
+    const nameProduct = req.params.nombre; // Obteniendo el nombre del producto de los parámetros de la URL
+  
+    db.query('SELECT idProductos FROM Productos WHERE nombre = ?', [nameProduct], (err, result) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error al buscar el nombre del producto' });
+      }
+  
+      if (result.length === 0) {
+        return res.status(404).json({ message: 'Producto no encontrado' });
+      }
+  
+      res.status(200).json({ idProductos: result[0].idProductos });
+    });
+  };
+  
 
-    for (let i = 0; i < arrayImgDelete.length; i++) {
-      db.query(
-        "DELETE FROM ImagenProducto WHERE idImagenProducto = ? AND idProducto = ?",
-        [arrayImgDelete[i], idProduct],
-        (err, result) => {
-          if (err) {
-            if (!hasError) {
-              hasError = true;
-              res.status(500).send("Error al eliminar las imágenes");
-            }
-            return;
-          }
-
-          if (i === arrayImgDelete.length - 1 && !hasError) {
-            res.status(200).send("Imágenes eliminadas correctamente");
-          }
-        }
-      );
-    }
-  },
-];
-
-exports.deleteProduct = [
-  authenticateJWT,
-  (req, res) => {
+exports.deleteProduct = (req, res) => {
     const productId = req.params.id;
 
     console.log(productId);
@@ -180,5 +170,4 @@ exports.deleteProduct = [
           );
       }
     );
-  },
-];
+  };

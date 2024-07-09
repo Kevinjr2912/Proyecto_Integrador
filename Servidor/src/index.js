@@ -8,10 +8,24 @@ const productsRoutes = require('./routes/productos');
 const app = express();
 const port = process.env.DB_PORT || 3000;   
 
-app.use(cors());
+
+// Configurar CORS para permitir solicitudes desde cualquier origen
+const corsOptions = {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+
+app.use(cors(corsOptions));
 
 // Middleware para analizar los cuerpos de las solicitudes
 app.use(bodyParser.json());
+
+// handle the form data
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // Usar las rutas de los items
 app.use('/customers', customersRoutes);
