@@ -1,13 +1,14 @@
 import './App.css'
-
-import GestionarProductos from './Paginas/GestionarProductosP';
+import GestionarProductosP from './Paginas/GestionarProductosP';
+import HomeAdminP from './Paginas/HomeAdminP';
 
 
 function App() {
   return (
     <>
-    <GestionarProductos></GestionarProductos>
-    </>
+    
+    <GestionarProductosP></GestionarProductosP>
+    </> 
   );
 }
 

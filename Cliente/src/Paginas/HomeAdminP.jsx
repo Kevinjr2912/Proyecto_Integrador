@@ -8,12 +8,27 @@ import DetalleStatus from "../Componentes/DetalleStatus";
 
 export default function HomeAdminP(){
 
+    const seccionesNav = [
+        {
+            id: 0,
+            nombre: 'GESTIÓN PRODUCTO',
+        },
+        {
+            id: 1,
+            nombre: 'DETALLES DE VENTA',
+        }
+    ];
+
     return(
         <>
     
-        <NavBar></NavBar>
-        
-        <DetalleStatus></DetalleStatus>
+        <NavBar
+            seccionesNav={seccionesNav}
+            esSeccionCliente={false}
+            titulo="Configuracion"
+        ></NavBar>
+
+        <HomeAdmin></HomeAdmin>
         
         <Footer></Footer>
          </>
