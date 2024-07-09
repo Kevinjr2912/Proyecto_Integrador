@@ -49,7 +49,7 @@
    
   }
   
-  .container-detalles h3 {
+  .detalles-button  {
     color: #fff; 
     margin: 10px 0;
     padding: 10px;
@@ -59,7 +59,7 @@
     transition: background-color 0.3s;
   }
   
-  .container-detalles h3:hover, .sign-off:hover {
+  .container-detalles button:hover, .sign-off:hover {
     background-color: #2DC289; 
   }
   

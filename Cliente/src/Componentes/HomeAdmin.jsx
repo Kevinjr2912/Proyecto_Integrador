@@ -1,7 +1,8 @@
-
+import { useNavigate } from 'react-router-dom';
 import "../Estilos/HomeAdmin.css";
 
 export default function HomeAdmin() {
+  const navigate = useNavigate();
   return (
     <>
     <div className="main-container">
@@ -12,8 +13,9 @@ export default function HomeAdmin() {
           <button className="sign-off">Cerrar sesión</button>
         </div>
         <div className="container-detalles" >
-            <h3>Gestión de productos</h3>
-            <h3>Detalles de ventas</h3>
+            <button className="detalles-button" onClick={() => { navigate('/GestionarProductosP'); onClose(); }} >Gestión de productos</button>
+            <button className="detalles-button" onClick={() => { navigate(''); onClose(); }} >Detalles de ventas</button>
+
         </div>
       </div>
       </div>

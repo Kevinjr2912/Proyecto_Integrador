@@ -8,24 +8,17 @@ export default function LoginPagina(){
     const seccionesNav = [
         {
             id: 0,
-            nombre: 'OVEROLES',
-        },
-        {
-            id: 1,
-            nombre: 'CASCOS',
-        },
-        {
-            id:2,
-            nombre: 'OFERTAS',
+            nombre: 'INICIO',
         }
+
     ];
 
     return(
         <>
          <NavBar
             seccionesNav={seccionesNav}
-            esSeccionCliente={true}
-            titulo="Configuracion"
+            esSeccionCliente={false}
+            titulo="Configuración"
         ></NavBar>
 
         <Login/>
