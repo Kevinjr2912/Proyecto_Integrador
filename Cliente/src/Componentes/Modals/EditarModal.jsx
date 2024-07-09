@@ -1,35 +1,98 @@
 import React, { useState, useEffect } from "react";
 import "../../Estilos/EditarModal.css";
+import Swal from 'sweetalert2';
 
 export default function EditarModal({ isOpen, onClose, onEditProduct, product }) {
+  const [originalName, setOriginalName] = useState(""); // Almacenar el nombre original
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Overol");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [equipment, setEquipment] = useState("");
 
   useEffect(() => {
     if (product) {
-      setName(product.nombre);
-      setCategory(product.categoria);
-      setPrice(product.precio);
-      setDescription(product.descripcion);
+      setOriginalName(product.nombre || ""); // Establecer el nombre original
+      setName(product.nombre || "");
+      setPrice(product.precio || "");
+      setDescription(product.descripcion || "");
       setEquipment(product.equipo || "");
+    } else {
+      setOriginalName("");
+      setName("");
+      setPrice("");
+      setDescription("");
+      setEquipment("");
     }
   }, [product]);
 
-  const handleSubmit = (event) => {
+  const fetchProductId = async (nombre) => {
+    console.log("Fetching product ID for:", nombre); // Log para depurar
+    try {
+      const response = await fetch(`http://localhost:3000/products/searchProduct/${nombre}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      Swal.fire({
+        icon: "success",
+        title: `Id encontrado ${data.idProductos}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      return data.idProductos;
+
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Error: ${error.message}`,
+      });
+      return null;
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const productId = await fetchProductId(originalName);
+    
+    if (!productId) {
+      console.error('No se pudo obtener el ID del producto');
+      return;
+    }
+
     const editedProduct = {
-      ...product,
       nombre: name,
-      categoria: category,
       precio: price,
       descripcion: description,
       equipo: equipment,
     };
-    onEditProduct(editedProduct);
-    onClose();
+
+    try {
+      const response = await fetch(`http://localhost:3000/products/updateProduct/${productId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedProduct),
+      });
+
+      if (response.ok) {
+        const updatedProduct = await response.json();
+        console.log("Updated product:", updatedProduct); // Log para depurar
+        onEditProduct(updatedProduct);
+        onClose();
+      } else {
+        console.error('Error al actualizar el producto');
+      }
+    } catch (error) {
+      console.error('Error al enviar la solicitud:', error);
+    }
   };
 
   if (!isOpen) return null;
@@ -42,6 +105,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
+          <h2>Editando producto: {product?.nombre || "Nuevo Producto"}</h2>
           <label htmlFor="name">Nombre</label>
           <input
             name="nombre"
@@ -51,16 +115,6 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label>Categoría</label>
-          <select
-            name="categoria"
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="Overol">Overol</option>
-            <option value="Casco">Casco</option>
-          </select>
           <label htmlFor="precio">Precio</label>
           <input
             name="precio"
