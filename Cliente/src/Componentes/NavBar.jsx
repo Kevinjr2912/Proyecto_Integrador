@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SeccionesTienda from "./SeccionesTienda";
 import EncabezadoPagina from "./EncabezadoPagina";
 import FrameUser from "../Icons/FrameUser.svg";
-import FrameCarrito from "../Icons/FrameCarrito.svg"
+import FrameCarrito from "../Icons/FrameCarrito.svg";
 import "../Estilos/NavBar.css";
 import Buscador from "./Buscador";
 import OpcionSesion from "../Componentes/Modals/OpcionSesion";

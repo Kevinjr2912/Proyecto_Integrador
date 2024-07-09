@@ -5,6 +5,7 @@ import SeccionesTienda from '../Componentes/SeccionesTienda.jsx';
 import CarruselProducto from '../Componentes/CarruselProducto.jsx';
 import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/Home.css';
+import Footer from '../Componentes/Footer.jsx';
 
 export default function Home() {
     const seccionesNav = [
@@ -31,6 +32,8 @@ export default function Home() {
     ];
 
     return (
+
+        <>
         <div className="home">
             <NavBar 
                 seccionesNav={seccionesNav}
@@ -50,5 +53,8 @@ export default function Home() {
             <CarruselProducto />
             <CarruselProducto />
         </div>
+        <Footer></Footer>
+        </>
+
     );
 }

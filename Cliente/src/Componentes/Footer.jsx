@@ -1,5 +1,12 @@
 import React from "react";
 import '../Estilos/Footer.css';
+import FrameInstagram from"../Icons/FrameInstagram.svg";
+import FrameFacebook from"../Icons/FrameFacebook.svg";
+import FrameX from "../Icons/FrameX.svg";
+import FrameTikTok from "../Icons/FrameTikTok.svg";
+import FrameCard from  "../Icons/FrameCard.svg";
+import FramePayPal from "../Icons/FramePayPal.svg";
+
 
 export default function Footer(){
     return(
@@ -14,13 +21,13 @@ export default function Footer(){
             <a href="#reviews">Reviews</a>
         </div>
         <div class="footer-icons">
-            <a href="#"><i class="material-icons">instagram</i></a>
-            <a href="#"><i class="material-icons">facebook</i></a>
-            <a href="#"><i class="material-icons">youtube</i></a>
-            <a href="#"><i class="material-icons">twitter</i></a>
-            <a href="#"><i class="material-icons">tiktok</i></a>
-            <a href="#"><i class="material-icons">paypal</i></a>
-            <a href="#"><i class="material-icons">whatsapp</i></a>
+            <img src={FrameInstagram} alt="img" />
+            <img src={FrameFacebook} alt="img" />
+            <img src={FrameX} alt="img" />
+            <img src={FrameTikTok} alt="img" />
+            <img src={FrameCard} alt="img" />
+            <img src={FramePayPal} alt="img" />
+            
         </div>
   
     </footer>

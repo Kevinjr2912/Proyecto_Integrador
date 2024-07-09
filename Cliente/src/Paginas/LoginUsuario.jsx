@@ -8,14 +8,18 @@ export default function LoginPagina(){
     const seccionesNav = [
         {
             id: 0,
-            nombre: 'OVEROLES',
+            nombre: 'INICIO',
         },
         {
             id: 1,
-            nombre: 'CASCOS',
+            nombre: 'OVEROLES',
         },
         {
             id:2,
+            nombre: 'CASCOS',
+        },
+        {
+            id:3,
             nombre: 'OFERTAS',
         }
     ];

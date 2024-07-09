@@ -11,7 +11,8 @@ export default function HomeAdminP(){
     const seccionesNav = [
         {
             id: 0,
-            nombre: 'GESTIÓN PRODUCTOZ',
+            nombre: 'INICIO',
+            
         },
         {
             id: 1,

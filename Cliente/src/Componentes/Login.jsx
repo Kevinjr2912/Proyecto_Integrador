@@ -12,7 +12,7 @@ export default function Login() {
                     <h3>Iniciar sesión</h3>
                     <input type="email" placeholder="user@email.com" />
                     <input type="password" placeholder="Contraseña" />
-                    <button className="login-button">Log in</button>
+                    <button className="login-button" >Log in</button>
                     <div className="registro-prompt">
                         <span>¿Todavía no tienes una cuenta? <br /></span>
                         <span className="registro-link" >Regístrate aquí.</span>

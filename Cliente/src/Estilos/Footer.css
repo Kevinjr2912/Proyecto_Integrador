@@ -40,13 +40,13 @@
     align-items: center;
 }
 
-.footer-icons a {
+.footer-icons img {
     color: #00fe99;
     text-decoration: none;
     font-size: 24px;
     margin: 0 10px;
 }
 
-.footer-icons a:hover {
+.footer-icons img:hover {
     color: #2DC289;
 }

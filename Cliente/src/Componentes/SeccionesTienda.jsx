@@ -1,21 +1,17 @@
-import '../Estilos/SeccionTienda.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../Estilos/NavBar.css';  
 
-export default function SeccionesTienda({ seccionesNav,esSeccionCliente,className }){
-    if(esSeccionCliente){
-        const listaAccionesCliente = seccionesNav.map(seccion =>
-            <li key={seccion.id}>
-              <a className={className}>{seccion.nombre}</a>
-            </li>
-        );
-
-        return <ul className='nav_rutas'>{listaAccionesCliente}</ul>
-    }
-
-    const listaAccionesAdministrador = seccionesNav.map(seccion => 
+export default function SeccionesTienda({ seccionesNav }) {
+  return (
+    <ul className="nav_rutas">
+      {seccionesNav.map(seccion => (
         <li key={seccion.id}>
-              <a className={className}>{seccion.nombre}</a>
+          <Link to={seccion.nombre === 'INICIO' ? '/' : `/${seccion.nombre.toLowerCase().replace(' ', '-')}`}>
+            <span className="Hello">{seccion.nombre}</span>
+          </Link>
         </li>
-    );
-
-    return <ul className='nav_rutas'>{listaAccionesAdministrador}</ul>
+      ))}
+    </ul>
+  );
 }
