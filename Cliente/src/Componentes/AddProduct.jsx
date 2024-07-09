@@ -60,7 +60,8 @@ export default function AddProduct() {
       
     } catch (error) {
       Swal.fire({
-        icon: "error",
+        icon: "errorr",
+
         title: "Oops...",
         text: `Error al agregar producto: ${error.message}`,
       });
