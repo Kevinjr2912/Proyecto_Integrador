@@ -1,159 +1,171 @@
+.agregar-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px); /* Efecto de desenfoque */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 .box-addInformationProduct {
-    background-color: #1b1a1a;
-    width: 30vw;
-    height: 49vw;
-    border-radius: 2.5vw;
-    margin-left: 5vw;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .box-sonAdd {
-    display: flex;
-    flex-direction: column;
-    width: 20vw;
-    padding: 1vw;
-    flex-shrink: 0;
-  }
-  
-  h4 {
-    color: white;
-    margin-bottom: -0.0001vw;
-    font-size: 1vw;
-    font-weight: 400;
-    flex-shrink: 0;
-  }
-  
-  label {
-    width: 7vw;
-    margin-top: 2vw;
-    font-size: 1vw;
-    color: white;
-    flex-shrink: 0;
-  }
-  
-  input,
-  select {
-    width: 20vw;
-    height: 1.8vw;
-    margin-top: 0.2vw;
-    border-radius: 0.4vw;
-    flex-shrink: 0;
-  }
-  
-  input {
-    outline: none;
-  }
-  
-  select {
-    width: 20.5vw;
-    height: 2.3vw;
-    flex-shrink: 0;
-  }
-  
-  .file-input-container {
-    width: 7vw;
-    height: 3.9vw;
-    border: 2px solid #828282;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    background-color: #252525;
-    margin: 2vw auto 0vw;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
+  background-color: #1b1a1a;
+  width: 30vw;
+  height: 41vw;
+  border-radius: 2.5vw;
+  display: flex;
+  justify-content: center;
+}
 
-  .file-input-container:hover{
-    background-color: #f9f9f9;
-  }
-  
-  .file-input-container input[type="file"] {
-    display: none;
-  }
-  
-  .file-input-label {
-    position: absolute;
-    margin-top: -1vw;
-    margin-left: -0.09vw;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-  
-  .plus-icon {
-    color: #7A7A7A;
-    font-size: 2vw;
-    font-weight: bold;
-    flex-shrink: 0;
-  }
-  
-  .text {
-    color: #7A7A7A;
-    font-size: 0.8vw;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  
-  .actionsProduct {
-    width: 20vw;
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 3vw;
-    flex-shrink: 0;
-  }
-  
-  #image-preview-container {
-    width: 420px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding-left: 10px;
-    margin-left: -20%;
-    margin-top: 2vw; 
-    flex-shrink: 0;
-  }
-  
-  .image-preview {
-    width: 70px;
-    height: 60px;
-    object-fit: contain;
-    border-radius: 10px;
-    border: 2px solid #888;
-    background-color: #fff;
-    flex-shrink: 0;
-  }
-  
-  .actionsProduct button {
-    font-size: 0.8vw;
-    font-weight: bold;
-    height: 37px;
-    border: none;
-    flex-shrink: 0;
-  }
-  
-  .btn_addP {
-    width: 9vw;
-    border-radius: 1vw;
-    background-color: #2dc289;
-    color: white;
-    flex-shrink: 0;
-  }
+.box-sonAdd {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  padding: 1vw;
+  flex-shrink: 0;
+}
 
-  .btn_cancelar{
-    width: 5vw;
-    border-radius: 1vw;
-  }
-  
-  .btn_cancelar:hover {
-    background-color: #2dc289;
-    color: white;
-  }
-  
-  .btn_addP:hover {
-    background-color: #000000;
-  }
-  
+h4 {
+  color: white;
+  margin-bottom: -0.0001vw;
+  font-size: 1vw;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+label {
+  width: 7vw;
+  margin-top: 2vw;
+  font-size: 1vw;
+  color: white;
+  flex-shrink: 0;
+}
+
+input,
+select {
+  width: 20vw;
+  height: 1.8vw;
+  margin-top: 0.2vw;
+  border-radius: 0.4vw;
+  flex-shrink: 0;
+}
+
+input {
+  outline: none;
+}
+
+select {
+  width: 20.5vw;
+  height: 2.3vw;
+  flex-shrink: 0;
+}
+
+.file-input-container {
+  width: 7vw;
+  height: 3.9vw;
+  border: 2px solid #828282;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  background-color: #252525;
+  margin: 2vw auto 0vw;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.file-input-container:hover{
+  background-color: #f9f9f9;
+}
+
+.file-input-container input[type="file"] {
+  display: none;
+}
+
+.file-input-label {
+  position: absolute;
+  margin-top: -1vw;
+  margin-left: -0.09vw;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.plus-icon {
+  color: #7A7A7A;
+  font-size: 2vw;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.text {
+  color: #7A7A7A;
+  font-size: 0.8vw;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.actionsProduct {
+  width: 20vw;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1vw;
+  flex-shrink: 0;
+}
+
+#image-preview-container {
+  width: 420px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-left: 10px;
+  margin-left: -20%;
+  margin-top: 2vw; 
+  flex-shrink: 0;
+}
+
+.image-preview {
+  width: 70px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid #888;
+  background-color: #fff;
+  flex-shrink: 0;
+}
+
+.actionsProduct button {
+  font-size: 0.8vw;
+  font-weight: bold;
+  height: 37px;
+  border: none;
+  flex-shrink: 0;
+}
+
+.btn_addP {
+  width: 9vw;
+  border-radius: 1vw;
+  background-color: #2dc289;
+  color: white;
+  flex-shrink: 0;
+}
+
+.btn_cancelar{
+  width: 5vw;
+  border-radius: 1vw;
+}
+
+.btn_cancelar:hover {
+  background-color: #2dc289;
+  color: white;
+}
+
+.btn_addP:hover {
+  background-color: #000000;
+}

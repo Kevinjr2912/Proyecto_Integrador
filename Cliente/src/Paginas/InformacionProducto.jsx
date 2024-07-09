@@ -1,10 +1,10 @@
 import React from "react";
-import NavBar from "../Componentes/NavBar/NavBar";
-import ImagenesReferencia from "../Componentes/ImagenesReferencia/ImagenesReferencia";
+import NavBar from "../Componentes/NavBar";
+import ImagenesReferencia from "../Componentes/ImagenesReferencia";
 import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/InformationProduct.css';
-import NombrePrecioProducto from "../Componentes/NombrePrecioProducto/NombrePrecioProducto";
-import AccionesProducto from "../Componentes/AccionesProducto/AccionesProducto";
+import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
+import AccionesProducto from "../Componentes/AccionesProducto";
 
 export default function InformationProduct(){
     return(
