@@ -1,0 +1,55 @@
+.eliminar-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.eliminar-modal-content {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+}
+
+.eliminar-actionsProduct {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.eliminar-actionsProduct button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.eliminar-btn_yes {
+  background-color: #2DC289;
+  color: #ffffff;
+}
+
+.eliminar-btn_no {
+  background-color: #888888;
+  color: #ffffff;
+}
+
+.eliminar-btn_yes:hover {
+  background-color: #24a76d;
+}
+
+.eliminar-btn_no:hover {
+  background-color: #aaaaaa;
+}

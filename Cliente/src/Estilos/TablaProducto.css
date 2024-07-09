@@ -1,0 +1,28 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1%;
+    padding: 10px;
+}
+
+.buscador {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    margin-left: 82%;
+}
+
+
+.agregarProducto:hover {
+    background-color: #2DC289;
+}
+
+.container-tabla {
+    margin: 0 auto;
+    width: 92%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}

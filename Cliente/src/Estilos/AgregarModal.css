@@ -1,0 +1,79 @@
+.agregar-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .agregar-modal-content {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+  }
+  
+  .agregar-box-sonAdd {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .agregar-box-sonAdd label {
+    margin: 10px 0 5px 0;
+    text-align: left;
+  }
+  
+  .agregar-box-sonAdd input, .agregar-box-sonAdd select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: #333333;
+    color: #ffffff;
+  }
+  
+  .agregar-box-sonAdd input::placeholder, .agregar-box-sonAdd select {
+    color: #888888;
+  }
+  
+  .agregar-actionsProduct {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .agregar-actionsProduct button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .agregar-btn_cancelar {
+    background-color: #888888;
+    color: #ffffff;
+  }
+  
+  .agregar-btn_addP {
+    background-color: #2DC289;
+    color: #ffffff;
+  }
+  
+  .agregar-btn_cancelar:hover {
+    background-color: #aaaaaa;
+  }
+  
+  .agregar-btn_addP:hover {
+    background-color: #24a76d;
+  }
+  

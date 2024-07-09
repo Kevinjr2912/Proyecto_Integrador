@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: black;
+    
+
+}
+
+.container {
+    text-align: center;
+    width: 98vmax;
+    margin: auto;
+    background-color: black; 
+    padding: 20px; 
+    height: 0%;
+    margin-top: 5%;
+}
+
+
+
+.titulo {
+    color: #2DC289;
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.carrusel-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; 
+}
+
+.carrusel {
+    width: 90%;
+    display: flex;
+    gap: 50px;
+    margin: 20px 0; 
+}
