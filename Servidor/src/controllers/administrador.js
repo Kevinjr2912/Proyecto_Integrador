@@ -38,61 +38,39 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-//Agregar admin al sistema
 exports.addAdmin = (req, res) => {
   const newAdmin = req.body;
   console.log(newAdmin);
 
-  bcrypt.hash(newAdmin.password, 10, (err, hash) => {
-    // 10 es el número de rondas de hashing
+  // Hashear la contraseña antes de guardarla (bcrypt)
+  bcrypt.hash(newAdmin.password, 10, (err, hash) => { // 10 es el número de rondas de hashing
     if (err) {
-      res.status(500).send("Error al hashear la contraseña");
-      return; // Stop execution if there's an error hashing
+      return res.status(500).send('Error al hashear la contraseña');
     }
-
     newAdmin.password = hash;
-    console.log(newAdmin.password);
-    db.query("INSERT INTO CredencialAccesoAdministrador (email, password) VALUES (?,?)",
-      [newAdmin.email, newAdmin.password],
-      (err, result) => {
+
+    // Insertar las credenciales del administrador
+    db.query('INSERT INTO CredencialAccesoAdministrador (email,password) VALUES (?,?)', [newAdmin.email, newAdmin.password], (err, result) => {
+      if (err) {
+        return res.status(500).send('Error al agregar credenciales del administrador');
+      }
+
+      const idAdmin = result.insertId;
+      console.log(idAdmin);
+
+      // Insertar los detalles del administrador
+      db.query('INSERT INTO Administrador (primerNombre,segundoNombre,apellidoPaterno,apellidoMaterno,correoPayPal,id_credencial_admin) VALUES (?,?,?,?,?,?)', 
+        [newAdmin.primerNombre, newAdmin.segundoNombre, newAdmin.apellidoPaterno, newAdmin.apellidoMaterno, newAdmin.correoPayPal, idAdmin], (err, result) => {
         if (err) {
-          res
-            .status(500)
-            .send(
-              "Error al agregar las credenciales de acceso del administrador"
-            );
-          throw err;
+          return res.status(500).send('Error al agregar datos del administrador');
         }
 
-        const idCredencialAdmin = result.insertId;
-        console.log(idCredencialAdmin);
-
-        db.query(
-          "INSERT INTO Administrador VALUES (primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, correoPayPal, id_credencial_admin)",
-          [
-            newAdmin.primerNombre,
-            newAdmin.segundoNombre,
-            newAdmin.apellidoPaterno,
-            newAdmin.apellidoMaterno,
-            newAdmin.correoPayPal,
-            idCredencialAdmin,
-          ]
-        ),
-          (err, result) => {
-            if (err) {
-              res
-                .status(500)
-                .send("Error al agregar los datos del administrador");
-            }
-
-            res
-              .status(200)
-              .send("Credenciales de acceso asignados al nuevo administrador");
-            return;
-          };
+        res.status(200).send("Administrador agregado exitosamente");
       });
+    });
   });
 };
+
 
 //Loguearse
 exports.login = async (req, res) => {
