@@ -5,6 +5,7 @@ import '../Estilos/Registro.css';
 
 export default function Registro() {
     const navigate = useNavigate();
+    const []
     return(
         <>
         <div className="registro-container">

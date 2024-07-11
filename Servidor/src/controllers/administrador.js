@@ -4,6 +4,7 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { Console } = require("console");
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
@@ -48,6 +49,8 @@ exports.addAdmin = (req, res) => {
       return res.status(500).send('Error al hashear la contraseña');
     }
     newAdmin.password = hash;
+    console.log(newAdmin.password)
+    
 
     // Insertar las credenciales del administrador
     db.query('INSERT INTO CredencialAccesoAdministrador (email,password) VALUES (?,?)', [newAdmin.email, newAdmin.password], (err, result) => {
@@ -71,14 +74,14 @@ exports.addAdmin = (req, res) => {
   });
 };
 
-
 //Loguearse
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
-
+  console.log(email)
+  console.log(password)
+  
   db.query(
-    "SELECT CredencialAccesoAdministrador.email,CredencialAccesoAdministrador.password FROM CredencialAccesoAdministrador INNER JOIN Administrador ON CredencialAccesoAdministrador.id_credencial_admin = Administrador.idAdministrador WHERE email = ?",
+    "SELECT CredencialAccesoAdministrador.email,CredencialAccesoAdministrador.password FROM CredencialAccesoAdministrador WHERE email = ?",
     [email],
     async (err, result) => {
       if (err) {
@@ -103,7 +106,7 @@ exports.login = async (req, res) => {
           expiresIn: "10h",
         }
       );
-      res.json({ token });
+      return res.json({ token });
     }
   );
 };
