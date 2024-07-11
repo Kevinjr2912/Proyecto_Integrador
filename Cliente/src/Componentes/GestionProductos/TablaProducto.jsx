@@ -13,6 +13,11 @@ function TablaProducto({ products }) {
 
   const columns = [
     {
+      name: "IdProductos",
+      selector: row => row.idProductos,
+      omit: true
+    },
+    {
       name: "Producto",
       selector: row => row.nombre,
       sortable: true
@@ -45,7 +50,6 @@ function TablaProducto({ products }) {
   const [records, setRecords] = useState(products);
 
   useEffect(() => {
-    console.log("Productos recibidos:", products); // Verificar los datos recibidos
     setRecords(products);
   }, [products]);
 
@@ -66,39 +70,8 @@ function TablaProducto({ products }) {
     setIsEliminarModalOpen(true);
   };
 
-  const fetchProductId = async (nombre) => {
-    console.log("Fetching product ID for:", nombre); // Log para depurar
-    try {
-      const response = await fetch(`http://localhost:3000/products/searchProduct/${nombre}`);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      Swal.fire({
-        icon: "success",
-        title: `Id encontrado ${data.idProductos}`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-
-      return data.idProductos;
-
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `Error: ${error.message}`,
-      });
-      return null;
-    }
-  };
-
   const confirmDelete = async () => {
-    const productId = await fetchProductId(productToDelete.nombre);
+    const productId = productToDelete.idProductos;
 
     if (!productId) {
       console.error('No se pudo obtener el ID del producto');

@@ -21,10 +21,6 @@ app.use(cors(corsOptions));
 
 // Middleware para analizar los cuerpos de las solicitudes
 app.use(bodyParser.json());
-
-// handle the form data
-
-app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Usar las rutas de los items

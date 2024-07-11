@@ -7,7 +7,10 @@ import '../Estilos/Login.css';
 
 export default function LoginPagina(){
     const navigate = useNavigate();
-    
+    const handleSubmit = async () => {
+        const response = await fetch('')
+    }
+
     const seccionesNav = [
         {
             id: 0,

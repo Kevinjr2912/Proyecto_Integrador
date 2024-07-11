@@ -47,7 +47,6 @@ export default function AddProduct({ onAddProduct, onClose }) {
         nombre: name,
         categoria: category,
         precio: price,
-        descuento: "N/A",
         descripcion: description,
         equipo: equipment,
         images: images.map(image => URL.createObjectURL(image)),
@@ -72,9 +71,8 @@ export default function AddProduct({ onAddProduct, onClose }) {
     } catch (error) {
       Swal.fire({
         icon: "errorr",
-
         title: "Oops...",
-        text: `Error al agregar producto: ${error.message}`,
+        text: `Error al eviar la solicitud`,
       });
     }
   };

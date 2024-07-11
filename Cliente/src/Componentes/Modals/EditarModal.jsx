@@ -3,7 +3,6 @@ import "../../Estilos/EditarModal.css";
 import Swal from 'sweetalert2';
 
 export default function EditarModal({ isOpen, onClose, onEditProduct, product }) {
-  const [originalName, setOriginalName] = useState(""); // Almacenar el nombre original
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -11,13 +10,11 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
 
   useEffect(() => {
     if (product) {
-      setOriginalName(product.nombre || ""); // Establecer el nombre original
       setName(product.nombre || "");
       setPrice(product.precio || "");
       setDescription(product.descripcion || "");
       setEquipment(product.equipo || "");
     } else {
-      setOriginalName("");
       setName("");
       setPrice("");
       setDescription("");
@@ -25,73 +22,48 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
     }
   }, [product]);
 
-  const fetchProductId = async (nombre) => {
-    console.log("Fetching product ID for:", nombre); // Log para depurar
-    try {
-      const response = await fetch(`http://localhost:3000/products/searchProduct/${nombre}`);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      Swal.fire({
-        icon: "success",
-        title: `Id encontrado ${data.idProductos}`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-
-      return data.idProductos;
-
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `Error: ${error.message}`,
-      });
-      return null;
-    }
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const productId = await fetchProductId(originalName);
+    console.log("Producto rebido a editar: " + product.idProductos)
+    const idProducto = product.idProductos;
     
-    if (!productId) {
-      console.error('No se pudo obtener el ID del producto');
-      return;
-    }
-
-    const editedProduct = {
-      nombre: name,
-      precio: price,
-      descripcion: description,
-      equipo: equipment,
-    };
+  const data = {
+    nombre: name,
+    precio: price,
+    descripcion: description,
+    equipo: equipment
+  };
 
     try {
-      const response = await fetch(`http://localhost:3000/products/updateProduct/${productId}`, {
+      const response = await fetch(`http://localhost:3000/products/updateProduct/${idProducto}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(editedProduct),
-      });
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data),}
+      );
 
       if (response.ok) {
         const updatedProduct = await response.json();
-        console.log("Updated product:", updatedProduct); // Log para depurar
+        Swal.fire({
+          icon: "success",
+          title: 'Producto agregado exitosamente',
+          showConfirmButton: false,
+          timer: 1500,
+        }); 
         onEditProduct(updatedProduct);
         onClose();
       } else {
-        console.error('Error al actualizar el producto');
+        Swal.fire({
+          icon: "errorr",
+          title: "Oops...",
+          text: "Error al actualizar el producto",
+        });
       }
     } catch (error) {
-      console.error('Error al enviar la solicitud:', error);
+      Swal.fire({
+        icon: "errorr",
+        title: "Oops...",
+        text: `Error al eviar la solicitud`,
+      });
     }
   };
 

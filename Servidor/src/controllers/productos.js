@@ -99,23 +99,50 @@ exports.getAllProducts = (req, res) => {
 }
 
 exports.updateProduct = (req, res) => {
-    const productId = req.params.id;
-    const updateP = req.body;
-    console.log(updateP)
+  const productId = req.params.id;
+  const productFront = req.body;
+  const { nombre, precio, descripcion, equipo } = req.body;
+
+  db.query('SELECT * FROM Productos WHERE idProductos = ?', [productId], (err, result) => {
+    if (err) {
+      console.error("Error al obtener el producto:", err);
+      return res.status(500).json({ message: "Error al obtener el producto con el ID especificado" });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({message: "No se encontró ningún producto con el ID especificado"});
+    }
+
+    const product = result[0];
+    const updateProduct = {};
+
+    if (nombre != product.nombre) {
+      updateProduct.nombre = nombre;
+    }
+    if (precio != product.precio) {
+      updateProduct.precio = precio;
+    }
+    if (descripcion != product.descripcion) {
+      updateProduct.descripcion = descripcion;
+    }
+    if (equipo != product.equipo) {
+      updateProduct.equipo = equipo;
+    }
 
     db.query(
       "UPDATE Productos SET ? WHERE idProductos = ?",
-      [updateP, productId],
+      [updateProduct, productId],
       (err, result) => {
         if (err) {
-          res.status(500).send("Error al modificar algún dato del producto");
-          throw err;
+          console.error("Error al actualizar el producto:", err);
+          return res.status(500).json({ message: "Error al modificar algún dato del producto" });
         }
-
-        res.status(200).send("Cambios realizados exitosamente");
+        return res.status(200).json(productFront);
       }
     );
-  };
+  });
+};
+
 
 exports.deleteProduct = (req, res) => {
     const productId = req.params.id;
