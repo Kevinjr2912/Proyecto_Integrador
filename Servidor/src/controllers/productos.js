@@ -89,7 +89,7 @@ exports.addProduct = (req, res) => {
 
 
 exports.getAllProducts = (req, res) => {
-  db.query('SELECT Productos.nombre, Productos.precio, Productos.descripcion, Categoria.nombreCategoria FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria', (err, result) => {
+  db.query('SELECT Productos.idProductos, Productos.nombre, Productos.precio, Productos.descripcion, Productos.equipo, Categoria.nombreCategoria FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria', (err, result) => {
     if (err) {
       return res.status(500).json({ message: 'Error al obtener los elementos'});
     }
@@ -101,8 +101,7 @@ exports.getAllProducts = (req, res) => {
 exports.updateProduct = (req, res) => {
     const productId = req.params.id;
     const updateP = req.body;
-
-    console.log(updateP);
+    console.log(updateP)
 
     db.query(
       "UPDATE Productos SET ? WHERE idProductos = ?",
@@ -117,23 +116,6 @@ exports.updateProduct = (req, res) => {
       }
     );
   };
-
-  exports.searchProduct = (req, res) => {
-    const nameProduct = req.params.nombre; // Obteniendo el nombre del producto de los parámetros de la URL
-  
-    db.query('SELECT idProductos FROM Productos WHERE nombre = ?', [nameProduct], (err, result) => {
-      if (err) {
-        return res.status(500).json({ message: 'Error al buscar el nombre del producto' });
-      }
-  
-      if (result.length === 0) {
-        return res.status(404).json({ message: 'Producto no encontrado' });
-      }
-  
-      res.status(200).json({ idProductos: result[0].idProductos });
-    });
-  };
-  
 
 exports.deleteProduct = (req, res) => {
     const productId = req.params.id;
