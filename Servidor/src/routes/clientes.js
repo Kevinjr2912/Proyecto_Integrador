@@ -5,6 +5,6 @@ const customersControllers = require('../controllers/clientes');
 //Rutas para las endpoints
 router.get('/allCustomers/', customersControllers.allCustomers);
 router.post('/addCustomer/', customersControllers.addCustomer);
-router.get('/loginCustomer/', customersControllers.login);
+router.put('/loginCustomer/', customersControllers.login);
 
 module.exports = router;

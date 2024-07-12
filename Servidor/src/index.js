@@ -17,7 +17,6 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization']
 };
 
-
 app.use(cors(corsOptions));
 
 // Middleware para analizar los cuerpos de las solicitudes

@@ -77,9 +77,7 @@ exports.addAdmin = (req, res) => {
 //Loguearse
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email)
-  console.log(password)
-  
+
   db.query(
     "SELECT CredencialAccesoAdministrador.email,CredencialAccesoAdministrador.password FROM CredencialAccesoAdministrador WHERE email = ?",
     [email],
