@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
-import "../../Estilos/TablaProducto.css";
+import "../../Estilos/TablaProducto.module.css";
 import EliminarModal from "../Modals/EliminarModal";
 import EditarModal from "../Modals/EditarModal";
 import Swal from 'sweetalert2';

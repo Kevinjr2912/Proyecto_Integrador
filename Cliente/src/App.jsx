@@ -6,6 +6,7 @@ import LoginUsuario from "./Paginas/LoginUsuario";
 import HomeAdminP from "./Paginas/HomeAdminP";
 import GestionarProductosP from './Paginas/GestionarProductosP';
 import RegistroPagina from './Paginas/RegistroPagina';
+import DetalleVentaP from './Paginas/DetalleVentaP';
 
 
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/homeAdmin' element={<HomeAdminP/>}/>
         <Route path='/GestionarProductosP' element={<GestionarProductosP/>}/>
         <Route path='/RegistroPagina' element={<RegistroPagina/>}/>
+        <Route path='/detalleVenta' element={<DetalleVentaP/>}/>
       </Routes>
     </Router>
 
