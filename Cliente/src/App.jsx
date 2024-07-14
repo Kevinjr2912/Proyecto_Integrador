@@ -7,6 +7,7 @@ import HomeAdminP from "./Paginas/HomeAdminP";
 import GestionarProductosP from './Paginas/GestionarProductosP';
 import RegistroPagina from './Paginas/RegistroPagina';
 import DetalleVentaP from './Paginas/DetalleVentaP';
+import MetodoPagoP from './Paginas/MetodoPagoP';
 
 
 
@@ -23,6 +24,8 @@ function App() {
         <Route path='/GestionarProductosP' element={<GestionarProductosP/>}/>
         <Route path='/RegistroPagina' element={<RegistroPagina/>}/>
         <Route path='/detalleVenta' element={<DetalleVentaP/>}/>
+        <Route path='/metodoPago' element={<MetodoPagoP/>}/>
+
       </Routes>
     </Router>
 

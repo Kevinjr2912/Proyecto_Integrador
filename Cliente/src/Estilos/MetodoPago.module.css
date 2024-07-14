@@ -1,0 +1,60 @@
+.metodoPagoContainer {
+  color: #fff;
+  padding: 20px;
+  background-color: #1d1d1d;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.metodoPagoOption {
+  margin: 20px 0;
+}
+
+.metodoPagoOption input[type="radio"] {
+  display: none;
+}
+
+.metodoPagoOption label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.metodoPagoOption label:hover {
+  background-color: #2DC289;
+}
+
+.icono {
+  margin-right: 10px;
+}
+
+.metodoPagoInfo {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #2d2d2d;
+}
+
+.metodoPagoInfo p {
+  margin: 5px 0;
+}
+
+.subirComprobante {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #908c8c;
+  border: none;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
+}
+
+.subirComprobante:hover {
+  background-color: #00fe99;
+}
