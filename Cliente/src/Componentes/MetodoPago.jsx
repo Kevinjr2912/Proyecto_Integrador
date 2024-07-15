@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styles from '../Estilos/MetodoPago.module.css';
+import FramePayPalPago from "../Icons/FramePayPalPago.svg";
+import FrameTransferencia from "../Icons/FrameTransferencia.svg"
 
 export default function MetodoPago() {
   const [metodoSelect, setMetodoSelect] = useState(null);
+
   const handleMetodoCambio = (metodo) => {
     setMetodoSelect(metodo);
   };
@@ -19,9 +22,9 @@ export default function MetodoPago() {
           onChange={() => handleMetodoCambio('transferencia')} 
         />
         <label htmlFor="transferencia">
-          <span className={styles.icono}></span> Transferencia
+          <span className={styles.icono}><img src={FrameTransferencia} alt="" /></span> Transferencia
         </label>
-        {metodoSelect === 'transferencia' && (
+        <div className={metodoSelect === 'transferencia' ? styles.active : styles.inactive}>
           <div className={styles.metodoPagoInfo}>
             <p>Titular de la tarjeta: Andre Kevin Andre</p>
             <p>Numero de la tarjeta: xxxx xxxx xxxx xxxx</p>
@@ -34,7 +37,7 @@ export default function MetodoPago() {
               onChange={handleMetodoCambio}
             />
           </div>
-        )}
+        </div>
       </div>
 
       <div className={styles.metodoPagoOption}>
@@ -45,9 +48,9 @@ export default function MetodoPago() {
           onChange={() => handleMetodoCambio('paypal')} 
         />
         <label htmlFor="paypal">
-          <span className={styles.icono}></span> PayPal
+          <span className={styles.icono}><img src={FramePayPalPago} alt="" /></span> PayPal
         </label>
-        {metodoSelect === 'paypal' && (
+        <div className={metodoSelect === 'paypal' ? styles.active : styles.inactive}>
           <div className={styles.metodoPagoInfo}>
             <p>Nombre del beneficiario: André Kevin André</p>
             <p>Correo Electrónico: ExampleF1@gmail.com</p>
@@ -59,7 +62,7 @@ export default function MetodoPago() {
               onChange={handleMetodoCambio}
             />
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
