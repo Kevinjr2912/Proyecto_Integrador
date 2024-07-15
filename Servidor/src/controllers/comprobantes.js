@@ -65,7 +65,9 @@ exports.addComprobante = (req, res) => {
         return res.status(500).json({ message: 'Ocurrió un error' });
       }
   
-      const idCliente = 1;
+      const idCliente = 11;
+      const pdf = req.file.buffer;
+      console.log(pdf);
   
       if (!req.file) {
         return res.status(404).json({ message: 'Archivo PDF no recibido' });
@@ -73,7 +75,7 @@ exports.addComprobante = (req, res) => {
   
       db.query(
         'INSERT INTO Venta (idCliente, comprobantePago) VALUES (?, ?)',
-        [idCliente, req.file.buffer],
+        [idCliente, pdf],
         (err, result) => {
           if (err) {
             console.error('Error al insertar el comprobante de pago:', err);
