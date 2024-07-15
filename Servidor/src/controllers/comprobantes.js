@@ -65,7 +65,7 @@ exports.addComprobante = (req, res) => {
         return res.status(500).json({ message: 'Ocurrió un error' });
       }
   
-      const { idCliente } = req.body;
+      const idCliente = 1;
   
       if (!req.file) {
         return res.status(404).json({ message: 'Archivo PDF no recibido' });
@@ -79,6 +79,8 @@ exports.addComprobante = (req, res) => {
             console.error('Error al insertar el comprobante de pago:', err);
             return res.status(500).json({ message: 'Error al insertar el comprobante de pago' });
           }
+
+          console.log("Exito");
   
           return res.status(201).json({ message: 'Comprobante de pago insertado exitosamente', idVenta: result.insertId });
         }
