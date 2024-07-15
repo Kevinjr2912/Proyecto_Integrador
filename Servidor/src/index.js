@@ -5,6 +5,7 @@ const cors = require('cors');
 const customersRoutes = require('./routes/clientes');
 const productsRoutes = require('./routes/productos');
 const adminRoutes = require('./routes/administrador');
+const dipomexRoutes = require('./routes/dipomex');
 
 const app = express();
 const port = process.env.DB_PORT || 3000;   
@@ -26,7 +27,8 @@ app.use(express.urlencoded({ extended: true }))
 // Usar las rutas de los items
 app.use('/customers', customersRoutes);
 app.use('/products', productsRoutes);
-app.use('/admins',adminRoutes)
+app.use('/admins',adminRoutes);
+app.use('/api',dipomexRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {
