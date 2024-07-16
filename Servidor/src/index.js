@@ -6,6 +6,7 @@ const customersRoutes = require('./routes/clientes');
 const productsRoutes = require('./routes/productos');
 const adminRoutes = require('./routes/administrador');
 const dipomexRoutes = require('./routes/dipomex');
+const shippingDataRoutes = require('./routes/datosEnvio');
 
 const app = express();
 const port = process.env.DB_PORT || 3000;   
@@ -29,6 +30,7 @@ app.use('/customers', customersRoutes);
 app.use('/products', productsRoutes);
 app.use('/admins',adminRoutes);
 app.use('/api',dipomexRoutes);
+app.use('/shippingData',shippingDataRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {
