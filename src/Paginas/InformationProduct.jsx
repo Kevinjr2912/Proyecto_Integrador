@@ -1,15 +1,31 @@
 import React from "react";
-import NavBar from "../Componentes/NavBar/NavBar";
-import ImagenesReferencia from "../Componentes/ImagenesReferencia/ImagenesReferencia";
+import NavBar from "../Componentes/NavBar";
+import ImagenesReferencia from "../Componentes/ImagenesReferencia";
 import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/InformationProduct.css';
-import NombrePrecioProducto from "../Componentes/NombrePrecioProducto/NombrePrecioProducto";
-import AccionesProducto from "../Componentes/AccionesProducto/AccionesProducto";
+import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
+import AccionesProducto from "../Componentes/AccionesProducto";
 
 export default function InformationProduct(){
+    const seccionesNav = [
+        {
+            id: 0,
+            nombre: 'GESTIÓN PRODUCTO',
+        },
+        {
+            id: 1,
+            nombre: 'DETALLES DE VENTA',
+        }
+    ];
+
     return(
         <div className="box_container_page">
-            <NavBar/>
+           <NavBar
+                seccionesNav={seccionesNav}
+                esSeccionCliente={true}
+                titulo = "PRODUCTOS"
+            />
+            
             <div className="product">
                 <div className="aboutProduct">
                     <ImagenesReferencia
@@ -26,6 +42,7 @@ export default function InformationProduct(){
                             precio="$0.00 MXN"
                         />
                         <AccionesProducto/>
+                        
                     </div>
                 </div>
             </div>
