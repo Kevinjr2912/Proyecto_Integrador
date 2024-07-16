@@ -63,6 +63,13 @@
   background-color: #2d2d2d;
 }
 
+.metodoPagoInfo button{
+  position: absolute;
+  margin-left: 10%;
+  margin-top: .5%;
+  height: 14%;
+}
+
 .metodoPagoInfo p {
   margin: 5px 0;
 }

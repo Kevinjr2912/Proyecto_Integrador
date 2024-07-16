@@ -6,7 +6,8 @@ import FrameTransferencia from "../Icons/FrameTransferencia.svg"
 export default function MetodoPago() {
   const [metodoSelect, setMetodoSelect] = useState("");
   const [archivo, setArchivo] = useState("");
-  const [idVenta, setIdVenta] = useState(""); 
+ 
+  
 
 
   const handleMetodoCambio = (metodo) => {
