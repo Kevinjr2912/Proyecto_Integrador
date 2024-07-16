@@ -4,10 +4,44 @@ import FramePayPalPago from "../Icons/FramePayPalPago.svg";
 import FrameTransferencia from "../Icons/FrameTransferencia.svg"
 
 export default function MetodoPago() {
-  const [metodoSelect, setMetodoSelect] = useState(null);
+  const [metodoSelect, setMetodoSelect] = useState("");
+  const [archivo, setArchivo] = useState("");
+  const [idVenta, setIdVenta] = useState(""); 
+
 
   const handleMetodoCambio = (metodo) => {
     setMetodoSelect(metodo);
+  };
+
+  const handleArchivoCambio = (e) => {
+    setArchivo(e.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    if (!archivo) {
+      alert('Por favor, selecciona un archivo antes de enviar.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('comprobante', archivo);
+    formData.append('idVenta', idVenta); // Añadir el idVenta al formulario
+
+    try {
+      const response = await fetch("http://localhost:3000/comprobantes/addComprobante", {
+        method: "POST",
+        body: formData
+      });
+
+      if (response.ok) {
+        alert('Comprobante subido exitosamente');
+      } else {
+        alert('Error al subir el comprobante');
+      }
+    } catch (error) {
+      console.error('Error al subir el comprobante:', error);
+      alert('Error al subir el comprobante');
+    }
   };
 
   return (
@@ -32,10 +66,11 @@ export default function MetodoPago() {
             <p>Concepto: F1OwnStore + Productos</p>
             <input 
               type="file" 
-              accept=".pdf, .png, .jpg, .jpg" 
+              accept=".pdf" 
               className={styles.subirComprobante}
-              onChange={handleMetodoCambio}
+              onChange={handleArchivoCambio} // Modificado
             />
+            <button onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
           </div>
         </div>
       </div>
@@ -57,10 +92,11 @@ export default function MetodoPago() {
             <p>Concepto: F1OwnStore + Productos</p>
             <input 
               type="file" 
-              accept=".pdf, .png, .jpg, .jpg" 
+              accept=".pdf" 
               className={styles.subirComprobante}
-              onChange={handleMetodoCambio}
+              onChange={handleArchivoCambio} // Modificado
             />
+            <button onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
           </div>
         </div>
       </div>
