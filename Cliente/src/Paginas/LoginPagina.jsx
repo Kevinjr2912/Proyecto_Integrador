@@ -6,16 +6,21 @@ import NavBar from "../Componentes/NavBar";
 export default function LoginPagina(){
     
     const seccionesNav = [
+        
         {
-            id: 0,
-            nombre: 'OVEROLES',
+            id:0,
+            nombre: 'INICIO',
         },
         {
             id: 1,
+            nombre: 'OVEROLES',
+        },
+        {
+            id: 2,
             nombre: 'CASCOS',
         },
         {
-            id:2,
+            id:3,
             nombre: 'OFERTAS',
         }
     ];
