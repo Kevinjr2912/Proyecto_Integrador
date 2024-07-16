@@ -8,6 +8,8 @@ import GestionarProductosP from './Paginas/GestionarProductosP';
 import RegistroPagina from './Paginas/RegistroPagina';
 import DetalleVentaP from './Paginas/DetalleVentaP';
 import MetodoPagoP from './Paginas/MetodoPagoP';
+import CarritoP from './Paginas/CarritoP';
+import Faqs from './Paginas/Faqs';
 
 
 
@@ -25,6 +27,8 @@ function App() {
         <Route path='/RegistroPagina' element={<RegistroPagina/>}/>
         <Route path='/detalleVenta' element={<DetalleVentaP/>}/>
         <Route path='/metodoPago' element={<MetodoPagoP/>}/>
+        <Route path='/carritoPago' element={<CarritoP/>}/>
+        <Route path='/faqs' element={<Faqs/>}/>
 
       </Routes>
     </Router>
