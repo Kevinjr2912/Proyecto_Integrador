@@ -30,6 +30,8 @@ function App() {
         <Route path='/carritoPago' element={<CarritoP/>}/>
         <Route path='/faqs' element={<Faqs/>}/>
 
+        
+
       </Routes>
     </Router>
 
