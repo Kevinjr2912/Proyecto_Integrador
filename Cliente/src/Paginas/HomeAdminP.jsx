@@ -11,10 +11,15 @@ export default function HomeAdminP(){
     const seccionesNav = [
         {
             id: 0,
-            nombre: 'GESTIÓN PRODUCTO',
+            nombre: 'INICIO',
+            
         },
         {
             id: 1,
+            nombre: 'GESTIÓN PRODUCTO',
+        },
+        {
+            id: 2,
             nombre: 'DETALLES DE VENTA',
         }
     ];
@@ -25,7 +30,7 @@ export default function HomeAdminP(){
         <NavBar
             seccionesNav={seccionesNav}
             esSeccionCliente={false}
-            titulo="Configuracion"
+            titulo="Configuración"
         ></NavBar>
 
         <HomeAdmin></HomeAdmin>
