@@ -102,86 +102,91 @@ import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
 import AccionesProducto from "../Componentes/AccionesProducto";
 import CarritoP from "../Paginas/CarritoP"; 
 import DescripcionProducto from "../Componentes/DescripcionProducto";
+import Reseñas from "../Componentes/Reseñas";
 
 export default function InformationProduct() {
-    const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState([]);
+  const [reseñas, setReseñas] = useState([
+    { rating: 5, comentario: "Excelente producto" },
+    { rating: 4, comentario: "Muy bueno, pero podría mejorar" }
+  ]);
 
-    const agregarAlCarrito = (nuevoProducto) => {
-        console.log(`añadiendo al carrito: ${JSON.stringify(nuevoProducto)}`);
-        setCarrito(prevCarrito => {
-            const productoExistente = prevCarrito.find(item => item.nombre === nuevoProducto.nombre);
+  const agregarAlCarrito = (nuevoProducto) => {
+      console.log(`añadiendo al carrito: ${JSON.stringify(nuevoProducto)}`);
+      setCarrito(prevCarrito => {
+          const productoExistente = prevCarrito.find(item => item.nombre === nuevoProducto.nombre);
 
-            if (productoExistente) {
-                const updatedCart = prevCarrito.map(item =>
-                    item.nombre === nuevoProducto.nombre
-                        ? { ...item, cantidad: item.cantidad + nuevoProducto.cantidad }
-                        : item
-                );
-                console.log(`actualizando carrito ${JSON.stringify(updatedCart)}`);
-                return updatedCart;
-            } else {
-                const updatedCart = [...prevCarrito, nuevoProducto];
-                console.log(`nuevo carrito ${JSON.stringify(updatedCart)}`);
-                return updatedCart;
-            }
-        });
-    };
+          if (productoExistente) {
+              const updatedCart = prevCarrito.map(item =>
+                  item.nombre === nuevoProducto.nombre
+                      ? { ...item, cantidad: item.cantidad + nuevoProducto.cantidad }
+                      : item
+              );
+              console.log(`actualizando carrito ${JSON.stringify(updatedCart)}`);
+              return updatedCart;
+          } else {
+              const updatedCart = [...prevCarrito, nuevoProducto];
+              console.log(`nuevo carrito ${JSON.stringify(updatedCart)}`);
+              return updatedCart;
+          }
+      });
+  };
 
-    const producto = {
-        nombre: "Lorem ipsum dolor sit amet, consectetudijedienfbuc.",
-        precio: "$0.00 MXN",
-        img_principal: imagen_home,
-        img1: imagen_home,
-        img2: imagen_home,
-        img3: imagen_home,
-        img4: imagen_home,
-        descripcion: "me gustas muchodsdjkashdkjahdkjashdkjashdkajshdkasjdh kdhaskjdhaskjhd dhasjdhakjh hdasjkdhakhdsajk dhkasjdahskdhakjd dhakjdhakjdakj hdakjfkdgfkj dhakjdhasjk dhahdk khdhsakjd"
-    };
+  const agregarReseña = (nuevaReseña) => {
+    setReseñas(prevReseñas => [...prevReseñas, nuevaReseña]);
+  };
 
-    const seccionesNav = [
-        { id: 0, nombre: "CONOCENOS" },
-        { id: 1, nombre: "OVEROLES" },
-        { id: 2, nombre: "CASCOS" },
-        { id: 3, nombre: "MIS ORDENES" },
-    ];
+  const producto = {
+      nombre: "Lorem ipsum dolor sit amet, consectetudijedienfbuc.",
+      precio: "$0.00 MXN",
+      img_principal: imagen_home,
+      img1: imagen_home,
+      img2: imagen_home,
+      img3: imagen_home,
+      img4: imagen_home,
+      descripcion: "me gustas muchodsdjkashdkjahdkjashdkjashdkajshdkasjdh kdhaskjdhaskjhd dhasjdhakjh hdasjkdhakhdsajk dhkasjdahskdhakjd dhakjdhakjdakj hdakjfkdgfkj dhakjdhasjk dhahdk khdhsakjd",
+      cantidad: 1, 
+  };
 
-    console.log(`Initial cart: ${JSON.stringify(carrito)}`);
+  const seccionesNav = [
+      { id: 0, nombre: "CONOCENOS" },
+      { id: 1, nombre: "OVEROLES" },
+      { id: 2, nombre: "CASCOS" },
+      { id: 3, nombre: "MIS ORDENES" },
+  ];
 
-    return (
-        <>
-            <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
-            <div className="box_container_page">
-                <div className="product">
-                    <div className="aboutProduct">
-                        <ImagenesReferencia
-                            img_principal={producto.img_principal}
-                            img1={producto.img1}
-                            img2={producto.img2}
-                            img3={producto.img3}
-                            img4={producto.img4}
-                        />
-                        <div className="information">
-                            <NombrePrecioProducto
-                                nombre={producto.nombre}
-                                precio={producto.precio}
-                            />
-                            <AccionesProducto producto={producto} onAddToCart={agregarAlCarrito} />
-                            
-                        <div className="descripcion">
-                            <DescripcionProducto
-                              descripcion={producto.descripcion}
-                              
-                            />
-                        </div>
+  console.log(`Initial cart: ${JSON.stringify(carrito)}`);
 
-
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <CarritoP productos={carrito} />
-        </>
-    );
+  return (
+      <>
+          <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
+          <div className="box_container_page">
+              <div className="product">
+                  <div className="aboutProduct">
+                      <ImagenesReferencia
+                          img_principal={producto.img_principal}
+                          img1={producto.img1}
+                          img2={producto.img2}
+                          img3={producto.img3}
+                          img4={producto.img4}
+                      />
+                      <div className="information">
+                          <NombrePrecioProducto
+                              nombre={producto.nombre}
+                              precio={producto.precio}
+                          />
+                          <AccionesProducto producto={producto} onAddToCart={agregarAlCarrito} />
+                          <div className="descripcion">
+                              <DescripcionProducto descripcion={producto.descripcion} />
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} />
+              </div>
+          </div>
+          <CarritoP productos={carrito} />
+      </>
+  );
 }
-//86 lineas cion el componente carrito
