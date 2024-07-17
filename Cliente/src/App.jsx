@@ -6,7 +6,7 @@ import LoginUsuario from "./Paginas/LoginUsuario";
 import HomeAdminP from "./Paginas/HomeAdminP";
 import GestionarProductosP from './Paginas/GestionarProductosP';
 import RegistroPagina from './Paginas/RegistroPagina';
-import ShippingData from './Componentes/ShippingData';
+// import ShippingData from './Componentes/ShippingData';
 
 
 
@@ -14,7 +14,7 @@ function App() {
   return (
     <>
 
-    {/* <Router>
+    <Router>
       <Routes>
         <Route path="/" element={<Principal/>}/>
         <Route path='/loginAdmin' element={<LoginAdministrador/>}/>
@@ -23,8 +23,8 @@ function App() {
         <Route path='/GestionarProductosP' element={<GestionarProductosP/>}/>
         <Route path='/RegistroPagina' element={<RegistroPagina/>}/>
       </Routes>
-    </Router> */}
-    <ShippingData></ShippingData>
+    </Router>
+    {/* <ShippingData></ShippingData> */}
 
     </> 
 

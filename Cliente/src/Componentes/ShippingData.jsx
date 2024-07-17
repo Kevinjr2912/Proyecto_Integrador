@@ -38,7 +38,6 @@ export default function ShippingData() {
         text: `No pueden quedar campos vacíos`,
       });
     } else{
-  
       if(!document.getElementById('colonias').value){
         Swal.fire({
           icon: "errorr",
@@ -64,8 +63,6 @@ export default function ShippingData() {
           'numeroExterior' : numeroExterior,
           'referencia' : referencia
         }
-
-        console.log(data);
 
         try{
           const response = await fetch('http://localhost:3000/shippingData/addShippingInformation/11',{
@@ -96,15 +93,17 @@ export default function ShippingData() {
 
   return (
     <form className="containerShippingData" onSubmit={handleSubmit}>
-      <label htmlFor="codigo_postal">Código postal</label>
-      <input
-        type="text"
-        name="CodigoPostal"
-        placeholder="Código postal"
-        id="codigo_postal"
-        onBlur={blurCP}
-        onChange={(e) => setCodigoPostal(e.target.value)}
-      />
+      <div className="cp">
+        <label htmlFor="codigo_postal" >Código postal</label>
+        <input
+          type="text"
+          name="CodigoPostal"
+          placeholder="Código postal"
+          id="codigo_postal"
+          onBlur={blurCP}
+          onChange={(e) => setCodigoPostal(e.target.value)}
+        />
+      </div>
       <div className="referencias">
         <div className="box_estado">
           <label htmlFor="estado">Estado</label>
@@ -129,16 +128,17 @@ export default function ShippingData() {
           />
         </div>
       </div>
-      <label htmlFor="colonia">Colonia</label>
-      <select name="ListaColonias" id="colonias" value={coloniaSeleccionada} onChange={(e) => setColoniaSeleccionada(e.target.value)}>
-        <option value="">Seleccionar</option>
-        {colonias.map((colonia, colonia_id) => (
-          <option key={colonia_id} value={colonia}>
-            {colonia}
-          </option>
-        ))}
-      </select>
-
+      <div className="cols">
+        <label htmlFor="colonia">Colonia</label>
+        <select name="ListaColonias" id="colonias" value={coloniaSeleccionada} onChange={(e) => setColoniaSeleccionada(e.target.value)}>
+          <option value="">Seleccionar</option>
+          {colonias.map((colonia, colonia_id) => (
+            <option key={colonia_id} value={colonia}>
+              {colonia}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="referencia_cercana">
         <div className="box_calle">
           <label htmlFor="calle">Calle</label>
@@ -163,17 +163,17 @@ export default function ShippingData() {
           />
         </div>
       </div>
-      <label htmlFor="textReferencia">Referencia</label>
-      <textarea
-        name="textReferencia"
-        id="textReferencia"
-        maxLength="330"
-        value={referencia}
-        onChange={(e) => setReferencia(e.target.value)}
-      ></textarea>
-
+      <div className="ref">
+        <label htmlFor="textReferencia">Referencia</label>
+        <input
+          name="textReferencia"
+          id="textReferencia"
+          value={referencia}
+          onChange={(e) => setReferencia(e.target.value)}
+        ></input>
+      </div>
       <div className="actionsData">
-        <button className="btn_cancelar">Cancelar</button>
+        <button className="btn_c">Cancelar</button>
         <button className="saveData" type="submit">
           Guardar datos envío
         </button>
