@@ -1,13 +1,11 @@
 import './App.css'
-import GestionarProductosP from './Paginas/GestionarProductosP';
-import HomeAdminP from './Paginas/HomeAdminP';
+import CascosPagina from './Paginas/CascosPagina';
 
 
 function App() {
   return (
     <>
-    
-    <GestionarProductosP></GestionarProductosP>
+      <CascosPagina></CascosPagina>
     </> 
   );
 }
