@@ -11,23 +11,15 @@ export default function Home() {
     const seccionesNav = [
         {
             id: 0,
-            nombre: 'ABOUT US',
+            nombre: 'SOBRE NOSOTROS',
         },
         {
             id: 1,
-            nombre: 'OVERALLS',
+            nombre: 'OVEROLES',
         },
         {
             id: 2,
-            nombre: 'HELMETS',
-        },
-        {
-            id: 3,
-            nombre: 'OFFERS',
-        },
-        {
-            id: 4,
-            nombre: 'REVIEWS',
+            nombre: 'CASCOS',
         }
     ];
 

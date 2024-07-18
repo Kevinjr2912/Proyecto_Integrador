@@ -9,11 +9,13 @@ export default function AgregarModal({ isOpen, onClose, onAddProduct }) {
   const [equipment, setEquipment] = useState("");
   const [images, setImages] = useState([]);
 
+  
+
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
 
-    if (files.length + images.length > 5) {
-      alert("Has alcanzado el máximo de imágenes permitidas (5)");
+    if (files.length + images.length > 3) {
+      alert("Has alcanzado el máximo de imágenes permitidas (3)");
       return;
     }
 
@@ -44,18 +46,15 @@ export default function AgregarModal({ isOpen, onClose, onAddProduct }) {
 
       const result = await response.json();
 
-      // Llama a la prop onAddProduct para agregar el producto a la lista
       onAddProduct({
         nombre: name,
         categoria: category,
         precio: price,
-        descuento: "N/A",
         descripcion: description,
         equipo: equipment,
         images: images.map(image => URL.createObjectURL(image)),
       });
 
-      // Reseteo del formulario
       setName('');
       setCategory('Overol');
       setPrice('');
@@ -94,6 +93,7 @@ export default function AgregarModal({ isOpen, onClose, onAddProduct }) {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
+            <option value="">Selecionar categoría</option>
             <option value="Overol">Overol</option>
             <option value="Casco">Casco</option>
           </select>
@@ -117,6 +117,15 @@ export default function AgregarModal({ isOpen, onClose, onAddProduct }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+
+          <select name="" id="">
+            <option value="">Seleccionar equipo</option>
+            {listeEquipment.map((eq) => (
+            <option value={e.id}>
+              {eq.name}
+            </option>
+          ))}
+          </select>
           <label htmlFor="equipo">Equipo</label>
           <input
             name="equipo"

@@ -10,6 +10,17 @@ export default function AddProduct({ onAddProduct, onClose }) {
   const [equipment, setEquipment] = useState("");
   const [images, setImages] = useState([]);
 
+  const listeEquipment = [
+    { idEquipment: 1, name: "Alpine" },
+    { idEquipment: 2, name: "Kick Sauber" },
+    { idEquipment: 3, name: "Mercedes" },
+    { idEquipment: 4, name: "Aryrton Senna" },
+    { idEquipment: 5, name: "RedBull" },
+    { idEquipment: 6, name: "Ferrari" },
+    { idEquipment: 7, name: "MacLaren" },
+    { idEquipment: 8, name: "Aston Martin" },
+  ];
+
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
 
@@ -27,11 +38,13 @@ export default function AddProduct({ onAddProduct, onClose }) {
     data.append("nombre", name);
     data.append("precio", price);
     data.append("descripcion", description);
-    data.append("equipo", equipment);
+    data.append("id_equipo", equipment);
     data.append("nombreCategoria", category);
     images.forEach((image) => {
       data.append("imagen", image);
     });
+
+    console.log(data);
 
     try {
       const response = await fetch("http://localhost:3000/products/addProduct/", {
@@ -120,15 +133,14 @@ export default function AddProduct({ onAddProduct, onClose }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <label htmlFor="equipo">Equipo</label>
-          <input
-            name="equipo"
-            type="text"
-            id="equipo"
-            placeholder="Equipo"
-            value={equipment}
-            onChange={(e) => setEquipment(e.target.value)}
-          />
+            <select name="listEquiptments" id="lEquipment" onChange={(e) => setEquipment(e.target.value)}>
+                <option value="">Seleccionar equipo</option>
+                {listeEquipment.map((eq) => (
+                  <option key={eq.idEquipment} value={eq.idEquipment}>
+                    {eq.name}
+                  </option>
+                ))}
+            </select>
           <div className="file-input-container">
             <input
               name="imagen"

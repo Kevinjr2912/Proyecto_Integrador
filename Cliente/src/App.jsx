@@ -7,25 +7,23 @@ import HomeAdminP from "./Paginas/HomeAdminP";
 import GestionarProductosP from './Paginas/GestionarProductosP';
 import RegistroPagina from './Paginas/RegistroPagina';
 // import ShippingData from './Componentes/ShippingData';
-
+import CascosPagina from './Paginas/CascosPagina';
 
 
 function App() {
   return (
     <>
-
-    <Router>
-      <Routes>
-        <Route path="/" element={<Principal/>}/>
-        <Route path='/loginAdmin' element={<LoginAdministrador/>}/>
-        <Route path='/loginUsuario' element={<LoginUsuario/>}/>
-        <Route path='/homeAdmin' element={<HomeAdminP/>}/>
-        <Route path='/GestionarProductosP' element={<GestionarProductosP/>}/>
-        <Route path='/RegistroPagina' element={<RegistroPagina/>}/>
-      </Routes>
-    </Router>
-    {/* <ShippingData></ShippingData> */}
-
+      <Router>
+        <Routes>
+          <Route path="/" element={<Principal/>}/>
+          <Route path='/loginAdmin' element={<LoginAdministrador/>}/>
+          <Route path='/loginUsuario' element={<LoginUsuario/>}/>
+          <Route path='/homeAdmin' element={<HomeAdminP/>}/>
+          <Route path='/GestionarProductosP' element={<GestionarProductosP/>}/>
+          <Route path='/RegistroPagina' element={<RegistroPagina/>}/>
+          <Route path='/catalagoCascos' element={<CascosPagina/>}/>
+        </Routes>
+      </Router>
     </> 
 
   );

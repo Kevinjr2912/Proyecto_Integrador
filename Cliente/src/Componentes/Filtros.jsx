@@ -1,29 +1,41 @@
 import React from "react";
-import '../Estilos/Filtros.css'
+import styles from "../Estilos/Filtros.module.css";
 
-export default function Filtros(){
-    return(
-        <div class="box">
-            <div class="section">
-                <h2 class="section-title">TEAMS:</h2>
-                <div class="checkbox-group">
-                    <label><input type="checkbox"/> Alpine</label>
-                    <label><input type="checkbox"/> Kick Sauber</label>
-                    <label><input type="checkbox"/> Mercedes</label>
-                    <label><input type="checkbox"/> Ayrton Senna</label>
-                    <label><input type="checkbox"/> RedBull</label>
-                    <label><input type="checkbox"/> Ferrari</label>
-                    <label><input type="checkbox"/> MacLaren</label>
-                    <label><input type="checkbox"/> Aston Martin</label>
-                </div>
-            </div>
-            <div class="section">
-                <h2 class="section-title">OFFERS:</h2>
-                <div class="checkbox-group">
-                    <label><input type="checkbox"/> Yes</label>
-                    <label><input type="checkbox"/> No</label>
-                </div>
-            </div>
+export default function Filtros() {
+  return (
+    <div className={styles.box}>
+      <div className={styles.section}>
+        <h2 className={styles.sectiontitle}>TEAMS:</h2>
+        <div className={styles.checkboxgroup}>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="alpine" /> Alpine
+          </label>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="kick-sauber" /> Kick
+            Sauber
+          </label>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="mercedes" /> Mercedes
+          </label>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="ayrton-senna" /> Ayrton
+            Senna
+          </label>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="redbull" /> RedBull
+          </label>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="ferrari" /> Ferrari
+          </label>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="maclaren" /> MacLaren
+          </label>
+          <label className={styles.checkboxLabel}>
+            <input type="checkbox" name="team" value="aston-martin" /> Aston
+            Martin
+          </label>
         </div>
-    )
+      </div>
+    </div>
+  );
 }

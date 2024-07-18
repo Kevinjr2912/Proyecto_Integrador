@@ -1,15 +1,15 @@
 import React from "react";
 import '../Estilos/CardProducto.css';
 
-export default function CardProducto(props){
+export default function CardProducto({key,src,alt,nombre,precio}){
     return(
-        <div className="cardProducto">
+        <div key={key} className="cardProducto">
             <div className="contenedor_img">
-                <img className="producto" src={props.imagen} alt="" />
+                <img className="producto" src={src} alt={alt} />
             </div>
             <div className="informacion_producto">
-                <p className="nombreProducto"><strong>{props.nombre}</strong></p>
-                <p className="precioProducto">{props.precio}</p>
+                <p className="nombreProducto"><strong>{nombre}</strong></p>
+                <p className="precioProducto">${precio} MXN</p>
             </div>
         </div>
     );
