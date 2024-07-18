@@ -5,6 +5,7 @@
     "react-data-table": "^0.1.0",
     "react-router-dom": "^6.24.1",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.12.2"
+    "sweetalert2": "^11.12.2",
+    "swiper": "^11.1.5"
   }
 }
