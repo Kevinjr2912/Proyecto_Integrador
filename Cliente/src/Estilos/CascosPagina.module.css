@@ -1,10 +1,15 @@
-* {
+/* estilos para los overoles y los cascos de las paginas */
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background-color: black;
     
 
+} */
+
+.paginacontainer{
+    background-color: black;
 }
 
 .container {
@@ -15,6 +20,7 @@
     padding: 20px; 
     height: 0%;
     margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 
@@ -32,6 +38,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 20px; 
+   
 }
 
 .carrusel {
@@ -39,4 +46,5 @@
     display: flex;
     gap: 50px;
     margin: 20px 0; 
+    
 }
