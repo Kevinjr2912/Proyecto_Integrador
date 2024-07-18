@@ -112,24 +112,19 @@ export default function InformationProduct() {
   ]);
 
   const agregarAlCarrito = (nuevoProducto) => {
-      console.log(`añadiendo al carrito: ${JSON.stringify(nuevoProducto)}`);
-      setCarrito(prevCarrito => {
-          const productoExistente = prevCarrito.find(item => item.nombre === nuevoProducto.nombre);
+    setCarrito(prevCarrito => {
+      const productoExistente = prevCarrito.find(item => item.nombre === nuevoProducto.nombre);
 
-          if (productoExistente) {
-              const updatedCart = prevCarrito.map(item =>
-                  item.nombre === nuevoProducto.nombre
-                      ? { ...item, cantidad: item.cantidad + nuevoProducto.cantidad }
-                      : item
-              );
-              console.log(`actualizando carrito ${JSON.stringify(updatedCart)}`);
-              return updatedCart;
-          } else {
-              const updatedCart = [...prevCarrito, nuevoProducto];
-              console.log(`nuevo carrito ${JSON.stringify(updatedCart)}`);
-              return updatedCart;
-          }
-      });
+      if (productoExistente) {
+        return prevCarrito.map(item =>
+          item.nombre === nuevoProducto.nombre
+            ? { ...item, cantidad: item.cantidad + nuevoProducto.cantidad }
+            : item
+        );
+      } else {
+        return [...prevCarrito, nuevoProducto];
+      }
+    });
   };
 
   const agregarReseña = (nuevaReseña) => {
@@ -137,56 +132,55 @@ export default function InformationProduct() {
   };
 
   const producto = {
-      nombre: "Lorem ipsum dolor sit amet, consectetudijedienfbuc.",
-      precio: "$0.00 MXN",
-      img_principal: imagen_home,
-      img1: imagen_home,
-      img2: imagen_home,
-      img3: imagen_home,
-      img4: imagen_home,
-      descripcion: "me gustas muchodsdjkashdkjahdkjashdkjashdkajshdkasjdh kdhaskjdhaskjhd dhasjdhakjh hdasjkdhakhdsajk dhkasjdahskdhakjd dhakjdhakjdakj hdakjfkdgfkj dhakjdhasjk dhahdk khdhsakjd",
-      cantidad: 1, 
+    nombre: "Lorem ipsum dolor sit amet, consectetudijedienfbuc.",
+    precio: "$0.00 MXN",
+    img_principal: imagen_home,
+    img1: imagen_home,
+    img2: imagen_home,
+    img3: imagen_home,
+    img4: imagen_home,
+    descripcion: "Descripción del producto...",
+    cantidad: 1, 
   };
 
   const seccionesNav = [
-      { id: 0, nombre: "CONOCENOS" },
-      { id: 1, nombre: "OVEROLES" },
-      { id: 2, nombre: "CASCOS" },
-      { id: 3, nombre: "MIS ORDENES" },
+    { id: 0, nombre: "CONOCENOS" },
+    { id: 1, nombre: "OVEROLES" },
+    { id: 2, nombre: "CASCOS" },
+    { id: 3, nombre: "MIS ORDENES" },
   ];
 
-  console.log(`Initial cart: ${JSON.stringify(carrito)}`);
-
   return (
-      <>
-          <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
-          <div className="box_container_page">
-              <div className="product">
-                  <div className="aboutProduct">
-                      <ImagenesReferencia
-                          img_principal={producto.img_principal}
-                          img1={producto.img1}
-                          img2={producto.img2}
-                          img3={producto.img3}
-                          img4={producto.img4}
-                      />
-                      <div className="information">
-                          <NombrePrecioProducto
-                              nombre={producto.nombre}
-                              precio={producto.precio}
-                          />
-                          <AccionesProducto producto={producto} onAddToCart={agregarAlCarrito} />
-                          <div className="descripcion">
-                              <DescripcionProducto descripcion={producto.descripcion} />
-                          </div>
-                      </div>
-                  </div>
+    <>
+      <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
+      <div className="box_container_page">
+        <div className="product">
+          <div className="aboutProduct">
+            <ImagenesReferencia
+              img_principal={producto.img_principal}
+              img1={producto.img1}
+              img2={producto.img2}
+              img3={producto.img3}
+              img4={producto.img4}
+            />
+            <div className="information">
+              <NombrePrecioProducto
+                nombre={producto.nombre}
+                precio={producto.precio}
+              />
+              <AccionesProducto producto={producto} onAddToCart={agregarAlCarrito} />
+              <div className="descripcion">
+                <DescripcionProducto descripcion={producto.descripcion} />
               </div>
-              <div>
-                  <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} />
-              </div>
+            </div>
           </div>
-          <CarritoP productos={carrito} />
-      </>
+        </div>
+        <div>
+          <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} />
+        </div>
+      </div>
+      <CarritoP productos={carrito} />
+    </>
   );
 }
+//91 lineas

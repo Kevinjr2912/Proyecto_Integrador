@@ -35,7 +35,7 @@
 // }
 
 import React, { useState } from 'react';
-import styles from '../Estilos/Carrito.module.css'; // Asegúrate de que la ruta es correcta
+import styles from '../../Estilos/Carrito.module.css';
 
 export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelCarrito }) {
   const [cantidad, setCantidad] = useState(producto.cantidad);
