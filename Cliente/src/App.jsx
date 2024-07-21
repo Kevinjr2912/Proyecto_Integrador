@@ -17,7 +17,6 @@ import OverolesPagina from "./Paginas/OverolesPagina"
 function App() {
   return (
     <>
-
     <Router>
       <Routes>
         <Route path="/" element={<Principal/>}/>
@@ -33,7 +32,6 @@ function App() {
         <Route path='/informacionProducto' element={<InformationProduct/>}/>
         <Route path='/cascos' element={<CascosPagina/>}/>
         <Route path='/overoles' element={<OverolesPagina/>}/>
-
       </Routes>
     </Router>
 

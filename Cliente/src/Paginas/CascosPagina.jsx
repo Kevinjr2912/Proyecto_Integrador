@@ -1,7 +1,6 @@
 import React from "react";
 import NavBar from "../Componentes/NavBar";
 import Filtros from "../Componentes/Filtros";
-import CarruselProducto from "../Componentes/CarruselProducto.jsx";
 import Footer from "../Componentes/Footer.jsx";
 import styles from "../Estilos/CascosPagina.module.css";
 

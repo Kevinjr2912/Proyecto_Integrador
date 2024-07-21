@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import NavBar from "../Componentes/NavBar";
-import ImagenesReferencia from "../Componentes/ImagenesReferencia";
-import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/InformacionProducto.css';
-import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
 import AccionesProducto from "../Componentes/AccionesProducto";
 
 export default function InformationProduct({ agregarAlCarrito }) {
