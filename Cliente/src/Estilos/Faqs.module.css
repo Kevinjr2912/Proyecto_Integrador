@@ -1,0 +1,49 @@
+.faqs {
+    padding: 20px;
+    padding-top: 8%;
+    width: 60%;
+   margin-left: 20%;
+   margin-bottom: 9%;
+  }
+  
+  .faqsTitle {
+    color: #2DC289;
+    font-size: 2em;
+    margin-bottom: 20px;
+    display: flex;
+    
+  }
+  
+  .faqItem {
+    border-bottom: 1px solid #8e8d8d;
+    padding: 2px 0;
+    
+  }
+  
+  .faqCheckbox {
+    display: none;
+  }
+  
+  .faqQuestion p{
+
+  }
+  
+  .faqAnswer {
+    display: none;
+    padding: 5px 0;
+  }
+  
+  .faqCheckbox:checked + .faqQuestion + .faqAnswer {
+    display: block;
+  }
+  
+  .toggleIcon {
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+    margin-left: 55vw;
+  }
+  
+  .faqCheckbox:checked + .faqQuestion .toggleIcon {
+    transform: rotate(45deg);
+  }
+  

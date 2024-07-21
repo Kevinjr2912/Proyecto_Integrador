@@ -1,0 +1,89 @@
+.metodoPagoContainer {
+  color: #fff;
+  padding: 20px;
+  background-color: #1d1d1d;
+  border-radius: 10px;
+  text-align: center;
+  width: 70%;
+  border-radius: 5%;
+  margin: 0 auto;
+  margin-top: 8%;
+  margin-bottom: 3%;
+}
+
+.metodoPagoOption {
+  margin: 20px 0;
+  position: relative;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 25px;
+  border-color: rgba(255, 255, 255, 0.669);
+  background-color: #2d2d2d;
+  transition: filter 0.3s, opacity 0.3s;
+}
+
+.metodoPagoOption .inactive {
+  filter: blur(5px);
+  opacity: 0.5;
+}
+
+.metodoPagoOption .active {
+  filter: none;
+  opacity: 1;
+}
+
+.metodoPagoOption input[type="radio"] {
+  display: none;
+}
+
+.metodoPagoOption label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  width: 15%;
+  border-radius: 20px;
+  padding: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.584); 
+}
+
+.metodoPagoOption label:hover {
+  background-color: #2DC289;
+}
+
+.icono {
+  margin-right: 10px;
+}
+
+.metodoPagoInfo {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #2d2d2d;
+}
+
+.metodoPagoInfo button{
+  position: absolute;
+  margin-left: 10%;
+  margin-top: .5%;
+  height: 14%;
+}
+
+.metodoPagoInfo p {
+  margin: 5px 0;
+}
+
+.subirComprobante {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #908c8c;
+  border: none;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
+}
+
+.subirComprobante:hover {
+  background-color: #00fe99;
+}

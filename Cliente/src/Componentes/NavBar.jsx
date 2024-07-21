@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import SeccionesTienda from "./SeccionesTienda";
-import EncabezadoPagina from "./EncabezadoPagina";
 import FrameUser from "../Icons/FrameUser.svg";
 import FrameCarrito from "../Icons/FrameCarrito.svg";
 import "../Estilos/NavBar.css";
-import Buscador from "./Buscador";
 import OpcionSesion from "../Componentes/Modals/OpcionSesion";
 
 export default function NavBar({ seccionesNav, esSeccionCliente, titulo }) {
@@ -21,7 +19,7 @@ export default function NavBar({ seccionesNav, esSeccionCliente, titulo }) {
   return (
     <nav className="box-nav">
       <div className="box_img">
-        <EncabezadoPagina esSeccionCliente={esSeccionCliente} titulo={titulo} />
+        {/* <EncabezadoPagina esSeccionCliente={esSeccionCliente} titulo={titulo} /> */}
       </div>
 
       <div className="actions_general">
@@ -29,7 +27,6 @@ export default function NavBar({ seccionesNav, esSeccionCliente, titulo }) {
 
         {esSeccionCliente && (
           <div className="nav_iconos">
-            <Buscador />
             <img src={FrameUser} alt="img" onClick={openOpcionSesionModal} />
             <img src={FrameCarrito} alt="img" />
           </div>

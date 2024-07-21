@@ -31,8 +31,6 @@ export default function PageProduct(){
             <div className="box-footer">
                 <Footer/>
             </div>
-            
-           
         </div>
     );
 }

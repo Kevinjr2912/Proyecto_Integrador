@@ -4,9 +4,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const customersRoutes = require('./routes/clientes');
 const productsRoutes = require('./routes/productos');
+<<<<<<< HEAD
 const adminRoutes = require('./routes/administrador');
 const dipomexRoutes = require('./routes/dipomex');
 const shippingDataRoutes = require('./routes/datosEnvio');
+=======
+const comprobantesPagoRoutes = require('./routes/comprobantes');;
+>>>>>>> ab265804fdb9b7ff0095a95fd6760f23a2381cad
 
 const app = express();
 const port = process.env.DB_PORT || 3000;   
@@ -28,11 +32,14 @@ app.use(express.urlencoded({ extended: true }))
 // Usar las rutas de los items
 app.use('/customers', customersRoutes);
 app.use('/products', productsRoutes);
+<<<<<<< HEAD
 app.use('/admins',adminRoutes);
 app.use('/api',dipomexRoutes);
 app.use('/shippingData',shippingDataRoutes);
+=======
+app.use('/comprobantes', comprobantesPagoRoutes);
+>>>>>>> ab265804fdb9b7ff0095a95fd6760f23a2381cad
 
-// Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor Express en ejecución en http://localhost:${port}`);
 });

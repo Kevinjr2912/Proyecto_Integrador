@@ -1,0 +1,13 @@
+.contenedor{
+
+    color: white;
+    width: 65%;
+    background-color: #1B1A1A;
+    margin-left: 3%;
+}
+
+.descripcion{
+    font-size: 15px;
+    font-weight: 700;
+    text-align: justify;
+}
