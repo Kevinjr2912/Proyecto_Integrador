@@ -52,7 +52,7 @@ exports.addProduct = (req, res) => {
       return res.status(404).json({ message: "Imagenes no recibidas" });
     }
 
-    const { nombre, precio, nombreCategoria, descripcion, equipo } = req.body;
+    const { nombre, precio, nombreCategoria, descripcion, id_equipo } = req.body;
     
     
     let idCategoria = 0;
@@ -63,7 +63,7 @@ exports.addProduct = (req, res) => {
       idCategoria = 1;
     }
 
-    db.query("INSERT INTO Productos (nombre, precio, descripcion, equipo, id_categoria) VALUES (?, ?, ?, ?, ?)",[nombre, precio, descripcion, equipo, idCategoria],
+    db.query("INSERT INTO Productos (nombre, precio, descripcion, id_equipo, id_categoria) VALUES (?, ?, ?, ?, ?)",[nombre, precio, descripcion, id_equipo , idCategoria],
       (err, result) => {
         if (err) {
           return res.status(500).json({ message: "Error al agregar el producto" });
@@ -89,7 +89,7 @@ exports.addProduct = (req, res) => {
 
 
 exports.getAllProducts = (req, res) => {
-  db.query('SELECT Productos.idProductos, Productos.nombre, Productos.precio, Productos.descripcion, Productos.equipo, Categoria.nombreCategoria FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria', (err, result) => {
+  db.query('SELECT Productos.idProductos, Productos.nombre, Productos.precio, Productos.descripcion,Categoria.nombreCategoria, Equipo.nombre_equipo FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria INNER JOIN Equipo ON Productos.id_equipo = Equipo.idEquipo ', (err, result) => {
     if (err) {
       return res.status(500).json({ message: 'Error al obtener los elementos'});
     }
@@ -97,6 +97,30 @@ exports.getAllProducts = (req, res) => {
     return res.json(result);
   });
 }
+
+
+exports.getAllHelmets = (req, res) => {
+  db.query('SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo , MIN(IP.imagen) AS imagen FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto INNER JOIN Equipo E ON P.id_equipo = E.idEquipo WHERE P.id_categoria = 1 GROUP BY P.idProductos', (err, results) => {
+    if (err) {
+      return res.json({error: 'Error al obtener los cascos'});
+    }
+
+    const products = results.map(product => ({
+      idProducto: product.idProductos,
+      nombre: product.nombre,
+      precio: product.precio,
+      descripcion: product.descripcion,
+      nombreCategoria: product.nombreCategoria,
+      nombreEquipo: product.nombre_equipo,
+      imagen: product.imagen.toString('base64')
+    }));
+
+    console.log(products)
+
+    res.json(products);
+  });
+};
+
 
 exports.updateProduct = (req, res) => {
   const productId = req.params.id;
@@ -110,7 +134,7 @@ exports.updateProduct = (req, res) => {
     }
 
     if (result.length === 0) {
-      return res.status(404).json({message: "No se encontró ningún producto con el ID especificado"});
+      return res.status(404).json({ message: "No se encontró ningún producto con el ID especificado"});
     }
 
     const product = result[0];

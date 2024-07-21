@@ -7,7 +7,7 @@
     transition: transform 0.9s ease, box-shadow 0.3s ease; 
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
-    background-color: #1B1A1A; 
+    background-color: #1B1A1A;
 }
 
 .cardProducto:hover {

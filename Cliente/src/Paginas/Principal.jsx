@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from '../Componentes/NavBar.jsx';
 import Servicios from '../Componentes/Servicios.jsx';
 import SeccionesTienda from '../Componentes/SeccionesTienda.jsx';
-import CarruselProducto from '../Componentes/CarruselProducto.jsx';
 import imagen_home from '../Imagenes/imagen_home.jpg';
 import '../Estilos/Home.css';
 import Footer from '../Componentes/Footer.jsx';
@@ -42,8 +41,6 @@ export default function Home() {
                     className="Hello"
                 />
             </div>
-            <CarruselProducto />
-            <CarruselProducto />
         </div>
         <Footer></Footer>
         </>

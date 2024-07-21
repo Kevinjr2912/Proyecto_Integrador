@@ -6,7 +6,7 @@ import LoginUsuario from "./Paginas/LoginUsuario";
 import HomeAdminP from "./Paginas/HomeAdminP";
 import GestionarProductosP from './Paginas/GestionarProductosP';
 import RegistroPagina from './Paginas/RegistroPagina';
-// import ShippingData from './Componentes/ShippingData';
+import ShippingData from './Componentes/ShippingData';
 import CascosPagina from './Paginas/CascosPagina';
 
 
