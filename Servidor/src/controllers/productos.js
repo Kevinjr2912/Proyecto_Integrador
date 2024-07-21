@@ -121,7 +121,6 @@ exports.getAllHelmets = (req, res) => {
   });
 };
 
-
 exports.updateProduct = (req, res) => {
   const productId = req.params.id;
   const productFront = req.body;
