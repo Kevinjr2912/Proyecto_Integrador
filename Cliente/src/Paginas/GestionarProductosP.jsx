@@ -1,35 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ListaProducto from "../Componentes/GestionProductos/ListaProducto";
 import NavBar from "../Componentes/NavBar.jsx";
 import Footer from "../Componentes/Footer.jsx";
 import AddProduct from "../Componentes/GestionProductos/AddProduct";
-import '../Estilos/GestionarProductosP.css';
+import '../Estilos/GestionarProductosP.module.css';
 
 export default function GestionarProductosP() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [products, setProducts] = useState([
-    {
-      nombre: "Ferrari",
-      categoria: "Casco",
-      precio: 23,
-      descuento: 12,
-      descripcion: "me guta",
-    },
-    {
-      nombre: "Red Bull",
-      categoria: "Overol",
-      precio: 32,
-      descuento: 11,
-      descripcion: "me jejej",
-    },
-    {
-      nombre: "Red Bull",
-      categoria: "Overol",
-      precio: 32,
-      descuento: 11,
-      descripcion: "me jejej",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+  
+  const showData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/products/getAllProducts');
+      const data = await response.json();
+      
+      // Verifica si data es un arreglo antes de usarlo
+      if (Array.isArray(data)) {
+        setProducts(data);
+      } else {
+        console.error('La respuesta no es un arreglo:', data);
+      }
+    } catch (error) {
+      console.error('Error al obtener los datos:', error);
+    }
+  };
+
+  useEffect(() => {
+    showData();
+  },[]);
 
   const addProduct = (product) => {
     setProducts(prevProducts => [...prevProducts, product]);

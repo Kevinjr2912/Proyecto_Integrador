@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../Estilos/AddProduct.css";
+import Swal from 'sweetalert2';
 
 export default function AddProduct({ onAddProduct, onClose }) {
   const [name, setName] = useState("");
@@ -29,7 +30,7 @@ export default function AddProduct({ onAddProduct, onClose }) {
     data.append("equipo", equipment);
     data.append("nombreCategoria", category);
     images.forEach((image) => {
-      data.append("dato_imagen", image);
+      data.append("imagen", image);
     });
 
     try {
@@ -39,16 +40,13 @@ export default function AddProduct({ onAddProduct, onClose }) {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(HTTP `error! status: ${response.status}`);
       }
-
-      const result = await response.json();
 
       onAddProduct({
         nombre: name,
         categoria: category,
         precio: price,
-        descuento: "N/A",
         descripcion: description,
         equipo: equipment,
         images: images.map(image => URL.createObjectURL(image)),
@@ -61,11 +59,21 @@ export default function AddProduct({ onAddProduct, onClose }) {
       setEquipment('');
       setImages([]);
 
-      alert("Producto agregado exitosamente");
+      Swal.fire({
+        icon: "success",
+        title: 'Producto agregado exitosamente',
+        showConfirmButton: false,
+        timer: 1500,
+    });
+
       onClose();
 
     } catch (error) {
-      alert(`Error al agregar producto: ${error.message}`);
+      Swal.fire({
+        icon: "errorr",
+        title: "Oops...",
+        text: `Error al eviar la solicitud`,
+      });
     }
   };
 
@@ -123,11 +131,10 @@ export default function AddProduct({ onAddProduct, onClose }) {
           />
           <div className="file-input-container">
             <input
-              name="dato_imagen"
+              name="imagen"
               type="file"
               id="file-input"
               accept="image/*"
-              multiple
               onChange={handleImageUpload}
             />
             <label htmlFor="file-input" className="file-input-label">

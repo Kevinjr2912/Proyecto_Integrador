@@ -1,0 +1,50 @@
+.box-product{
+    background-color: #1B1A1A;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-container-actions{
+    display: flex;
+    gap: 58vw;
+    margin-left: 2vw;
+    margin-top: 7vw;
+}
+
+.styleS{
+    font-size: 1.3vw;
+    font-weight: 700;
+    color: white;
+}
+
+.btn-agregarP{
+    background-color: black;
+    border: none;
+    border-radius: 1vw;
+    color: white;
+    font-size: 0.9vw;
+    font-weight:600;
+    width: 13vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3vw;
+    cursor: pointer;
+    transition: background-color 0.7s ease;
+    margin-left: 1%;
+}
+
+.btn-agregarP:hover{
+    background-color: #2DC289;
+}
+
+.box-footer{
+    width: 100vw;
+}
+
+.container-main{
+    margin-bottom:80px;
+}
+

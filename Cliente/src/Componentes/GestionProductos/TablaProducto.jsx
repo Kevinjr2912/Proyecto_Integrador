@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
-import "../../Estilos/TablaProducto.css";
+import "../../Estilos/TablaProducto.module.css";
 import EliminarModal from "../Modals/EliminarModal";
 import EditarModal from "../Modals/EditarModal";
+import Swal from 'sweetalert2';
 
 function TablaProducto({ products }) {
   const [isEliminarModalOpen, setIsEliminarModalOpen] = useState(false);
@@ -12,23 +13,23 @@ function TablaProducto({ products }) {
 
   const columns = [
     {
+      name: "IdProductos",
+      selector: row => row.idProductos,
+      omit: true
+    },
+    {
       name: "Producto",
       selector: row => row.nombre,
       sortable: true
     },
     {
       name: "Categoría",
-      selector: row => row.categoria,
+      selector: row => row.nombreCategoria || row.categoria,
       sortable: true
     },
     {
       name: "Precio",
       selector: row => row.precio,
-      sortable: true
-    },
-    {
-      name: "Descuento",
-      selector: row => row.descuento,
       sortable: true
     },
     {
@@ -69,10 +70,40 @@ function TablaProducto({ products }) {
     setIsEliminarModalOpen(true);
   };
 
-  const confirmDelete = () => {
-    setRecords(records.filter(record => record !== productToDelete));
-    setIsEliminarModalOpen(false);
-    setProductToDelete(null);
+  const confirmDelete = async () => {
+    const productId = productToDelete.idProductos;
+
+    if (!productId) {
+      console.error('No se pudo obtener el ID del producto');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/products/deleteProduct/${productId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: 'Producto eliminado exitosamente',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        setRecords(records.filter(record => record !== productToDelete));
+        setIsEliminarModalOpen(false);
+        setProductToDelete(null);
+      } else {
+        throw new Error('Error al eliminar el producto');
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Error: ${error.message}`,
+      });
+    }
   };
 
   const handleEditProduct = (editedProduct) => {

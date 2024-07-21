@@ -1,0 +1,16 @@
+.container{
+    color: white;
+    width: 100%;
+    height: fit-content;
+    background-color: #1B1A1A;
+}
+
+.name{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.price{
+    font-size: 18px;
+    font-weight: 500;
+}

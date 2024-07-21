@@ -1,35 +1,70 @@
 import React, { useState, useEffect } from "react";
 import "../../Estilos/EditarModal.css";
+import Swal from 'sweetalert2';
 
 export default function EditarModal({ isOpen, onClose, onEditProduct, product }) {
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Overol");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [equipment, setEquipment] = useState("");
 
   useEffect(() => {
     if (product) {
-      setName(product.nombre);
-      setCategory(product.categoria);
-      setPrice(product.precio);
-      setDescription(product.descripcion);
+      setName(product.nombre || "");
+      setPrice(product.precio || "");
+      setDescription(product.descripcion || "");
       setEquipment(product.equipo || "");
+    } else {
+      setName("");
+      setPrice("");
+      setDescription("");
+      setEquipment("");
     }
   }, [product]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const editedProduct = {
-      ...product,
-      nombre: name,
-      categoria: category,
-      precio: price,
-      descripcion: description,
-      equipo: equipment,
-    };
-    onEditProduct(editedProduct);
-    onClose();
+    console.log("Producto rebido a editar: " + product.idProductos)
+    const idProducto = product.idProductos;
+    
+  const data = {
+    nombre: name,
+    precio: price,
+    descripcion: description,
+    equipo: equipment
+  };
+
+    try {
+      const response = await fetch(`http://localhost:3000/products/updateProduct/${idProducto}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data),}
+      );
+
+      if (response.ok) {
+        const updatedProduct = await response.json();
+        Swal.fire({
+          icon: "success",
+          title: 'Producto agregado exitosamente',
+          showConfirmButton: false,
+          timer: 1500,
+        }); 
+        onEditProduct(updatedProduct);
+        onClose();
+      } else {
+        Swal.fire({
+          icon: "errorr",
+          title: "Oops...",
+          text: "Error al actualizar el producto",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "errorr",
+        title: "Oops...",
+        text: `Error al eviar la solicitud`,
+      });
+    }
   };
 
   if (!isOpen) return null;
@@ -42,6 +77,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
+          <h2>Editando producto: {product?.nombre || "Nuevo Producto"}</h2>
           <label htmlFor="name">Nombre</label>
           <input
             name="nombre"
@@ -51,16 +87,6 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label>Categoría</label>
-          <select
-            name="categoria"
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="Overol">Overol</option>
-            <option value="Casco">Casco</option>
-          </select>
           <label htmlFor="precio">Precio</label>
           <input
             name="precio"
