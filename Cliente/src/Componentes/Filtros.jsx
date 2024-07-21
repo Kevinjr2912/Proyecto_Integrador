@@ -15,7 +15,7 @@ export default function Filtros({ onFilterChange }) {
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     onFilterChange(selectedTeams);
   }, [selectedTeams, onFilterChange]);
 
