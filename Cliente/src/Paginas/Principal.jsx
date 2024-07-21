@@ -34,7 +34,7 @@ export default function Home() {
       <div className="home">
         <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
         <div className="contenedor_carro">
-          <img className="img_home" src={imagen_home} alt="Imagen carro" />
+          {/* <img className="img_home" src={imagen_home} alt="Imagen carro" /> */}
         </div>
         <Servicios />
         <div className="secciones">
@@ -44,8 +44,6 @@ export default function Home() {
             className="Hello"
           />
         </div>
-        <CarruselProducto />
-        <CarruselProducto />
       </div>
       <Footer></Footer>
     </>

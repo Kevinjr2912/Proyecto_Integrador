@@ -19,7 +19,7 @@ export default function NavBar({ seccionesNav, esSeccionCliente, titulo }) {
   return (
     <nav className="box-nav">
       <div className="box_img">
-        <EncabezadoPagina esSeccionCliente={esSeccionCliente} titulo={titulo} />
+        {/* <EncabezadoPagina esSeccionCliente={esSeccionCliente} titulo={titulo} /> */}
       </div>
 
       <div className="actions_general">
@@ -27,7 +27,6 @@ export default function NavBar({ seccionesNav, esSeccionCliente, titulo }) {
 
         {esSeccionCliente && (
           <div className="nav_iconos">
-            <Buscador />
             <img src={FrameUser} alt="img" onClick={openOpcionSesionModal} />
             <img src={FrameCarrito} alt="img" />
           </div>
