@@ -1,4 +1,4 @@
-
+import React from 'react';
 import '../Estilos/DescripcionProducto.css';
 
 export default function DescripcionProducto( {descripcion} ){

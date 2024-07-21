@@ -9,11 +9,7 @@ export default function LoginPagina(){
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-<<<<<<< HEAD
-
-=======
     
->>>>>>> ab265804fdb9b7ff0095a95fd6760f23a2381cad
     const seccionesNav = [
         {
             id: 0,

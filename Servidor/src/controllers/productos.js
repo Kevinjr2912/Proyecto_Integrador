@@ -87,7 +87,6 @@ exports.addProduct = (req, res) => {
   });
 };
 
-
 exports.getAllProducts = (req, res) => {
   db.query('SELECT Productos.idProductos, Productos.nombre, Productos.precio, Productos.descripcion,Categoria.nombreCategoria, Equipo.nombre_equipo FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria INNER JOIN Equipo ON Productos.id_equipo = Equipo.idEquipo ', (err, result) => {
     if (err) {
@@ -98,14 +97,13 @@ exports.getAllProducts = (req, res) => {
   });
 }
 
-
 exports.getAllHelmets = (req, res) => {
-  db.query('SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo , MIN(IP.imagen) AS imagen FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto INNER JOIN Equipo E ON P.id_equipo = E.idEquipo WHERE P.id_categoria = 1 GROUP BY P.idProductos', (err, results) => {
+  db.query('SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo , MIN(IP.imagen) AS imagen FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto INNER JOIN Equipo E ON P.id_equipo = E.idEquipo WHERE P.id_categoria = 1 GROUP BY P.idProductos', (err, result) => {
     if (err) {
       return res.json({error: 'Error al obtener los cascos'});
     }
 
-    const products = results.map(product => ({
+    const products = result.map(product => ({
       idProducto: product.idProductos,
       nombre: product.nombre,
       precio: product.precio,
@@ -120,6 +118,41 @@ exports.getAllHelmets = (req, res) => {
     res.json(products);
   });
 };
+
+exports.getInformationProduct = (req, res) => {
+  const idProducto = req.params.idProducto;
+  console.log(idProducto);
+  let objInformationProduct = {};
+  let img = [];
+
+  db.query('SELECT IP.imagen FROM ImagenProducto IP WHERE IP.idProducto = ?', [idProducto], (err, result) => {
+    if (err) {
+      return res.json({ error: "Error al buscar las imagenes correspondientes del producto" });
+    }
+
+    if (result.length > 0) {
+      img = result.map(img => img.imagen.toString('base64')); // Convertir el buffer a base64
+    }
+
+    objInformationProduct.img = img;
+  });
+
+  db.query('SELECT P.nombre, P.precio, P.descripcion, C.nombreCategoria FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria WHERE P.idProductos = ?', [idProducto], (err, result) => {
+    if (err) {
+      return res.json({ error: "Error al obtener la información del producto" });
+    }
+
+    if (result.length > 0) {
+      objInformationProduct.nombre = result[0].nombre;
+      objInformationProduct.precio = result[0].precio;
+      objInformationProduct.descripcion = result[0].descripcion;
+      objInformationProduct.nombreCategoria = result[0].nombreCategoria;
+    }
+
+    return res.json(objInformationProduct);
+  });
+};
+
 
 exports.updateProduct = (req, res) => {
   const productId = req.params.id;

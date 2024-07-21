@@ -1,5 +1,3 @@
-<<<<<<< HEAD:Cliente/src/Estilos/CascosPagina.css
-=======
 /* estilos para los overoles y los cascos de las paginas */
 /* * {
     margin: 0;
@@ -14,25 +12,12 @@
     background-color: black;
 }
 
->>>>>>> ab265804fdb9b7ff0095a95fd6760f23a2381cad:Cliente/src/Estilos/CascosPagina.module.css
 .container {
     text-align: center;
     width: 98vmax;
     margin: auto;
     background-color: black; 
     padding: 20px; 
-<<<<<<< HEAD:Cliente/src/Estilos/CascosPagina.css
-}
-
-.carrusel{
-    width:95%;
-    margin-left: 2.5%;
-    display: flex;
-    gap: 50px;
-    flex-wrap: wrap;
-    margin-top: 100px;
-}
-=======
     height: 0%;
     margin-top: 5%;
     margin-bottom: 5%;
@@ -63,4 +48,3 @@
     margin: 20px 0; 
     
 }
->>>>>>> ab265804fdb9b7ff0095a95fd6760f23a2381cad:Cliente/src/Estilos/CascosPagina.module.css
