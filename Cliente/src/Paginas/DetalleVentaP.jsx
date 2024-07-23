@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../Componentes/NavBar.jsx";
 import "../Estilos/DetalleVentaP.module.css";
-import DetalleVenta from "../Componentes/DetalleVenta.jsx";
+import DetalleVenta from "../Componentes/DetalleVenta/DetalleVenta.jsx";
 import Footer from "../Componentes/Footer.jsx";
 export default function DetalleVentaP() {
 
