@@ -1,6 +1,8 @@
 .container{
     color: white;
-    margin-left: 70px;
+    width: 100%;
+    height: fit-content;
+    background-color: #1B1A1A;
 }
 
 .name{

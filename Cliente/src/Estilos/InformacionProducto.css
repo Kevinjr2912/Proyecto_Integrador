@@ -1,0 +1,36 @@
+.box_container_page{
+    background-color: #1B1A1A;
+    min-width: 98vw;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.product{
+    width: 80%;
+    margin-left: 10%;
+<<<<<<< HEAD:Cliente/src/Estilos/InformationProduct.css
+    margin-top: 150px;
+=======
+    margin-top: 100px;
+    
+>>>>>>> 6dcd462de3267c3bc639a50732e1ad085e9af9fa:Cliente/src/Estilos/InformacionProducto.css
+}
+
+.aboutProduct{
+    margin-top: 200px;
+    display: flex;
+
+}
+
+.information{
+    margin-left: 50px;
+    width: 65%;
+    height: 250px;
+
+}
+
+.descripcion{
+    margin-top: 50px;
+}
+
+

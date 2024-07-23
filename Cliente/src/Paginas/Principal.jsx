@@ -7,11 +7,11 @@ import ImageSlide from "../Componentes/ImagenSlide.jsx";
 import imagen_home from "../Imagenes/imagen_home.jpg";
 import "../Estilos/Home.css";
 import Footer from "../Componentes/Footer.jsx";
-import "../Estilos/Whats.css";
 import NewCarrusel from "../Componentes/NewCarrusel.jsx";
 import AboutUs from "../Componentes/AboutUs.jsx";
 import MasSobreMi from "../Componentes/MasSobreMi.jsx";
 
+import WhatsFlotante from "../Componentes/WhatsFlotante.jsx";
 export default function Home() {
   const seccionesNav = [
     {
@@ -49,6 +49,7 @@ export default function Home() {
         <i class="fa fa-whatsapp my-float "></i>
       </a>
        {/*rollo del whats flotante */}
+    <WhatsFlotante></WhatsFlotante>
 
       <div className="home">
         <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />

@@ -1,100 +1,53 @@
-import React from "react";
-import DataTable from "react-data-table-component";
-import styles from "../Estilos/DetalleVenta.module.css";
-import { text } from "@fortawesome/fontawesome-svg-core";
+import React, { useState } from 'react';
+import NavBar from "../Componentes/NavBar";
+import ImagenesReferencia from "../Componentes/ImagenesReferencia";
+import imagen_home from '../Imagenes/imagen_home.jpg';
+import '../Estilos/InformacionProducto.css';
+import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
+import AccionesProducto from "../Componentes/AccionesProducto";
 
-const columns = [
-  {
-    name: "Detalles",
-    selector: row => row.detalles
-  },
-  {
-    name: "Email",
-    selector: row => row.email,
-    sortable: true
-  },
-  {
-    name: "Fecha",
-    selector: row => row.fechaCompra,
-    sortable: true
-  },
-  {
-    name: "PrecioTotal",
-    selector: row => row.precioTotal,
-    sortable: true
-  },
-  {
-    name: "Recibo",
-    selector: row => row.recibo,
-  },
-  {
-    name: "Confirmar",
-    selector: row => row.confirmar
-  },
-  {
-    name: "Rechazar",
-    selector: row => row.rechazar
-  },
-  {
-    name: "Editar Estatus",
-    selector: row => row.editarEstatus
-  },
-];
+export default function InformationProduct({ agregarAlCarrito }) {
+    const [cantidad, setCantidad] = useState(1);
+    const producto = {
+        id: 1,
+        nombre: "Lorem ipsum dolor sit amet, consectetudijedienfbuc.",
+        precio: "$0.00 MXN",
+        img_principal: imagen_home
+    };
 
-const data = [
-  {
-    detalles: "no",
-    email: "owo",
-    fechaCompra: "owo",
-    precioTotal: 50,
-    recibo: "chi",
-    confirmar: "chi",
-    rechazar: "no",
-    editarEstatus: "wewe"
-  }
-];
+    const seccionesNav = [
+        { id: 0, nombre: "CONOCENOS" },
+        { id: 1, nombre: "OVEROLES" },
+        { id: 2, nombre: "CASCOS" },
+        { id: 3, nombre: "MIS ORDENES" }
+    ];
 
-const customStyles = {
-  rows: {
-    style: { 
-      
-      backgroundColor: '#1e1e1e',
-      color: '#ffffff',
-    }
-  },
-  headCells: {
-    style: {
-      backgroundColor: '#333333',
-      color: '#ffffff',
-    }
-  },
-  cells: {
-    style: {
-      backgroundColor: '#1e1e1e',
-      color: '#ffffff',
-    }
-  },
-  pagination: {
-    style: {
-      backgroundColor: '#1e1e1e',
-      color: '#ffffff',
-    }
-  }
-};
+    const manejarAgregarAlCarrito = () => {
+        agregarAlCarrito(producto, cantidad);
+        console.log(`Agregado ${cantidad} de ${producto.nombre} al carrito`);
+    };
 
-export default function DetalleVenta() {
-  return (
-    <>
-      <div className={styles["tabla-detalles_venta"]}>
-        <DataTable
-          columns={columns}
-          data={data}
-          customStyles={customStyles}
-          pagination
-          paginationPerPage={10}
-          fixedHeader
-        />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
+            <div className="box_container_page">
+                <div className="product">
+                    <div className="aboutProduct">
+                        <ImagenesReferencia
+                            img_principal={imagen_home}
+                            img1={imagen_home}
+                            img2={imagen_home}
+                            img3={imagen_home}
+                            img4={imagen_home}
+                        />
+                        <div className="information">
+                            <NombrePrecioProducto nombre={producto.nombre} precio={producto.precio} />
+                            <AccionesProducto cantidad={cantidad} setCantidad={setCantidad} />
+                            <button onClick={manejarAgregarAlCarrito}>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 }

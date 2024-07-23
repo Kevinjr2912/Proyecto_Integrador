@@ -10,12 +10,15 @@ import DetalleVentaP from './Paginas/DetalleVentaP';
 import MetodoPagoP from './Paginas/MetodoPagoP';
 import CarritoP from './Paginas/CarritoP';
 import Faqs from './Paginas/Faqs';
-
-
+import InformationProduct from './Paginas/InformacionProducto';
+import CascosPagina from './Paginas/CascosPagina';
+import OverolesPagina from "./Paginas/OverolesPagina"
 
 function App() {
   return (
     <>
+
+    
 
     <Router>
       <Routes>
@@ -29,8 +32,9 @@ function App() {
         <Route path='/metodoPago' element={<MetodoPagoP/>}/>
         <Route path='/carritoPago' element={<CarritoP/>}/>
         <Route path='/faqs' element={<Faqs/>}/>
-
-        
+        <Route path='/informacionProducto' element={<InformationProduct/>}/>
+        <Route path='/cascos' element={<CascosPagina/>}/>
+        <Route path='/overoles' element={<OverolesPagina/>}/>
 
       </Routes>
     </Router>
