@@ -41,7 +41,7 @@ const authenticateJWT = (req, res, next) => {
 
 //Configurar multer
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).array('imagen',5);
+const upload = multer({ storage: storage }).array("imagen", 5);
 
 // Ruta para agregar producto y subir imágenes
 exports.addProduct = (req, res) => {
@@ -52,9 +52,9 @@ exports.addProduct = (req, res) => {
       return res.status(404).json({ message: "Imagenes no recibidas" });
     }
 
-    const { nombre, precio, nombreCategoria, descripcion, id_equipo } = req.body;
-    
-    
+    const { nombre, precio, nombreCategoria, descripcion, id_equipo } =
+      req.body;
+
     let idCategoria = 0;
 
     if (nombreCategoria == "Overol") {
@@ -63,23 +63,35 @@ exports.addProduct = (req, res) => {
       idCategoria = 1;
     }
 
-    db.query("INSERT INTO Productos (nombre, precio, descripcion, id_equipo, id_categoria) VALUES (?, ?, ?, ?, ?)",[nombre, precio, descripcion, id_equipo , idCategoria],
+    db.query(
+      "INSERT INTO Productos (nombre, precio, descripcion, id_equipo, id_categoria) VALUES (?, ?, ?, ?, ?)",
+      [nombre, precio, descripcion, id_equipo, idCategoria],
       (err, result) => {
         if (err) {
-          return res.status(500).json({ message: "Error al agregar el producto" });
+          return res
+            .status(500)
+            .json({ message: "Error al agregar el producto" });
         }
 
         const idProducto = result.insertId;
-        const imageValues = files.map((file) => [idProducto,file.buffer]);
+        const imageValues = files.map((file) => [idProducto, file.buffer]);
 
-        db.query("INSERT INTO ImagenProducto (idProducto,imagen) VALUES ?",[imageValues],(err, result) => {
+        db.query(
+          "INSERT INTO ImagenProducto (idProducto,imagen) VALUES ?",
+          [imageValues],
+          (err, result) => {
             if (err) {
               console.log("Sucedio un error");
 
-              return res.status(500).json({message: "Error al agregar las imágenes del producto"});
-              
+              return res
+                .status(500)
+                .json({
+                  message: "Error al agregar las imágenes del producto",
+                });
             }
-            return res.status(201).json({ message: "Producto e imágenes agregadas exitosamente" });
+            return res
+              .status(201)
+              .json({ message: "Producto e imágenes agregadas exitosamente" });
           }
         );
       }
@@ -88,35 +100,43 @@ exports.addProduct = (req, res) => {
 };
 
 exports.getAllProducts = (req, res) => {
-  db.query('SELECT Productos.idProductos, Productos.nombre, Productos.precio, Productos.descripcion,Categoria.nombreCategoria, Equipo.nombre_equipo FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria INNER JOIN Equipo ON Productos.id_equipo = Equipo.idEquipo ', (err, result) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error al obtener los elementos'});
+  db.query(
+    "SELECT Productos.idProductos, Productos.nombre, Productos.precio, Productos.descripcion,Categoria.nombreCategoria, Equipo.nombre_equipo FROM Productos INNER JOIN Categoria ON Productos.id_categoria = Categoria.idCategoria INNER JOIN Equipo ON Productos.id_equipo = Equipo.idEquipo ",
+    (err, result) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ message: "Error al obtener los elementos" });
+      }
+      console.log(result);
+      return res.json(result);
     }
-    console.log(result);
-    return res.json(result);
-  });
-}
+  );
+};
 
 exports.getAllHelmets = (req, res) => {
-  db.query('SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo , MIN(IP.imagen) AS imagen FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto INNER JOIN Equipo E ON P.id_equipo = E.idEquipo WHERE P.id_categoria = 1 GROUP BY P.idProductos', (err, result) => {
-    if (err) {
-      return res.json({error: 'Error al obtener los cascos'});
+  db.query(
+    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo , MIN(IP.imagen) AS imagen FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto INNER JOIN Equipo E ON P.id_equipo = E.idEquipo WHERE P.id_categoria = 1 GROUP BY P.idProductos",
+    (err, result) => {
+      if (err) {
+        return res.json({ error: "Error al obtener los cascos" });
+      }
+
+      const products = result.map((product) => ({
+        idProducto: product.idProductos,
+        nombre: product.nombre,
+        precio: product.precio,
+        descripcion: product.descripcion,
+        nombreCategoria: product.nombreCategoria,
+        nombreEquipo: product.nombre_equipo,
+        imagen: product.imagen.toString("base64"),
+      }));
+
+      console.log(products);
+
+      res.json(products);
     }
-
-    const products = result.map(product => ({
-      idProducto: product.idProductos,
-      nombre: product.nombre,
-      precio: product.precio,
-      descripcion: product.descripcion,
-      nombreCategoria: product.nombreCategoria,
-      nombreEquipo: product.nombre_equipo,
-      imagen: product.imagen.toString('base64')
-    }));
-
-    console.log(products)
-
-    res.json(products);
-  });
+  );
 };
 
 exports.getInformationProduct = (req, res) => {
@@ -125,114 +145,138 @@ exports.getInformationProduct = (req, res) => {
   let objInformationProduct = {};
   let img = [];
 
-  db.query('SELECT IP.imagen FROM ImagenProducto IP WHERE IP.idProducto = ?', [idProducto], (err, result) => {
-    if (err) {
-      return res.json({ error: "Error al buscar las imagenes correspondientes del producto" });
+  db.query(
+    "SELECT IP.imagen FROM ImagenProducto IP WHERE IP.idProducto = ?",
+    [idProducto],
+    (err, result) => {
+      if (err) {
+        return res.json({
+          error: "Error al buscar las imagenes correspondientes del producto",
+        });
+      }
+
+      let images = result.map((img) => img.imagen.toString("base64"));
+
+      objInformationProduct.img1 = images[0];
+      objInformationProduct.img2 = images[1];
+      objInformationProduct.img3 = images[2];
     }
+  );
 
-    if (result.length > 0) {
-      img = result.map(img => img.imagen.toString('base64')); // Convertir el buffer a base64
+  db.query(
+    "SELECT P.nombre, P.precio, P.descripcion, C.nombreCategoria FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria WHERE P.idProductos = ?",
+    [idProducto],
+    (err, result) => {
+      if (err) {
+        return res.json({
+          error: "Error al obtener la información del producto",
+        });
+      }
+
+      if (result.length > 0) {
+        objInformationProduct.nombre = result[0].nombre;
+        objInformationProduct.precio = result[0].precio;
+        objInformationProduct.descripcion = result[0].descripcion;
+        objInformationProduct.nombreCategoria = result[0].nombreCategoria;
+      }
+
+      return res.json(objInformationProduct);
     }
-
-    objInformationProduct.img = img;
-  });
-
-  db.query('SELECT P.nombre, P.precio, P.descripcion, C.nombreCategoria FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria WHERE P.idProductos = ?', [idProducto], (err, result) => {
-    if (err) {
-      return res.json({ error: "Error al obtener la información del producto" });
-    }
-
-    if (result.length > 0) {
-      objInformationProduct.nombre = result[0].nombre;
-      objInformationProduct.precio = result[0].precio;
-      objInformationProduct.descripcion = result[0].descripcion;
-      objInformationProduct.nombreCategoria = result[0].nombreCategoria;
-    }
-
-    return res.json(objInformationProduct);
-  });
+  );
 };
-
 
 exports.updateProduct = (req, res) => {
   const productId = req.params.id;
   const productFront = req.body;
   const { nombre, precio, descripcion, equipo } = req.body;
 
-  db.query('SELECT * FROM Productos WHERE idProductos = ?', [productId], (err, result) => {
-    if (err) {
-      console.error("Error al obtener el producto:", err);
-      return res.status(500).json({ message: "Error al obtener el producto con el ID especificado" });
-    }
-
-    if (result.length === 0) {
-      return res.status(404).json({ message: "No se encontró ningún producto con el ID especificado"});
-    }
-
-    const product = result[0];
-    const updateProduct = {};
-
-    if (nombre != product.nombre) {
-      updateProduct.nombre = nombre;
-    }
-    if (precio != product.precio) {
-      updateProduct.precio = precio;
-    }
-    if (descripcion != product.descripcion) {
-      updateProduct.descripcion = descripcion;
-    }
-    if (equipo != product.equipo) {
-      updateProduct.equipo = equipo;
-    }
-
-    db.query(
-      "UPDATE Productos SET ? WHERE idProductos = ?",
-      [updateProduct, productId],
-      (err, result) => {
-        if (err) {
-          console.error("Error al actualizar el producto:", err);
-          return res.status(500).json({ message: "Error al modificar algún dato del producto" });
-        }
-        return res.status(200).json(productFront);
+  db.query(
+    "SELECT * FROM Productos WHERE idProductos = ?",
+    [productId],
+    (err, result) => {
+      if (err) {
+        console.error("Error al obtener el producto:", err);
+        return res
+          .status(500)
+          .json({
+            message: "Error al obtener el producto con el ID especificado",
+          });
       }
-    );
-  });
+
+      if (result.length === 0) {
+        return res
+          .status(404)
+          .json({
+            message: "No se encontró ningún producto con el ID especificado",
+          });
+      }
+
+      const product = result[0];
+      const updateProduct = {};
+
+      if (nombre != product.nombre) {
+        updateProduct.nombre = nombre;
+      }
+      if (precio != product.precio) {
+        updateProduct.precio = precio;
+      }
+      if (descripcion != product.descripcion) {
+        updateProduct.descripcion = descripcion;
+      }
+      if (equipo != product.equipo) {
+        updateProduct.equipo = equipo;
+      }
+
+      db.query(
+        "UPDATE Productos SET ? WHERE idProductos = ?",
+        [updateProduct, productId],
+        (err, result) => {
+          if (err) {
+            console.error("Error al actualizar el producto:", err);
+            return res
+              .status(500)
+              .json({ message: "Error al modificar algún dato del producto" });
+          }
+          return res.status(200).json(productFront);
+        }
+      );
+    }
+  );
 };
 
-
 exports.deleteProduct = (req, res) => {
-    const productId = req.params.id;
+  const productId = req.params.id;
 
-    console.log(productId);
+  console.log(productId);
 
-    db.query(
-      "DELETE FROM ImagenProducto WHERE idProducto = ?",
-      productId,
-      (err, result) => {
-        if (err) {
-          res
-            .status(500)
-            .send(
-              "Error al eliminar dichas imagenes relacionadas con el producto"
-            );
-          throw err;
-        }
-      }
-    );
-
-    db.query(
-      "DELETE FROM Productos WHERE idProductos = ?",
-      productId,
-      (err, result) => {
-        if (err) {
-          res.status(500).send("Error al eliminar dicho producto");
-        }
-
+  db.query(
+    "DELETE FROM ImagenProducto WHERE idProducto = ?",
+    productId,
+    (err, result) => {
+      if (err) {
         res
-          .status(200)
+          .status(500)
           .send(
-            "Producto eliminado de la base de datos así como sus respectivas imágenes"
+            "Error al eliminar dichas imagenes relacionadas con el producto"
           );
+        throw err;
       }
-    );
-  };
+    }
+  );
+
+  db.query(
+    "DELETE FROM Productos WHERE idProductos = ?",
+    productId,
+    (err, result) => {
+      if (err) {
+        res.status(500).send("Error al eliminar dicho producto");
+      }
+
+      res
+        .status(200)
+        .send(
+          "Producto eliminado de la base de datos así como sus respectivas imágenes"
+        );
+    }
+  );
+};
