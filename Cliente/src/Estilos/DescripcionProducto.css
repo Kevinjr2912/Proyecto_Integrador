@@ -1,13 +1,20 @@
-.contenedor{
-
+.contenedor {
     color: white;
-    width: 65%;
-    background-color: #1B1A1A;
-    margin-left: 3%;
+    width: 75%;
+    height: auto;
+    word-wrap: break-word;
+    margin-left: 20px;
+    margin-top: -7px;
 }
 
-.descripcion{
-    font-size: 15px;
+.descripcion {
+    font-size: 20px;
     font-weight: 700;
+    margin-bottom: 5px;
     text-align: justify;
+}
+
+.descripcionContenido {
+    font-size: 15px;
+    font-weight: 600;
 }

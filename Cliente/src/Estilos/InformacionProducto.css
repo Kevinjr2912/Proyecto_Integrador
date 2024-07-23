@@ -1,32 +1,28 @@
 .box_container_page{
-    background-color: #1B1A1A;
-    min-width: 98vw;
-    min-height: 100vh;
-    overflow: hidden;
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #1b1b1b;
 }
 
 .product{
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 100px;
-    
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 100px;
 }
 
 .aboutProduct{
-    margin-top: 200px;
-    display: flex;
+  margin-top: 200px;
+  display: flex;
 
 }
 
 .information{
-    margin-left: 50px;
-    width: 65%;
-    height: 250px;
-
+  margin-left: 50px;
+  width: 65%;
+  height: 250px;
 }
 
 .descripcion{
-    margin-top: 50px;
+  margin-top: 50px;
 }
-
-

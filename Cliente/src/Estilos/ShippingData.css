@@ -1,0 +1,92 @@
+.containerShippingData{
+    background-color: #282828;
+    width: 50vw;
+    height: 55vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.7vw;
+    border-radius: 1.3vw;
+    padding-left: 1.5vw;
+    padding-top: 2vw;
+}
+
+.referencias{
+    display: flex;
+    gap: 7vw;
+}
+
+.box_estado{
+    display: flex;
+    flex-direction: column;
+}
+
+.box_municipio{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-bottom: 0.5vw;
+    color: white;
+    font-weight: 500;
+    width: 8vw;
+    display: block;
+}
+
+input{
+    width: 20vw;
+    height: 5.2vh;
+    border: none;
+    border-radius: 0.5vw;
+    outline: none;
+}
+
+::placeholder{
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+}
+
+#colonias{
+    width: 20vw;
+    height: 5.2vh;
+    border-radius: 0.5vw;
+    border: none;
+}
+
+.referencia_cercana{
+    display: flex;
+    gap: 7vw;
+}
+
+.box_calle, .box_numeroExterior{
+    display: flex;
+    flex-direction: column;
+}
+
+#textReferencia{
+    width: 47vw;
+    min-height: 10vh;
+    padding: 0.5vw; 
+    box-sizing: border-box; 
+    line-height: 1.2;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.actionsData {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1vw;
+    margin-top: 2.3vw;
+    padding-right: 1.5vw;
+}
+
+.actionsData button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5vw;
+    padding: 0.5vw 1vw;
+    border: none;
+    cursor: pointer;
+}

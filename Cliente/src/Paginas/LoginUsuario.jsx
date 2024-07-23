@@ -29,7 +29,6 @@ export default function LoginPagina(){
          <NavBar
             seccionesNav={seccionesNav}
             esSeccionCliente={true}
-            titulo="Configuracion"
         ></NavBar>
 
         <Login/>

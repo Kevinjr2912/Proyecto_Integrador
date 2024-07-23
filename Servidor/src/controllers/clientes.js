@@ -41,8 +41,9 @@ const authenticateJWT = (req, res, next) => {
 //Loguearse
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password)
 
-  db.query("SELECT * FROM Cliente WHERE email = ?",[email],async (err, result) => {
+  db.query("SELECT email,password FROM CredencialAccesoCliente WHERE email = ?",[email],async (err, result) => {
       if (err) {
         res.status(500).send("Error en el servidor");
         throw err;
@@ -70,6 +71,7 @@ exports.login = async (req, res) => {
 //Agregar cliente como usuario al sistema
 exports.addCustomer = (req, res) => {
   const newCustomer = req.body;
+  console.log(newCustomer);
   
   // Hashear la contraseña antes de guardarla (bcrypt)
   bcrypt.hash(newCustomer.password, 10, (err, hash) => {
@@ -78,24 +80,35 @@ exports.addCustomer = (req, res) => {
       res.status(500).send("Error al hashear la contraseña");
       throw err;
     }
-
+  
     newCustomer.password = hash;
 
-    db.query('INSERT INTO Cliente SET ?', newCustomer ,
+    console.log(newCustomer.password);
+
+    db.query('INSERT INTO CredencialAccesoCliente (email,password) VALUES (?,?)', [newCustomer.email,newCustomer.password] ,
       (err, result) => {
         if (err) {
           console.log(err);
-          res.status(500).send("Error al agregar el usuario");
-          throw err;
+          return res.status(500).send("Error al agregar credenciales de acceso del cliente");
         }
-        res.status(201).send("Usuario agregado correctamente");
-      }
+  
+        const idCredencialCliente = result.insertId;
+        console.log(idCredencialCliente)
+
+        db.query('INSERT INTO Cliente (primer_nombre, segundo_nombre,apellido_paterno,apellido_materno,id_credencial_cliente) VALUES (?,?,?,?,?)',[newCustomer.primerNombre,newCustomer.segundoNombre,newCustomer.apellidoPaterno,newCustomer.apellidoMaterno,idCredencialCliente],(err,result)=>{
+          if(err){
+            return res.status(500).json({message:"Error al insertar datos del cliente"})
+          }
+
+          return res.status(200).json({message: "Datos del cliente y sus credenciales de acceso agregados exitosamente"});
+        }
+      )}
     );
   });
 };
 
 //Obtener todos los clientes
-exports.allCustomers = (req, res) => {
+exports.allCustomers = [authenticateJWT,(req, res) => {
   db.query('SELECT * FROM Cliente', (err, result) => {
     if (err) {
       res.status(500).send('Error al obtener los usuarios');
@@ -103,5 +116,5 @@ exports.allCustomers = (req, res) => {
     }
     res.json(result);
   });
-};
+}];
 
