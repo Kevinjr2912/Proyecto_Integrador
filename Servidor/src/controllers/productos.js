@@ -164,7 +164,7 @@ exports.getInformationProduct = (req, res) => {
   );
 
   db.query(
-    "SELECT P.nombre, P.precio, P.descripcion, C.nombreCategoria FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria WHERE P.idProductos = ?",
+    "SELECT P.nombre,P.idProductos, P.precio, P.descripcion, C.nombreCategoria FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria WHERE P.idProductos = ?",
     [idProducto],
     (err, result) => {
       if (err) {
@@ -174,6 +174,7 @@ exports.getInformationProduct = (req, res) => {
       }
 
       if (result.length > 0) {
+        objInformationProduct.idProducto = result[0].idProductos;
         objInformationProduct.nombre = result[0].nombre;
         objInformationProduct.precio = result[0].precio;
         objInformationProduct.descripcion = result[0].descripcion;

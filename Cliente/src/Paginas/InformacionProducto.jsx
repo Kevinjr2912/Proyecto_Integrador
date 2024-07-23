@@ -36,6 +36,7 @@ export default function InformationProduct() {
         );
         const data = await response.json();
         setProducto(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -44,35 +45,61 @@ export default function InformationProduct() {
     fetchProduct();
   }, [idProducto]);
 
-  const agregarAlCarrito = (nuevoProducto) => {
-    setCarrito((prevCarrito) => {
-      const productoExistente = prevCarrito.find(
-        (item) => item.nombre === nuevoProducto.nombre
-      );
-
-      let carritoActualizado;
-
-      if (productoExistente) {
-        carritoActualizado = prevCarrito.map((item) =>
-          item.nombre === nuevoProducto.nombre
-            ? { ...item, cantidad: item.cantidad + nuevoProducto.cantidad }
-            : item
-        );
-      } else {
-        carritoActualizado = [...prevCarrito, nuevoProducto];
-      }
-
-      // Mostrar alerta
-      Swal.fire({
-        title: "Producto agregado",
-        text: `Has agregado ${nuevoProducto.nombre} al carrito.`,
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
+  const agregarAlCarrito = async (nuevoProducto) => {
+    console.log(nuevoProducto);
+    
+    try {
+      const response = await fetch('http://localhost:3000/cars/addProductToCar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          idProducto: nuevoProducto.idProducto,
+          cantidad: nuevoProducto.cantidad,
+          idCliente: 12,
+        }),
       });
 
-      return carritoActualizado;
-    });
+      if (!response.ok) {
+        throw new Error('Error al agregar el producto al carrito');
+      }
+
+      setCarrito((prevCarrito) => {
+        const productoExistente = prevCarrito.find(
+          (item) => item.nombre === nuevoProducto.nombre
+        );
+
+        let carritoActualizado;
+
+        if (productoExistente) {
+          carritoActualizado = prevCarrito.map((item) =>
+            item.nombre === nuevoProducto.nombre
+              ? { ...item, cantidad: item.cantidad + nuevoProducto.cantidad }
+              : item
+          );
+        } else {
+          carritoActualizado = [...prevCarrito, nuevoProducto];
+        }
+
+        Swal.fire({
+          title: "Producto agregado",
+          text: `Has agregado ${nuevoProducto.nombre} al carrito.`,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        return carritoActualizado;
+      });
+    } catch (error) {
+      console.error('Error al agregar el producto al carrito:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema al agregar el producto al carrito.',
+        icon: 'error',
+      });
+    }
   };
 
   const quitarDelCarrito = (producto) => {
