@@ -40,16 +40,25 @@ import styles from '../../Estilos/Carrito.module.css';
 export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelCarrito }) {
   const [cantidad, setCantidad] = useState(producto.cantidad);
 
-  const incrementarCantidad = () => setCantidad(cantidad + 1);
+  const incrementarCantidad = () => {
+    setCantidad(cantidad + 1);
+    agregarAlCarrito({ ...producto, cantidad: 1 });
+  };
+
   const disminuirCantidad = () => {
     if (cantidad > 1) {
       setCantidad(cantidad - 1);
+      agregarAlCarrito({ ...producto, cantidad: -1 });
     }
+  };
+
+  const eliminarProducto = () => {
+    quitarDelCarrito(producto);
   };
 
   return (
     <div className={styles.producto}>
-      <img src={producto.img_principal} alt={producto.nombre} className={styles.imagen} />
+      <img src={`data:image/jpeg;base64,${producto.img1}`} alt={producto.nombre} className={styles.imagen} />
       <div className={styles.detalles}>
         <h4>{producto.nombre}</h4>
         <p>Precio: <span className={styles.precio}>{producto.precio}</span></p>
@@ -58,8 +67,7 @@ export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelC
           <span>{cantidad}</span>
           <button onClick={incrementarCantidad}>+</button>
         </div>
-        <button onClick={() => agregarAlCarrito(producto, cantidad)}>Agregar</button>
-        <button onClick={() => quitarDelCarrito(producto)}>Eliminar</button>
+        <button onClick={eliminarProducto}>Eliminar</button>
       </div>
     </div>
   );

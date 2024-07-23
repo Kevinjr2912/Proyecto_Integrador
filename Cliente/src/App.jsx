@@ -28,7 +28,7 @@ function App() {
         <Route path="/metodoPago" element={<MetodoPagoP />} />
         <Route path="/carritoPago" element={<CarritoP />} />
         <Route path="/faqs" element={<Faqs />} />
-        <Route path="/informacionProducto/:id" element={<InformationProduct />} />
+        <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />
         <Route path="/cascos" element={<CascosPagina />} />
         <Route path="/overoles" element={<OverolesPagina />} />
       </Routes>

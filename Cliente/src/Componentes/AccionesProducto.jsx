@@ -6,13 +6,11 @@ export default function AccionesProducto({ producto, onAddToCart }) {
 
     function handleClick() {
         setCount(count + 1);
-        console.log(`sumando: ${count + 1}`);
-    }
+   }
 
     function amountRest() {
         if (count > 1) {
             setCount(count - 1);
-            console.log(`restandio: ${count - 1}`);
         }
     }
 
