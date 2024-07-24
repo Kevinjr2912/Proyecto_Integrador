@@ -13,6 +13,7 @@ import Faqs from './Paginas/Faqs';
 import InformationProduct from './Paginas/InformacionProducto';
 import CascosPagina from './Paginas/CascosPagina';
 import OverolesPagina from "./Paginas/OverolesPagina";
+import MetodoEnvioP from './Paginas/MetodoEnvioP';
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
         <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />
         <Route path="/cascos" element={<CascosPagina />} />
         <Route path="/overoles" element={<OverolesPagina />} />
+        <Route path="/metodoEnvio" element={<MetodoEnvioP />} />
+        
       </Routes>
     </Router>
   );
