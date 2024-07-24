@@ -40,34 +40,139 @@ const authenticateJWT = (req, res, next) => {
 };
 
 exports.addCar = (req, res) => {
-    const {idCliente,idProducto,cantidad} = req.body;
-    console.log(req.body);
+  const { idCliente, idProducto, cantidad } = req.body;
+  console.log(req.body);
+  db.query(
+    "SELECT idCarrito FROM Carrito WHERE idCliente = ? ",
+    [idCliente],
+    (err, result) => {
+      if (err) {
+        return res.json({ error: "Error al buscar dicho idCliente" });
+      }
 
-    db.query('INSERT INTO Carrito (idCliente) VALUES (?)',[idCliente],(err,result) => {
-        if(err){
-            return res.json({error: "Error al insertar el idCliente en el carrrito"});
-        }
-
-        const idCarrito = result.insertId;
-
-        console.log("Este es el id del carrito insertado "  + idCarrito);
-
-        db.query('INSERT INTO CarritoProducto (cantidad,idCarrito,idProductos) VALUES (?,?,?)',[cantidad,idCarrito,idProducto],(err,result) => {
-            if(err){
-                return res.json({error: "Error al insertar ciertos datos en la tabla "});
+      if (result.length == 0) {
+        console.log("No existe un idCliente con ese valor");
+        db.query(
+          "INSERT INTO Carrito (idCliente) VALUES (?)",
+          [idCliente],
+          (err, result) => {
+            if (err) {
+              return res.json({
+                error: "Error al insertar el idCliente en el carrrito",
+              });
             }
 
-            return res.json({message: "Producto agregado exitosamente"})
-        })
-    });
+            const idCarNew = result.insertId;
+
+            console.log("Este es el id del carrito insertado " + idCarNew);
+
+            db.query(
+              "INSERT INTO CarritoProducto (cantidad,idCarrito,idProductos) VALUES (?,?,?)",
+              [cantidad, idCarNew, idProducto],
+              (err, result) => {
+                if (err) {
+                  return res.json({
+                    error: "Error al insertar ciertos datos en la tabla ",
+                  });
+                }
+
+                return res.json({ message: "Producto agregado exitosamente" });
+              }
+            );
+          }
+        );
+      } else {
+        console.log("Ya existe un idCarrito para ese cliente");
+
+        const idCarCustomer = result[0].idCarrito;
+
+        console.log(
+          "Id del carrito " +
+            idCarCustomer +
+            " del cliente con el id " +
+            idCliente
+        );
+
+        db.query('SELECT IdProductos,cantidad FROM CarritoProducto WHERE IdProductos = ? AND idCarrito = ?',[idProducto,idCarCustomer],(err,result)=>{
+          if(err){
+            return res.json({error: "Error al buscar dicho idProducto"});
+          }
+
+          if(result.length == 0){
+            db.query(
+              "INSERT INTO CarritoProducto (cantidad,idCarrito,idProductos) VALUES (?,?,?)",
+              [cantidad, idCarCustomer, idProducto],
+              (err, result) => {
+                if (err) {
+                  return res.json({
+                    error: "Error al insertar ciertos datos en la tabla ",
+                  });
+                }
+    
+                return res.json({ message: "Producto agregado exitosamente" });
+              }
+            );
+          }else{
+            console.log(result[0].cantidad);
+            const newAmount = cantidad  + result[0].cantidad;
+            console.log("nueva cantidad " + newAmount);
+
+            db.query(
+              "UPDATE CarritoProducto SET cantidad = ? WHERE idCarrito = ? AND idProductos = ?",
+              [newAmount, idCarCustomer, idProducto],
+              (err, result) => {
+                if (err) {
+                  console.error("Error al actualizar la cantidad del producto:", err);
+                  return res.json({ message: "Error al modificar la cantidad del producto" });
+                }
+                console.log("Producto agregado exitosamente");
+                return res.json({ message: "Producto agregado exitosamente" });
+              }
+            );
+          }
+
+        });
+        
+      }
+    }
+  );
 };
 
-exports.getProductCar = (req,res) => {
-    const {idCliente} = req.body;
+exports.getProductCar = (req, res) => {
+  const { idCliente } = req.body;
+  let productCar = {};
 
-    db.query('SELECT Carrito.idCarrito FROM Carrito WHERE Carrito.idCliente = ?',[idCliente],(err,result)=>{
-        if(err){
-            return res.json({error: "Error al obtener los productos contenidos en el carrito de cierto cliente"})
+  db.query('SELECT idCarrito FROM Carrito WHERE idCliente = ?',[idCliente],(err,result)=>{
+    if(err){
+      return res.json({error: "Error al buscar dicho idCarrito"});
+    }
+
+    const idCarrito = result[0].idCarrito;
+
+    db.query(
+      "SELECT CP.cantidad,P.idProductos,P.nombre,P.precio FROM Productos P INNER JOIN CarritoProducto CP ON P.idProductos = CP.idProductos WHERE CP.idCarrito = ?",
+      [idCarrito],
+      (err, result) => {
+        if (err) {
+          return res.json({
+            error:
+              "Error al obtener los productos contenidos en el carrito de cierto cliente",
+          });
         }
-    })
+
+        const idProduct = result[0].idProductos;
+
+        db.query("SELECT imagen FROM ImagenProducto WHERE idProducto = ? LIMIT 1",[idProduct],(err,result)=>{
+          if(err){
+            return res.json({error: "Error al cargar los elementos"});
+          }
+
+          
+        })
+      }
+    );
+    
+  });
+
+  
 };
