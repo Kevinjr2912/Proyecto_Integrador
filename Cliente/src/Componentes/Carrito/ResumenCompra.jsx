@@ -11,7 +11,7 @@ export default function ResumenCompra({ productos, total }) {
       </div>
       <div className={styles.detalle}>
         <span>Total</span>
-        <span>{total}</span>
+        <span>{`$${total} MXN`}</span>
       </div>
       <button className={styles.continuarComprando}>Pagar</button>
     </div>

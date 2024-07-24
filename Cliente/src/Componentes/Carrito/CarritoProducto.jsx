@@ -22,13 +22,13 @@ export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelC
 
   return (
     <div className={styles.producto}>
-      <img src={`data:image/jpeg;base64,${producto.img1}`} alt={producto.nombre} className={styles.imagen} />
+      <img src={`data:image/jpeg;base64,${producto.imagen}`} alt={producto.nombre} className={styles.imagen} />
       <div className={styles.detalles}>
         <h4>{producto.nombre}</h4>
         <p>Precio: <span className={styles.precio}>{producto.precio}</span></p>
         <div className={styles.cantidad}>
           <button onClick={disminuirCantidad}>-</button>
-          <span>{cantidad}</span>
+          <span>{producto.cantidad}</span>
           <button onClick={incrementarCantidad}>+</button>
         </div>
         <button onClick={eliminarProducto}>Eliminar</button>

@@ -1,40 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CarritoProducto from '../Componentes/Carrito/CarritoProducto';
 import ResumenCompra from '../Componentes/Carrito/ResumenCompra';
 import styles from '../Estilos/Carrito.module.css';
 import Swal from 'sweetalert2';
 
 export default function CarritoP() {
-  // // Asegúrate de que productos sea un array válido
-  // const productosArray = Array.isArray(productos) ? productos : [];
-
-  // // Calcula el total de productos
-  // const totalProductos = productosArray.reduce(
-  //   (total, producto) => total + (producto.cantidad || 0),
-  //   0
-  // );
-
-  // // Calcula el total de precio
-  // const totalPrecio = productosArray.reduce(
-  //   (total, producto) => {
-  //     // Asegúrate de que el precio sea un número válido
-  //     const precio = parseFloat(String(producto.precio).replace("$", "").replace("MXN", "").trim());
-  //     return total + (producto.cantidad || 0) * (isNaN(precio) ? 0 : precio);
-  //   },
-  //   0
-  // );
+  const [dataProducts, setDataProducts] = useState([]);
+  const [purchaseSummary,setPurchaseSummary] = useState([]);
 
   const cargarProductosCarrito = async () => {
-    try{
-      const response = await fetch('',{
-        
-      })
-    }catch(err){
+    try {
+      const [response1, response2] = await Promise.all([
+        fetch(`http://localhost:3000/cars/getProductsCar/12`),
+        fetch(`http://localhost:3000/cars/getPurchaseSummary/12`),
+      ]);
+
+      if (response1.ok && response2.ok) {
+        const data1 = await response1.json();
+        setDataProducts(data1);
+
+        const data2 = await response2.json();
+        console.log(data2);
+        setPurchaseSummary(data2);
+      }
+
+    } catch (err) {
       console.log("Error al enviar la petición al servidor");
     }
-  }
+  };
 
-  useEffect(cargarProductosCarrito);
+  useEffect(() => {
+    cargarProductosCarrito();
+  }, []);
 
   const handleQuitarDelCarrito = (producto) => {
     Swal.fire({
@@ -49,34 +46,45 @@ export default function CarritoP() {
         quitarDelCarrito(producto);
         Swal.fire(
           'Eliminado',
-          `${producto.nombre} ha sido eliminado del carrito.`,
+          `${producto.nombre} ha sido eliminado del carrito`,
           'success'
         );
       }
     });
   };
 
+  const agregarAlCarrito = (producto) => {
+    console.log("Agregar al carrito:", producto);
+  };
+
+  const quitarDelCarrito = (producto) => {
+    console.log("Eliminar del carrito:", producto);
+  };
+
   return (
     <div className={styles.carrito}>
       <h2>Carrito de Compras</h2>
       <div className={styles.productos}>
-        {productosArray.length > 0 ? (
-          productosArray.map((producto, index) => (
-            <CarritoProducto
-              key={index}
-              producto={producto}
-              agregarAlCarrito={agregarAlCarrito}
-              quitarDelCarrito={handleQuitarDelCarrito}
-            />
-          ))
-        ) : (
-          <p>No hay productos en el carrito.</p>
-        )}
+        {
+          dataProducts.length > 0 ? (
+            dataProducts.map((producto) => (
+              <CarritoProducto
+                key={producto.idProducto}
+                producto={producto}
+                agregarAlCarrito={agregarAlCarrito}
+                quitarDelCarrito={handleQuitarDelCarrito}
+              />
+            ))
+          ) : (<p>No hay productos en el carrito.</p>)
+        }
       </div>
-      <ResumenCompra
-        productos={totalProductos}
-        total={`$${totalPrecio.toFixed(2)} MXN`}
+      <ResumenCompra 
+        productos={purchaseSummary.cantidad} 
+        total={purchaseSummary.precioTotal} 
       />
+
     </div>
   );
 }
+
+// total=

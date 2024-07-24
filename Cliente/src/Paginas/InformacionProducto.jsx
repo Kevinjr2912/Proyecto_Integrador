@@ -83,7 +83,7 @@ export default function InformationProduct() {
 
         Swal.fire({
           title: "Producto agregado",
-          text: `Has agregado ${nuevoProducto.nombre} al carrito.`,
+          text:'Has agregado un producto al carrito',
           icon: "success",
           showConfirmButton: false,
           timer: 1500,
