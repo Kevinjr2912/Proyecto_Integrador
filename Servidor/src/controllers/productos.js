@@ -124,7 +124,7 @@ exports.getAllHelmets = (req, res) => {
 
       const products = result.map((product) => ({
         idProducto: product.idProductos,
-        nombre: product.nombre,
+        nombre: product.nombre, 
         precio: product.precio,
         descripcion: product.descripcion,
         nombreCategoria: product.nombreCategoria,
