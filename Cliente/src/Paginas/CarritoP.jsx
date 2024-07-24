@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CarritoProducto from '../Componentes/Carrito/CarritoProducto';
 import ResumenCompra from '../Componentes/Carrito/ResumenCompra';
 import styles from '../Estilos/Carrito.module.css';
 import Swal from 'sweetalert2';
 
-export default function CarritoP({
-  productos = [],
-  agregarAlCarrito,
-  quitarDelCarrito,
-}) {
-  // Asegúrate de que productos sea un array válido
-  const productosArray = Array.isArray(productos) ? productos : [];
+export default function CarritoP() {
+  // // Asegúrate de que productos sea un array válido
+  // const productosArray = Array.isArray(productos) ? productos : [];
 
-  // Calcula el total de productos
-  const totalProductos = productosArray.reduce(
-    (total, producto) => total + (producto.cantidad || 0),
-    0
-  );
+  // // Calcula el total de productos
+  // const totalProductos = productosArray.reduce(
+  //   (total, producto) => total + (producto.cantidad || 0),
+  //   0
+  // );
 
-  // Calcula el total de precio
-  const totalPrecio = productosArray.reduce(
-    (total, producto) => {
-      // Asegúrate de que el precio sea un número válido
-      const precio = parseFloat(String(producto.precio).replace("$", "").replace("MXN", "").trim());
-      return total + (producto.cantidad || 0) * (isNaN(precio) ? 0 : precio);
-    },
-    0
-  );
+  // // Calcula el total de precio
+  // const totalPrecio = productosArray.reduce(
+  //   (total, producto) => {
+  //     // Asegúrate de que el precio sea un número válido
+  //     const precio = parseFloat(String(producto.precio).replace("$", "").replace("MXN", "").trim());
+  //     return total + (producto.cantidad || 0) * (isNaN(precio) ? 0 : precio);
+  //   },
+  //   0
+  // );
 
-  // Función para quitar un producto del carrito
+  const cargarProductosCarrito = async () => {
+    try{
+      const response = await fetch('',{
+        
+      })
+    }catch(err){
+      console.log("Error al enviar la petición al servidor");
+    }
+  }
+
+  useEffect(cargarProductosCarrito);
+
   const handleQuitarDelCarrito = (producto) => {
     Swal.fire({
       title: '¿Estás seguro?',

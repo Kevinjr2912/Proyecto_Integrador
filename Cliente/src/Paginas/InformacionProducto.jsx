@@ -7,7 +7,6 @@ import DescripcionProducto from "../Componentes/DescripcionProducto";
 import Reseñas from "../Componentes/Reseñas";
 import ImagenesReferencia from "../Componentes/ImagenesReferencia";
 import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
-import CarritoP from "../Paginas/CarritoP";
 import tallaReferenciaCascos from "../Imagenes/tallaReferenciaCascos.jpg";
 import tallaReferenciaOveroles from "../Imagenes/tallaReferenciaOveroles.webp";
 import Swal from "sweetalert2";
@@ -152,11 +151,6 @@ export default function InformationProduct() {
           <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} />
         </div>
       </div>
-      <CarritoP
-        productos={carrito}
-        agregarAlCarrito={agregarAlCarrito}
-        quitarDelCarrito={quitarDelCarrito}
-      />
     </>
   );
 }
