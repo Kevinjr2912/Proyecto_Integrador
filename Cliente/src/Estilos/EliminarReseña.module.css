@@ -1,0 +1,25 @@
+.eliminarReseña {
+    margin-top: 10px;
+    padding: 10px;
+ 
+
+    border-radius: 5px;
+  }
+  
+  .deleteButton {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  .cancelButton {
+    padding: 10px 20px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+  }
+  

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styles from "../Estilos/Reseñas.module.css";
+import EditarReseña from "./Reseñas/EditarReseña";
+import EliminarReseña from "./Reseñas/EliminarReseña";
 
 export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
   const [activeTab, setActiveTab] = useState("Evaluacion");
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [editIndex, setEditIndex] = useState(null);
-  const [editedReview, setEditedReview] = useState("");
-  const [editedRating, setEditedRating] = useState(0);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   const handleRatingClick = (calificacion) => {
     setRating(calificacion);
@@ -15,14 +16,6 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
 
   const handleReviewChange = (e) => {
     setReview(e.target.value);
-  };
-
-  const handleEditedReviewChange = (e) => {
-    setEditedReview(e.target.value);
-  };
-
-  const handleEditedRatingChange = (calificacion) => {
-    setEditedRating(calificacion);
   };
 
   const handleSendReview = async () => {
@@ -33,8 +26,6 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
         puntuacion: rating
       };
   
-      console.log(objResena);
-  
       try {
         const response = await fetch("http://localhost:3000/resenas/addResena", {
           method: 'POST',
@@ -43,22 +34,17 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
           },
           body: JSON.stringify(objResena)
         });
-  
-        console.log(response);
         
         if (response.ok) {
           const result = await response.json();
-          console.log('Reseña agregada exitosamente:', result);
           alert('Reseña agregada exitosamente');
           setRating(0);
           setReview("");
           agregarReseña({ comentario: review, puntuacion: rating });
         } else {
-          console.log('Error al agregar reseña:', response.statusText);
           alert('Error al agregar reseña');
         }
       } catch (error) {
-        console.log('Error de red:', error);
         alert('Error de red');
       }
     } else {
@@ -66,19 +52,18 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
     }
   };
 
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    setEditedReview(reseñas[index].comentario);
-    setEditedRating(reseñas[index].puntuacion);
-  };
-
-  const handleDelete = (index) => {
-    // Lógica para eliminar reseña
-  };
-
-  const handleSaveEdit = () => {
+  const handleSaveEdit = (editedReseña) => {
     // Lógica para guardar la reseña editada
+    // Puedes agregar la lógica para actualizar la reseña en el servidor aquí.
+    reseñas[editIndex] = editedReseña;
     setEditIndex(null);
+  };
+
+  const handleDelete = () => {
+    // Lógica para eliminar la reseña
+    // Puedes agregar la lógica para eliminar la reseña en el servidor aquí.
+    reseñas.splice(deleteIndex, 1);
+    setDeleteIndex(null);
   };
 
   return (
@@ -130,33 +115,23 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
                 <div className={styles.reseñaHeader}>
                   <p className={styles.rating}>Rating: {reseña.puntuacion}</p>
                   <div className={styles.actions}>
-                    <button onClick={() => handleEdit(index)}>Editar</button>
-                    <button onClick={() => handleDelete(index)}>Eliminar</button>
+                    <button onClick={() => setEditIndex(index)}>Editar</button>
+                    <button onClick={() => setDeleteIndex(index)}>Eliminar</button>
                   </div>
                 </div>
                 <p className={styles.comentario}>Comentario: {reseña.comentario}</p>
                 {editIndex === index && (
-                  <div>
-                    <textarea
-                      className={styles.textArea}
-                      value={editedReview}
-                      onChange={handleEditedReviewChange}
-                    />
-                    <div className={styles.starContainer}>
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <span
-                          key={star}
-                          className={`${styles.estrella} ${editedRating >= star ? styles.selected : ""}`}
-                          onClick={() => handleEditedRatingChange(star)}
-                        >
-                          ★
-                        </span>
-                      ))}
-                    </div>
-                    <button className={styles.saveButton} onClick={handleSaveEdit}>
-                      Guardar
-                    </button>
-                  </div>
+                  <EditarReseña
+                    reseña={reseña}
+                    onSave={handleSaveEdit}
+                    onCancel={() => setEditIndex(null)}
+                  />
+                )}
+                {deleteIndex === index && (
+                  <EliminarReseña
+                    onDelete={handleDelete}
+                    onCancel={() => setDeleteIndex(null)}
+                  />
                 )}
               </div>
             ))
