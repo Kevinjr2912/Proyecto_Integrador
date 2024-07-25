@@ -5,7 +5,6 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const { error } = require("console");
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
