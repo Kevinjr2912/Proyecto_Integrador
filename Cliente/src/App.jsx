@@ -32,7 +32,8 @@ function App() {
         <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />
         <Route path="/cascos" element={<CascosPagina />} />
         <Route path="/overoles" element={<OverolesPagina />} />
-        <Route path="/metodoEnvio" element={<MetodoEnvioP />} />
+        <Route path="/metodoEnvio" element={<MetodoEnvioP />} />7
+        
         
       </Routes>
     </Router>
