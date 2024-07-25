@@ -8,6 +8,24 @@ export default function ListaReseñas({ reseñas, setReseñas }) {
   const [deleteIndex, setDeleteIndex] = useState(null);
 
 
+        // ANDRE ESTO ES LO QUE TU ME PASASTE EN TU CODIGO Y LOS QUE ANDO USANDO SON LOS QUE TENIAN 
+        // ANTERIORMETE EN EÑ DE INFOTMACION PRODUCTO
+        
+//   const handleSaveEdit = (editedReseña) => {
+//     setReseñas(prevReseñas =>
+//       prevReseñas.map((reseña, index) =>
+//         index === editIndex ? editedReseña : reseña
+//       )
+//     );
+//     setEditIndex(null);
+//   };
+
+//   const handleDelete = () => {
+//     setReseñas(prevReseñas =>
+//       prevReseñas.filter((_, index) => index !== deleteIndex)
+//     );
+//     setDeleteIndex(null);
+//   };
 
   const handleSaveEdit = (editedReseña) => {
     // Lógica para guardar la reseña editada
