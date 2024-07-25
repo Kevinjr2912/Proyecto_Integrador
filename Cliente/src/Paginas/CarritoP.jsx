@@ -1,12 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import CarritoProducto from '../Componentes/Carrito/CarritoProducto';
-import ResumenCompra from '../Componentes/Carrito/ResumenCompra';
-import styles from '../Estilos/Carrito.module.css';
-import Swal from 'sweetalert2';
-
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import CarritoProducto from "../Componentes/Carrito/CarritoProducto";
+import ResumenCompra from "../Componentes/Carrito/ResumenCompra";
+import MetodoEnvioP from "./MetodoEnvioP";
+import styles from "../Estilos/Carrito.module.css";
+import Swal from "sweetalert2";
+import NavBar from "../Componentes/NavBar";
+import WhatsFlotante from "../Componentes/WhatsFlotante";
+import Footer from "../Componentes/Footer";
 export default function CarritoP() {
+  const seccionesNav = [
+    {
+      id: 0,
+      nombre: "CONOCENOS",
+    },
+    {
+      id: 1,
+      nombre: "OVEROLES",
+    },
+    {
+      id: 2,
+      nombre: "CASCOS",
+    },
+    {
+      id: 3,
+      nombre: "MIS ORDENES",
+    },
+  ];
+
   const [dataProducts, setDataProducts] = useState([]);
-  const [purchaseSummary,setPurchaseSummary] = useState([]);
+  const [purchaseSummary, setPurchaseSummary] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const cargarProductosCarrito = async () => {
     try {
@@ -23,7 +48,6 @@ export default function CarritoP() {
         console.log(data2);
         setPurchaseSummary(data2);
       }
-
     } catch (err) {
       console.log("Error al enviar la petición al servidor");
     }
@@ -35,19 +59,19 @@ export default function CarritoP() {
 
   const handleQuitarDelCarrito = (producto) => {
     Swal.fire({
-      title: '¿Estás seguro?',
+      title: "¿Estás seguro?",
       text: `Eliminar ${producto.nombre} del carrito`,
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         quitarDelCarrito(producto);
         Swal.fire(
-          'Eliminado',
+          "Eliminado",
           `${producto.nombre} ha sido eliminado del carrito`,
-          'success'
+          "success"
         );
       }
     });
@@ -62,29 +86,38 @@ export default function CarritoP() {
   };
 
   return (
-    <div className={styles.carrito}>
-      <h2>Carrito de Compras</h2>
-      <div className={styles.productos}>
-        {
-          dataProducts.length > 0 ? (
-            dataProducts.map((producto) => (
-              <CarritoProducto
-                key={producto.idProducto}
-                producto={producto}
-                agregarAlCarrito={agregarAlCarrito}
-                quitarDelCarrito={handleQuitarDelCarrito}
-              />
-            ))
-          ) : (<p>No hay productos en el carrito.</p>)
-        }
-      </div>
-      <ResumenCompra 
-        productos={purchaseSummary.cantidad} 
-        total={purchaseSummary.precioTotal} 
-      />
+    <>
+      <WhatsFlotante></WhatsFlotante>
+      <NavBar seccionesNav={seccionesNav} esSeccionCliente={true}></NavBar>
 
-    </div>
+      <div className={styles.carrito}>
+        {location.pathname === "/carritoPago/metodoEnvio" ? (
+          <MetodoEnvioP />
+        ) : (
+          <sdsdsdsds>
+            <h2>Carrito de Compras</h2>
+            <div className={styles.productos}>
+              {dataProducts.length > 0 ? (
+                dataProducts.map((producto) => (
+                  <CarritoProducto
+                    key={producto.idProducto}
+                    producto={producto}
+                    agregarAlCarrito={agregarAlCarrito}
+                    quitarDelCarrito={handleQuitarDelCarrito}
+                  />
+                ))
+              ) : (
+                <p>No hay productos en el carrito.</p>
+              )}
+            </div>
+            <ResumenCompra
+              productos={purchaseSummary.cantidad}
+              total={purchaseSummary.precioTotal}
+            />
+          </sdsdsdsds>
+        )}
+      </div>
+      <Footer></Footer>
+    </>
   );
 }
-
-// total=

@@ -26,6 +26,10 @@
     gap: 30px;
     margin-right: 30px;
 }
+
+.carrito{
+margin-top: 5%;
+}
   
   .nav_iconos img {
     cursor: pointer;

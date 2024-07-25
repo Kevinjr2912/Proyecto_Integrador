@@ -1,8 +1,14 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../Estilos/HomeAdmin.css";
 
 export default function HomeAdmin() {
   const navigate = useNavigate();
+
+  const handleGestionarProductosClick = () => {
+    navigate('/gestionarProductosP');
+  };
+
   return (
     <>
       <div className="main-container">
@@ -13,7 +19,7 @@ export default function HomeAdmin() {
             <button className="sign-off" onClick={() => { navigate('/'); }}>Cerrar sesión</button>
           </div>
           <div className="container-detalles">
-            <button className="detalles-button" onClick={() => { navigate('/GestionarProductosP'); }}>Gestión de productos</button>
+            <button className="detalles-button" onClick={handleGestionarProductosClick}>Gestión de productos</button>
             <button className="detalles-button" onClick={() => { navigate(''); }}>Detalles de ventas</button>
           </div>
         </div>
