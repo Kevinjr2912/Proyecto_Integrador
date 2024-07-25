@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import styles from "../Estilos/Reseñas.module.css";
-import EditarReseña from "./Reseñas/EditarReseña";
-import EliminarReseña from "./Reseñas/EliminarReseña";
+import ListaReseñas from "./Reseñas/ListasReseñas";
 
 export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
   const [activeTab, setActiveTab] = useState("Evaluacion");
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
-  const [editIndex, setEditIndex] = useState(null);
-  const [deleteIndex, setDeleteIndex] = useState(null);
 
   const handleRatingClick = (calificacion) => {
     setRating(calificacion);
@@ -23,18 +20,18 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
       const objResena = {
         idProductos: idProductos,
         comentario: review,
-        puntuacion: rating
+        puntuacion: rating,
       };
-  
+
       try {
         const response = await fetch("http://localhost:3000/resenas/addResena", {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(objResena)
+          body: JSON.stringify(objResena),
         });
-        
+
         if (response.ok) {
           const result = await response.json();
           alert('Reseña agregada exitosamente');
@@ -50,20 +47,6 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
     } else {
       alert('Por favor, completa todos los campos');
     }
-  };
-
-  const handleSaveEdit = (editedReseña) => {
-    // Lógica para guardar la reseña editada
-    // Puedes agregar la lógica para actualizar la reseña en el servidor aquí.
-    reseñas[editIndex] = editedReseña;
-    setEditIndex(null);
-  };
-
-  const handleDelete = () => {
-    // Lógica para eliminar la reseña
-    // Puedes agregar la lógica para eliminar la reseña en el servidor aquí.
-    reseñas.splice(deleteIndex, 1);
-    setDeleteIndex(null);
   };
 
   return (
@@ -108,37 +91,7 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
       )}
 
       {activeTab === "Reseñas" && (
-        <div className={styles.reseñas}>
-          {reseñas.length > 0 ? (
-            reseñas.map((reseña, index) => (
-              <div key={index} className={styles.reseña}>
-                <div className={styles.reseñaHeader}>
-                  <p className={styles.rating}>Rating: {reseña.puntuacion}</p>
-                  <div className={styles.actions}>
-                    <button onClick={() => setEditIndex(index)}>Editar</button>
-                    <button onClick={() => setDeleteIndex(index)}>Eliminar</button>
-                  </div>
-                </div>
-                <p className={styles.comentario}>Comentario: {reseña.comentario}</p>
-                {editIndex === index && (
-                  <EditarReseña
-                    reseña={reseña}
-                    onSave={handleSaveEdit}
-                    onCancel={() => setEditIndex(null)}
-                  />
-                )}
-                {deleteIndex === index && (
-                  <EliminarReseña
-                    onDelete={handleDelete}
-                    onCancel={() => setDeleteIndex(null)}
-                  />
-                )}
-              </div>
-            ))
-          ) : (
-            <p>No hay reseñas todavía</p>
-          )}
-        </div>
+        <ListaReseñas reseñas={reseñas} setReseñas={agregarReseña} />
       )}
     </div>
   );
