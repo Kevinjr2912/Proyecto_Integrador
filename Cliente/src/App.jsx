@@ -14,12 +14,15 @@ import InformationProduct from './Paginas/InformacionProducto';
 import CascosPagina from './Paginas/CascosPagina';
 import OverolesPagina from "./Paginas/OverolesPagina";
 import MetodoEnvioP from './Paginas/MetodoEnvioP';
+import OrdenesP from './Paginas/OrdenesP';
 
 function App() {
   return (
     
     <Router>
-       {/*FALTA LA IMAGEN DEL NAV BAR, RUTAS NAVBAR Y FOOTER */ }
+       {/*FALTA LA IMAGEN DEL NAV BAR, RUTAS NAVBAR,FOOTER Y RUTAS PROTEGIDAS */ }
+        {/*FALTA ORDENES */ }
+         {/*VISTAS LISTAS (YA CREADAS) */ }
       <Routes>
         <Route path="/" element={<Principal />} />   {/*Faltan estilos, los carruseles*/ }
         <Route path="/loginAdmin" element={<LoginAdministrador />} /> {/*GOD*/ }
@@ -34,7 +37,8 @@ function App() {
         <Route path="/faqs" element={<Faqs />} />  {/*Faltan preguntas y respuestas*/ }
         <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />  {/*LO MANEJA KEV*/ }
         <Route path="/cascos" element={<CascosPagina />} /> {/*ESTILOS .KEV*/ }
-        <Route path="/overoles" element={<OverolesPagina />} />
+        <Route path="/overoles" element={<OverolesPagina />} /> {/*SAME*/ }
+        <Route path="/ordenes" element={<OrdenesP />} />  {/*GOD falta BACK*/ }
       </Routes>
     </Router>
   );

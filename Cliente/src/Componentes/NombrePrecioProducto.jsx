@@ -6,6 +6,8 @@ export default function NombrePrecioProducto( {nombre,precio} ){
         <div className="container">
             <p className="name">{nombre}</p>
             <p className="price">${precio} MXN</p>
+            
+            
         </div>
     );
 }
