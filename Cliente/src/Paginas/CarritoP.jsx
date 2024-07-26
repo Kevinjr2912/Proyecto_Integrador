@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import CarritoProducto from "../Componentes/Carrito/CarritoProducto";
@@ -9,15 +8,6 @@ import Swal from "sweetalert2";
 import NavBar from "../Componentes/NavBar";
 import WhatsFlotante from "../Componentes/WhatsFlotante";
 import Footer from "../Componentes/Footer";
-=======
-import React, { useEffect, useState } from 'react';
-import CarritoProducto from '../Componentes/Carrito/CarritoProducto';
-import ResumenCompra from '../Componentes/Carrito/ResumenCompra';
-import styles from '../Estilos/Carrito.module.css';
-import Swal from 'sweetalert2';
-import NavBar from '../Componentes/NavBar';
-
->>>>>>> nueva-rama
 export default function CarritoP() {
   const seccionesNav = [
     {
@@ -39,19 +29,9 @@ export default function CarritoP() {
   ];
 
   const [dataProducts, setDataProducts] = useState([]);
-<<<<<<< HEAD
   const [purchaseSummary, setPurchaseSummary] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-=======
-  const [purchaseSummary,setPurchaseSummary] = useState([]);
-  const seccionesNav = [
-    { id: 0, nombre: "CONOCENOS" },
-    { id: 1, nombre: "OVEROLES" },
-    { id: 2, nombre: "CASCOS" },
-    { id: 3, nombre: "MIS ORDENES" },
-  ];
->>>>>>> nueva-rama
 
   const cargarProductosCarrito = async () => {
     try {
@@ -106,36 +86,9 @@ export default function CarritoP() {
   };
 
   return (
-<<<<<<< HEAD
     <>
       <WhatsFlotante></WhatsFlotante>
       <NavBar seccionesNav={seccionesNav} esSeccionCliente={true}></NavBar>
-=======
-    <div className={styles.carrito}>
-    <NavBar
-    esSeccionCliente={true}
-    seccionesNav={seccionesNav}
-    />
-      <h2>Carrito de Compras</h2>
-      <div className={styles.productos}>
-        {
-          dataProducts.length > 0 ? (
-            dataProducts.map((producto) => (
-              <CarritoProducto
-                key={producto.idProducto}
-                producto={producto}
-                agregarAlCarrito={agregarAlCarrito}
-                quitarDelCarrito={handleQuitarDelCarrito}
-              />
-            ))
-          ) : (<p>No hay productos en el carrito.</p>)
-        }
-      </div>
-      <ResumenCompra 
-        productos={purchaseSummary.cantidad} 
-        total={purchaseSummary.precioTotal} 
-      />
->>>>>>> nueva-rama
 
       <div className={styles.carrito}>
         {location.pathname === "/carritoPago/metodoEnvio" ? (
