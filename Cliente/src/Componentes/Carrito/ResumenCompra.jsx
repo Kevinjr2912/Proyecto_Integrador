@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../Estilos/ResumenCompra.module.css'; 
 
 export default function ResumenCompra({ productos, total }) {
+  const navigate = useNavigate();
+
+  const handlePagarClick = () => {
+    navigate('/carritoPago/metodoEnvio');
+  };
+
   return (
     <div className={styles.resumenCompra}>
       <h2>Resumen compra</h2>
@@ -13,8 +20,9 @@ export default function ResumenCompra({ productos, total }) {
         <span>Total</span>
         <span>{`$${total} MXN`}</span>
       </div>
-      <button className={styles.continuarComprando}>Pagar</button>
+      <button onClick={handlePagarClick} className={styles.continuarComprando}>
+        Pagar
+      </button>
     </div>
   );
 }
-

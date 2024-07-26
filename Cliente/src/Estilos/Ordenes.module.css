@@ -1,0 +1,65 @@
+
+.main{
+  padding-top: 12%;
+  padding-bottom: 11%;
+}
+
+.container {
+    width: 60vw;
+    margin: 0 auto;
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+   
+
+  }
+  
+  .header {
+    background-color: #666;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .row {
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid #444;
+
+  }
+  
+  .cell {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    flex: 1;
+    text-align: center;
+    font-size: 1.1em;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+  
+  .cell:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cell {
+  flex: 1;
+  text-align: center;
+}
+
+.autorizado {
+  color: green;
+}
+
+.noAutorizado {
+  color: red;
+}
+
+.icon {
+  margin-left: 10px;
+  vertical-align: middle;
+}
+  

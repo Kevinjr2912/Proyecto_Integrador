@@ -1,7 +1,15 @@
 import React from "react";
 import "../Estilos/MetodoEnvio.css";
+import { useNavigate } from 'react-router-dom';
 
 export default function MetodoEnvio() {
+
+  const navigate = useNavigate();
+
+  const handleContinuarClick = () => {
+    navigate('/carritoPago/metodoEnvio/metodoPago');
+  };
+
   return (
     <div className="main-container">
       <div className="tituloEnvio">
@@ -16,7 +24,7 @@ export default function MetodoEnvio() {
           <hr />
           <a href="#">Editar o agregar nueva direccion</a>
         </div>
-        <button className="continuar-button">Continuar</button>
+        <button onClick={handleContinuarClick} className="continuar-button">Continuar</button>
       </div>
     </div>
   );
