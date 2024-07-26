@@ -39,7 +39,6 @@ db.connect((err) => {
   //}
 //};
 
-
 // Configuración de Multer para aceptar un solo archivo en memoria
 const storage = multer.memoryStorage();
 const upload = multer({ 
