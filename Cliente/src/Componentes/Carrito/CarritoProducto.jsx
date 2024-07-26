@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../../Estilos/Carrito.module.css';
+import styles from '../../Estilos/CarritoProducto.module.css';
 
 export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelCarrito }) {
   const [cantidad, setCantidad] = useState(producto.cantidad);
@@ -22,16 +22,18 @@ export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelC
 
   return (
     <div className={styles.producto}>
-      <img src={`http://localhost:3000/uploads/${producto.filenameImagen}`} alt={producto.nombre} className={styles.imagen} />
+      <div className={styles.imagenCarrito}>
+        <img src={`http://localhost:3000/uploads/${producto.filenameImagen}`} alt={producto.nombre} className={styles.imagen} />
+      </div>
       <div className={styles.detalles}>
         <h4>{producto.nombre}</h4>
         <p>Precio: <span className={styles.precio}>{producto.precio}</span></p>
         <div className={styles.cantidad}>
           <button onClick={disminuirCantidad}>-</button>
-          <span>{producto.cantidad}</span>
+          <span>{cantidad}</span>
           <button onClick={incrementarCantidad}>+</button>
         </div>
-        <button onClick={eliminarProducto}>Eliminar</button>
+        <button onClick={eliminarProducto}>Confirmar.  </button>
       </div>
     </div>
   );

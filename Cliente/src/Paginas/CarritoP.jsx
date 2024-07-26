@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import NavBar from "../Componentes/NavBar";
 import WhatsFlotante from "../Componentes/WhatsFlotante";
 import Footer from "../Componentes/Footer";
+
 export default function CarritoP() {
   const seccionesNav = [
     {
@@ -94,9 +95,9 @@ export default function CarritoP() {
         {location.pathname === "/carritoPago/metodoEnvio" ? (
           <MetodoEnvioP />
         ) : (
-          <sdsdsdsds>
-            <h2>Carrito de Compras</h2>
+          <>
             <div className={styles.productos}>
+              <h2 className={styles.tituloCarrito}>Carrito de Compras</h2>
               {dataProducts.length > 0 ? (
                 dataProducts.map((producto) => (
                   <CarritoProducto
@@ -114,7 +115,7 @@ export default function CarritoP() {
               productos={purchaseSummary.cantidad}
               total={purchaseSummary.precioTotal}
             />
-          </sdsdsdsds>
+          </>
         )}
       </div>
       <Footer></Footer>

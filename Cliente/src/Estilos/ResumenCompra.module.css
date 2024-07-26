@@ -4,8 +4,12 @@
   color: #fff;
   padding: 20px;
   border-radius: 8px;
+  margin-top: 5cm;
+  margin-left: 70%;
   width: 200px;
   text-align: center;
+  height: 300px;
+  position: fixed;
 }
 
 .resumenCompra h2 {
