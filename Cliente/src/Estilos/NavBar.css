@@ -30,35 +30,6 @@
 .carrito{
 margin-top: 5%;
 }
-<<<<<<< HEAD
-  
-  .nav_iconos img {
-    cursor: pointer;
-  }
-  
-  .nav_rutas {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    padding-right: 30px;
-    font-size: 17px;
-  }
-  
-  .nav_rutas li a {
-    color: #FFFFFF;
-    text-decoration: none;  
-  }
-  
-  .nav_rutas li a:hover {
-    color: #2DC289;
-  }
-  
-  .Hello {
-    font-weight: 700;
-  }
-  
-=======
 
 .nav_iconos img {
   cursor: pointer;
@@ -85,4 +56,3 @@ margin-top: 5%;
 .Hello {
   font-weight:700;
 }
->>>>>>> nueva-rama
