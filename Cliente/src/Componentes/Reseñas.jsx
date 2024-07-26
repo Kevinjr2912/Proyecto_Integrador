@@ -6,6 +6,8 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
   const [activeTab, setActiveTab] = useState("Evaluacion");
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+  const idCliente = 1;
+
 
   const handleRatingClick = (calificacion) => {
     setRating(calificacion);
@@ -18,13 +20,12 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
   const handleSendReview = async () => {
     if (review && rating) {
       const objResena = {
-        idProductos: idProductos,
         comentario: review,
         puntuacion: rating,
       };
 
       try {
-        const response = await fetch("http://localhost:3000/resenas/addResena", {
+        const response = await fetch(`http://localhost:3000/resenas/addResena/${idCliente}/${idProductos}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -91,7 +92,7 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
       )}
 
       {activeTab === "Reseñas" && (
-        <ListaReseñas reseñas={reseñas} setReseñas={agregarReseña} />
+        <ListaReseñas reseñas={reseñas} setReseñas={agregarReseña} idProductos={idProductos} idCliente={idCliente}/>
       )}
     </div>
   );

@@ -1,0 +1,95 @@
+.container {
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+  }
+  
+  .tabContainer {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    border-bottom: 2px solid #00ff00;
+  }
+  
+  .starContainer {
+    display: flex;
+    margin: 10px 0;
+  }
+  
+  .estrella {
+    font-size: 2em;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .estrella.selected {
+    color: #2DC289;
+  }
+  
+  .textArea {
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
+    padding: 10px;
+  }
+  
+  .sendButton {
+    padding: 10px 20px;
+    background-color: #2DC289;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+  }
+  
+  .reseñas {
+    margin-top: 20px;
+  }
+  
+  .reseña {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .reseñaHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2DC289;
+    font-size: 16px;
+  }
+  
+  .actions button:hover {
+    text-decoration: underline;
+  }
+  
+  .saveButton {
+    padding: 10px 20px;
+    background-color: #2DC289;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 10px;
+  }
+  
