@@ -23,8 +23,6 @@
     margin-bottom: 5%;
 }
 
-
-
 .titulo {
     color: #2DC289;
     text-align: center;
@@ -42,9 +40,14 @@
 }
 
 .carrusel {
-    width: 90%;
+    width: 95%;
+    margin-left: 2.5%;
     display: flex;
+    flex-wrap: wrap;
     gap: 50px;
-    margin: 20px 0; 
-    
+}
+
+.containerFooter{
+    margin-top: 100px;
+    padding-top: 30px;
 }

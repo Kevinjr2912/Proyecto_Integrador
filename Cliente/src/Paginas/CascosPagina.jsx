@@ -1,9 +1,10 @@
+// CascosPagina.jsx
 import React, { useState, useEffect } from "react";
 import NavBar from "../Componentes/NavBar";
 import Filtros from "../Componentes/Filtros";
-import Footer from "../Componentes/Footer.jsx";
+import Footer from "../Componentes/Footer";
+import CardProducto from "../Componentes/CardProducto";
 import styles from "../Estilos/CascosPagina.module.css";
-import CardProducto from "../Componentes/CardProducto.jsx";
 
 export default function CascosPagina() {
   const [products, setProducts] = useState([]);
@@ -12,12 +13,12 @@ export default function CascosPagina() {
   const cargarProductos = async () => {
     try {
       const response = await fetch("http://localhost:3000/products/getHelmets");
-
       if (response.ok) {
         const data = await response.json();
         if (Array.isArray(data)) {
           setProducts(data);
           setFilteredProducts(data);
+          console.log(data);
         } else {
           console.error("La respuesta no es un array:", data);
           setProducts([]);
@@ -51,22 +52,10 @@ export default function CascosPagina() {
   };
 
   const seccionesNav = [
-    {
-      id: 0,
-      nombre: "CONOCENOS",
-    },
-    {
-      id: 1,
-      nombre: "OVEROLES",
-    },
-    {
-      id: 2,
-      nombre: "CASCOS",
-    },
-    {
-      id: 3,
-      nombre: "MIS ORDENES",
-    },
+    { id: 0, nombre: "CONOCENOS" },
+    { id: 1, nombre: "OVEROLES" },
+    { id: 2, nombre: "CASCOS" },
+    { id: 3, nombre: "MIS ORDENES" },
   ];
 
   return (
@@ -84,7 +73,7 @@ export default function CascosPagina() {
               <CardProducto
                 key={product.idProducto}
                 id={product.idProducto}
-                src={`data:image/jpeg;base64,${product.imagen}`}
+                src={`http://localhost:3000/uploads/${product.filename}`}
                 alt={product.nombre}
                 nombre={product.nombre}
                 precio={product.precio}
@@ -95,7 +84,9 @@ export default function CascosPagina() {
           )}
         </div>
 
-        <Footer />
+        <div className={styles.containerFooter}>
+          <Footer />
+        </div>
       </div>
     </>
   );
