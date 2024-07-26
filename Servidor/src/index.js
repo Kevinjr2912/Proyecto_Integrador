@@ -39,7 +39,7 @@ app.use('/comprobantes', comprobantesPagoRoutes);
 app.use('/cars',carRoutes);
 
 // Servir archivos estáticos desde el directorio 'uploads'
-app.use('/uploads', express.static(path.join(__dirname,'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.listen(port, () => {
     console.log(`Servidor Express en ejecución en http://localhost:${port}`);

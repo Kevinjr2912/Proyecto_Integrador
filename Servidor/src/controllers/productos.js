@@ -67,7 +67,7 @@ exports.addProduct = (req, res) => {
       console.error('Error en Multer:', err);
       return res.status(400).send(err.message);
     }
-    console.log('Archivos recibidos:', req.files);
+    
     console.log('Cuerpo de la solicitud:', req.body);
 
     if (!req.files || req.files.length === 0) {
