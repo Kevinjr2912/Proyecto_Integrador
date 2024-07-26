@@ -8,4 +8,8 @@ export default function EncabezadoPagina({esSeccionCliente, titulo}){
     }
 
     return <h2>{titulo}</h2>
+<<<<<<< HEAD
 } 
+=======
+}
+>>>>>>> nueva-rama

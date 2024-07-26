@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../Componentes/NavBar";
 import "../Estilos/InformacionProducto.css";
@@ -13,6 +14,7 @@ import Swal from "sweetalert2";
 
 export default function InformationProduct() {
   const { idProducto } = useParams();
+  console.log("Este es el id " + idProducto);
   const [producto, setProducto] = useState(null);
   const [carrito, setCarrito] = useState([]);
   const [reseñas, setReseñas] = useState([
@@ -127,9 +129,9 @@ export default function InformationProduct() {
         <div className="product">
           <div className="aboutProduct">
             <ImagenesReferencia
-              img1={producto.img1}
-              img2={producto.img2}
-              img3={producto.img3}
+              img1={producto.img1Filename}
+              img2={producto.img2Filename}
+              img3={producto.img3Filename}
               img4={imagenProductoTalla}
             />
             <div className="information">
