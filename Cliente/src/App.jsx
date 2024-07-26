@@ -28,7 +28,7 @@ function App() {
         <Route path="/loginAdmin" element={<LoginAdministrador />} /> {/*GOD*/ }
         <Route path="/loginUsuario" element={<LoginUsuario />} /> {/*GOD*/ }
         <Route path="/homeAdmin" element={<HomeAdminP />} />  {/*Faltan estilos*/ }
-        <Route path="/gestionarProductosP" element={<GestionarProductosP />} />  {/*FALTAN ESTILOOOOOOOOOOOOOOOOOOOS*/ }
+        <Route path="/gestionarProductos" element={<GestionarProductosP />} />  {/*FALTAN ESTILOOOOOOOOOOOOOOOOOOOS*/ }
         <Route path="/registroPagina" element={<RegistroPagina />} />  {/*GOD*/ }
         <Route path="/detalleVenta" element={<DetalleVentaP />} />   {/*ERROR MASIVOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO*/ }
         <Route path="/carritoPago" element={<CarritoP />} />   {/*FALTAN ESTILOS*/ }
