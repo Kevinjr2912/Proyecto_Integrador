@@ -22,7 +22,7 @@ export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelC
 
   return (
     <div className={styles.producto}>
-      <img src={`data:image/jpeg;base64,${producto.imagen}`} alt={producto.nombre} className={styles.imagen} />
+      <img src={`http://localhost:3000/uploads/${producto.filenameImagen}`} alt={producto.nombre} className={styles.imagen} />
       <div className={styles.detalles}>
         <h4>{producto.nombre}</h4>
         <p>Precio: <span className={styles.precio}>{producto.precio}</span></p>

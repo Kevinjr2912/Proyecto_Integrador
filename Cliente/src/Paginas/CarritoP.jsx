@@ -3,10 +3,17 @@ import CarritoProducto from '../Componentes/Carrito/CarritoProducto';
 import ResumenCompra from '../Componentes/Carrito/ResumenCompra';
 import styles from '../Estilos/Carrito.module.css';
 import Swal from 'sweetalert2';
+import NavBar from '../Componentes/NavBar';
 
 export default function CarritoP() {
   const [dataProducts, setDataProducts] = useState([]);
   const [purchaseSummary,setPurchaseSummary] = useState([]);
+  const seccionesNav = [
+    { id: 0, nombre: "CONOCENOS" },
+    { id: 1, nombre: "OVEROLES" },
+    { id: 2, nombre: "CASCOS" },
+    { id: 3, nombre: "MIS ORDENES" },
+  ];
 
   const cargarProductosCarrito = async () => {
     try {
@@ -63,6 +70,10 @@ export default function CarritoP() {
 
   return (
     <div className={styles.carrito}>
+    <NavBar
+    esSeccionCliente={true}
+    seccionesNav={seccionesNav}
+    />
       <h2>Carrito de Compras</h2>
       <div className={styles.productos}>
         {

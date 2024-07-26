@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../Estilos/AddProduct.css";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 export default function AddProduct({ onAddProduct, onClose }) {
   const [name, setName] = useState("");
@@ -9,6 +9,7 @@ export default function AddProduct({ onAddProduct, onClose }) {
   const [description, setDescription] = useState("");
   const [equipment, setEquipment] = useState("");
   const [images, setImages] = useState([]);
+  let nameCategory;
 
   const listeEquipment = [
     { idEquipment: 1, name: "Alpine" },
@@ -24,8 +25,8 @@ export default function AddProduct({ onAddProduct, onClose }) {
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
 
-    if (files.length + images.length > 5) {
-      alert("Has alcanzado el máximo de imágenes permitidas (5)");
+    if (files.length + images.length > 3) {
+      alert("Has alcanzado el máximo de imágenes permitidas (3)");
       return;
     }
 
@@ -34,66 +35,99 @@ export default function AddProduct({ onAddProduct, onClose }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData();
-    data.append("nombre", name);
-    data.append("precio", price);
-    data.append("descripcion", description);
-    data.append("id_equipo", equipment);
-    data.append("nombreCategoria", category);
-    images.forEach((image) => {
-      data.append("imagen", image);
-    });
+    if (
+      document.getElementById("name").value == "" ||
+      document.getElementById("category") == "" ||
+      document.getElementById("price").value == "" ||
+      document.getElementById("description").value == "" ||
+      document.getElementById("lEquipment").value == ""
+    ) {
 
-    console.log(data);
-
-    try {
-      const response = await fetch("http://localhost:3000/products/addProduct/", {
-        method: "POST",
-        body: data,
-      });
-
-      if (!response.ok) {
-        throw new Error(HTTP `error! status: ${response.status}`);
-      }
-
-      onAddProduct({
-        nombre: name,
-        categoria: category,
-        precio: price,
-        descripcion: description,
-        equipo: equipment,
-        images: images.map(image => URL.createObjectURL(image)),
-      });
-
-      setName('');
-      setCategory('Overol');
-      setPrice('');
-      setDescription('');
-      setEquipment('');
-      setImages([]);
-
-      Swal.fire({
-        icon: "success",
-        title: 'Producto agregado exitosamente',
-        showConfirmButton: false,
-        timer: 1500,
-    });
-
-      onClose();
-
-    } catch (error) {
       Swal.fire({
         icon: "errorr",
         title: "Oops...",
-        text: `Error al eviar la solicitud`,
+        text: `No pueden quedar campos vacíos`,
       });
+    } else if(images.length <3){
+      Swal.fire({
+        icon: "errorr",
+        title: "Cantidad de imágenes",
+        text: `EL sistema admite 3 imágenes`,
+      });
+    } else {
+      const data = new FormData();
+      data.append("nombre", name);
+      data.append("precio", price);
+      data.append("descripcion", description);
+      data.append("id_equipo", parseInt(equipment));
+      data.append("id_categoria", parseInt(category));
+      images.forEach((image) => {
+        data.append("imagen", image);
+      });
+
+      console.log(data);
+
+      try {
+        const response = await fetch(
+          "http://localhost:3000/products/addProduct/",
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(HTTP`error! status: ${response.status}`);
+        }
+
+        if(category == 1){
+          nameCategory = "Casco";
+        }else{
+          nameCategory = "Overol"
+        }
+
+        onAddProduct({
+          nombre: name,
+          categoria: nameCategory,
+          precio: price,
+          descripcion: description,
+          equipo: equipment,
+          images: images.map((image) => URL.createObjectURL(image)),
+        });
+
+        setName("");
+        setCategory("Overol");
+        setPrice("");
+        setDescription("");
+        setEquipment("");
+        setImages([]);
+
+        Swal.fire({
+          icon: "success",
+          title: "Producto agregado exitosamente",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        onClose();
+      } catch (error) {
+        Swal.fire({
+          icon: "errorr",
+          title: "Oops...",
+          text: `Error al eviar la solicitud`,
+        });
+      }
     }
   };
 
   return (
     <div className="agregar-modal-overlay">
       <div className="box-addInformationProduct">
-        <form className="box-sonAdd" onSubmit={handleSubmit} encType="multipart/form-data">
+        <form
+          className="box-sonAdd"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
           <label htmlFor="name">Nombre</label>
           <input
             name="nombre"
@@ -110,8 +144,9 @@ export default function AddProduct({ onAddProduct, onClose }) {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="Overol">Overol</option>
-            <option value="Casco">Casco</option>
+            <option value="">Seleccionar categoría</option>
+            <option value="1">Casco</option>
+            <option value="2">Overol</option>
           </select>
           <label htmlFor="precio">Precio</label>
           <input
@@ -122,31 +157,36 @@ export default function AddProduct({ onAddProduct, onClose }) {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-          <label className="labelInfo" htmlFor="descripcion">
+          <label className="labelInfo" htmlFor="description">
             Descripción
           </label>
           <input
-            name="descripcion"
+            name="description"
             type="text"
             placeholder="Descripción"
-            id="descripcion"
+            id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-            <select name="listEquiptments" id="lEquipment" onChange={(e) => setEquipment(e.target.value)}>
-                <option value="">Seleccionar equipo</option>
-                {listeEquipment.map((eq) => (
-                  <option key={eq.idEquipment} value={eq.idEquipment}>
-                    {eq.name}
-                  </option>
-                ))}
-            </select>
+          <select
+            name="listEquiptments"
+            id="lEquipment"
+            onChange={(e) => setEquipment(e.target.value)}
+          >
+            <option value="">Seleccionar equipo</option>
+            {listeEquipment.map((eq) => (
+              <option key={eq.idEquipment} value={eq.idEquipment}>
+                {eq.name}
+              </option>
+            ))}
+          </select>
           <div className="file-input-container">
             <input
               name="imagen"
               type="file"
               id="file-input"
               accept="image/*"
+              multiple
               onChange={handleImageUpload}
             />
             <label htmlFor="file-input" className="file-input-label">
