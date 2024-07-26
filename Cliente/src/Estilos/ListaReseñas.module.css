@@ -1,0 +1,43 @@
+.reseñas {
+  margin-top: 20px;
+}
+
+.reseña {
+  background-color: #1B1A1A;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.reseñaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating {
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background-color: #0056b3;
+}
+
+.comentario {
+  margin-top: 10px;
+}

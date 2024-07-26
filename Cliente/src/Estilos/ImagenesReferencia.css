@@ -13,6 +13,7 @@ cd.box-container-img{
 }
 
 .box-container-childs{
+    margin-top: 100px;
     box-sizing: border-box;
     display: flex;
     gap: 16px;
