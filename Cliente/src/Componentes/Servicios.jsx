@@ -1,3 +1,4 @@
+import React from "react";
 import FrameTruck from "../Icons/FrameTruck.svg";
 import FrameWhatsApp from "../Icons/FrameWhatsApp.svg";
 import FrameCard1 from "../Icons/FrameCard1.svg";

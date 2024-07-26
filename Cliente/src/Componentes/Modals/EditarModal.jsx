@@ -27,25 +27,25 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
     console.log("Producto rebido a editar: " + product.idProductos)
     const idProducto = product.idProductos;
     
-  const data = {
-    nombre: name,
-    precio: price,
-    descripcion: description,
-    equipo: equipment
-  };
+    const data = {
+      nombre: name,
+      precio: price,
+      descripcion: description,
+      equipo: equipment
+    };    
 
     try {
       const response = await fetch(`http://localhost:3000/products/updateProduct/${idProducto}`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data),}
-      );
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
         const updatedProduct = await response.json();
         Swal.fire({
           icon: "success",
-          title: 'Producto agregado exitosamente',
+          title: 'Producto editado exitosamente',
           showConfirmButton: false,
           timer: 1500,
         }); 
@@ -62,7 +62,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
       Swal.fire({
         icon: "errorr",
         title: "Oops...",
-        text: `Error al eviar la solicitud`,
+        text: `Error al enviar la solicitud`,
       });
     }
   };

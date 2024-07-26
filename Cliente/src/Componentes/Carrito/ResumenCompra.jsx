@@ -1,24 +1,28 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../Estilos/ResumenCompra.module.css'; 
 
-export default function ResumenCompra({ productos, envio, total }) {
+export default function ResumenCompra({ productos, total }) {
+  const navigate = useNavigate();
+
+  const handlePagarClick = () => {
+    navigate('/carritoPago/metodoEnvio');
+  };
+
   return (
     <div className={styles.resumenCompra}>
-      <h2>Purchase summary</h2>
+      <h2>Resumen compra</h2>
       <div className={styles.detalle}>
-        <span>Products</span>
+        <span>Productos</span>
         <span>{productos}</span>
       </div>
       <div className={styles.detalle}>
-        <span>Shipment</span>
-        <span className={styles.envio}>{envio}</span>
-      </div>
-      <div className={styles.detalle}>
         <span>Total</span>
-        <span>{total}</span>
+        <span>{`$${total} MXN`}</span>
       </div>
-      <button className={styles.continuarComprando}>Pagar</button>
+      <button onClick={handlePagarClick} className={styles.continuarComprando}>
+        Pagar
+      </button>
     </div>
   );
 }

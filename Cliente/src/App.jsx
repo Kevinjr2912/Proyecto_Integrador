@@ -1,4 +1,4 @@
-import './App.css'
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Principal from "./Paginas/Principal";
 import LoginAdministrador from "./Paginas/LoginAdminstrador"; 
@@ -12,35 +12,35 @@ import CarritoP from './Paginas/CarritoP';
 import Faqs from './Paginas/Faqs';
 import InformationProduct from './Paginas/InformacionProducto';
 import CascosPagina from './Paginas/CascosPagina';
-import OverolesPagina from "./Paginas/OverolesPagina"
+import OverolesPagina from "./Paginas/OverolesPagina";
+import MetodoEnvioP from './Paginas/MetodoEnvioP';
+import OrdenesP from './Paginas/OrdenesP';
 
 function App() {
   return (
-    <>
-
     
-
     <Router>
+       {/*FALTA LA IMAGEN DEL NAV BAR, RUTAS NAVBAR,FOOTER Y RUTAS PROTEGIDAS */ }
+        {/*FALTA ORDENES */ }
+         {/*VISTAS LISTAS (YA CREADAS) */ }
       <Routes>
-        <Route path="/" element={<Principal/>}/>
-        <Route path='/loginAdmin' element={<LoginAdministrador/>}/>
-        <Route path='/loginUsuario' element={<LoginUsuario/>}/>
-        <Route path='/homeAdmin' element={<HomeAdminP/>}/>
-        <Route path='/GestionarProductosP' element={<GestionarProductosP/>}/>
-        <Route path='/RegistroPagina' element={<RegistroPagina/>}/>
-        <Route path='/detalleVenta' element={<DetalleVentaP/>}/>
-        <Route path='/metodoPago' element={<MetodoPagoP/>}/>
-        <Route path='/carritoPago' element={<CarritoP/>}/>
-        <Route path='/faqs' element={<Faqs/>}/>
-        <Route path='/informacionProducto' element={<InformationProduct/>}/>
-        <Route path='/cascos' element={<CascosPagina/>}/>
-        <Route path='/overoles' element={<OverolesPagina/>}/>
-
+        <Route path="/" element={<Principal />} />   {/*Faltan estilos, los carruseles*/ }
+        <Route path="/loginAdmin" element={<LoginAdministrador />} /> {/*GOD*/ }
+        <Route path="/loginUsuario" element={<LoginUsuario />} /> {/*GOD*/ }
+        <Route path="/homeAdmin" element={<HomeAdminP />} />  {/*Faltan estilos*/ }
+        <Route path="/gestionarProductos" element={<GestionarProductosP />} />  {/*FALTAN ESTILOOOOOOOOOOOOOOOOOOOS*/ }
+        <Route path="/registroPagina" element={<RegistroPagina />} />  {/*GOD*/ }
+        <Route path="/detalleVenta" element={<DetalleVentaP />} />   {/*ERROR MASIVOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO*/ }
+        <Route path="/carritoPago" element={<CarritoP />} />   {/*FALTAN ESTILOS*/ }
+        <Route path="/carritoPago/metodoEnvio" element={<MetodoEnvioP />} />  {/*Falta BACK */ }
+        <Route path="/carritoPago/metodoEnvio/metodoPago" element={<MetodoPagoP />} />  {/*GOD */ }
+        <Route path="/faqs" element={<Faqs />} />  {/*Faltan preguntas y respuestas*/ }
+        <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />  {/*LO MANEJA KEV*/ }
+        <Route path="/cascos" element={<CascosPagina />} /> {/*ESTILOS .KEV*/ }
+        <Route path="/overoles" element={<OverolesPagina />} /> {/*SAME*/ }
+        <Route path="/ordenes" element={<OrdenesP />} />  {/*GOD falta BACK*/ }
       </Routes>
     </Router>
-
-    </> 
-
   );
 }
 

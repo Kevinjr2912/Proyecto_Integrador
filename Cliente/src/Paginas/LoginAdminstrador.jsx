@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import FrameCasco from "../Icons/FrameCasco.svg";
 import '../Estilos/Login.css';
 
-
 export default function LoginPagina(){
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -20,40 +19,51 @@ export default function LoginPagina(){
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData();
-        data.append("email", email);
-        data.append("password", password);
-    
+        const data = {
+            "email" : email,
+            "password" : password,
+        }
+
+        console.log(data)
+
         try {
           const response = await fetch("http://localhost:3000/admins/login", {
             method: "POST",
-            body: data,
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data),
           });
-    
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
 
-          Swal.fire({
-            icon: "success",
-            title: 'Acceso concedido',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-    
-          const result = await response.json();
-    
+          if (response.ok) {
+            const token = await response.json();
+
+            document.getElementById('input-email').value = "";
+            document.getElementById('input-password').value = "";
+            
+            Swal.fire({
+                icon: "success",
+                title: 'Acceso concedido',
+                showConfirmButton: false,
+                timer: 1500,
+            }).then(() => {
+                navigate('/GestionarProductosP');
+            });
+          } else {
+            Swal.fire({
+                icon: "error",
+                title: 'Acceso denegado',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+          }
         } catch (error) {
             Swal.fire({
-                icon: "errorr",
-        
+                icon: "error",
                 title: "Oops...",
-                text: `Las credenciales de acceso no coinciden`,
+                text: `Error al hacer la petición al servidor ${error}`,
             });
         }
       };
 
-      //() => { navigate('/GestionarProductosP');
     return(
         <>
          <NavBar
@@ -63,15 +73,17 @@ export default function LoginPagina(){
         ></NavBar>
 
         <div className="login-container">
-                <div className="login-box">
-         <img className="img-helmet" src={FrameCasco} alt="helmet" />
-                    <h2>ADMINISTRADOR</h2>
-                    <h3>Iniciar sesión</h3>
-                    <input type="email" placeholder="user@email.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                    <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                    <button className="login-button" onClick={handleSubmit} >Log in</button>
-                </div>
+            <div className="login-box">
+                <img className="img-helmet" src={FrameCasco} alt="helmet" />
+                <h2>ADMINISTRADOR</h2>
+                <h3>Iniciar sesión</h3>
+                <form onSubmit={handleSubmit}>
+                    <input id="input-email" type="email" placeholder="user@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                    <input id="input-password" type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                    <button className="login-button" type="submit">Log in</button>
+                </form>
             </div>
+        </div>
         </>
     );
 }

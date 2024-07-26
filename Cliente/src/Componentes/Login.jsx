@@ -1,21 +1,75 @@
 import { useNavigate } from 'react-router-dom';
-import React from "react";
+import React, { useState } from "react";
 import FrameCasco from "../Icons/FrameCasco.svg";
 import '../Estilos/Login.css';
-export default function Login() {
+import Swal from 'sweetalert2';
 
+export default function Login() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const data = {
+            email: email,
+            password: password
+        }
+
+        console.log(data)
+
+        try{
+            const response = await fetch('http://localhost:3000/customers/loginCustomer/',{
+                method: "PUT",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+            });
+
+            if(response.ok){
+                Swal.fire({
+                    icon: "success",
+                    title: 'Acceso concedido',
+                    showConfirmButton: false,
+                    timer: 1500,
+                }); 
+            } else {
+                Swal.fire({
+                    icon: "errorr",
+                    title: "Oops...",
+                    text: "Acceso denegado, verifica tus credenciales de acceso",
+                });
+            }
+
+        }catch(err){
+            Swal.fire({
+                icon: "errorr",
+                title: "Oops...",
+                text: `Error al enviar la solicitud`,
+            });
+        }
+    };
+
     return(
-        
         <>
         <div className="login-container">
                 <div className="login-box">
          <img className="img-helmet" src={FrameCasco} alt="helmet" />
                     <h2>Login</h2>
                     <h3>Iniciar sesión</h3>
-                    <input id='email' type="email" placeholder="user@email.com" />
-                    <input id='password' type="password" placeholder="contraseña" />
-                    <button className="login-button" >Log in</button>
+                    <form onSubmit={handleSubmit}>
+                        <input 
+                        id='email' 
+                        type="email" placeholder="user@email.com" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input id='password' type="password" placeholder="contraseña" 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button className="login-button" >Log in</button>
+                    </form>
                     <div className="registro-prompt">
                         <span>¿Todavía no tienes una cuenta? <br /></span>
                         <span className="registro-link" onClick={() => { navigate('/RegistroPagina'); }} >Regístrate aquí.</span>

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 const customersRoutes = require('./routes/clientes');
 const productsRoutes = require('./routes/productos');
 const comprobantesPagoRoutes = require('./routes/comprobantes');
@@ -26,8 +27,11 @@ app.use(express.urlencoded({ extended: true }));
 // Usar las rutas de los items
 app.use('/customers', customersRoutes);
 app.use('/products', productsRoutes);
+app.use('/admins',adminRoutes);
+app.use('/api',dipomexRoutes);
+app.use('/shippingData',shippingDataRoutes);
 app.use('/comprobantes', comprobantesPagoRoutes);
-app.use('/resenas', resenasRoutes);
+app.use('/cars',carRoutes);
 
 app.listen(port, () => {
     console.log(`Servidor Express en ejecución en http://localhost:${port}`);

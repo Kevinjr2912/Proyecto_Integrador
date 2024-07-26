@@ -1,3 +1,4 @@
+import React from "react";
 import "../Estilos/WhatsFlotante.css";
 export default function WhatsFlotante() {
   return (

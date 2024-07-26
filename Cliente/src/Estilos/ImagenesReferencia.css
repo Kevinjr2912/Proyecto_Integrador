@@ -1,4 +1,4 @@
-cd.box-container-img{
+.box-container-img{
     width: 445px;
 }
 
@@ -16,6 +16,25 @@ cd.box-container-img{
     margin-top: 100px;
     box-sizing: border-box;
     display: flex;
-    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.img-principal img {
+    width: 370px;
+    height: 350px;
+}
+
+.box-container-childs {
+    display: flex;
+    gap: 20px;
     padding-top: 10px;
+    box-sizing: border-box;
+}
+
+.box-container-childs img {
+    width: 78px;
+    height: 66px;
+    cursor: pointer;
 }

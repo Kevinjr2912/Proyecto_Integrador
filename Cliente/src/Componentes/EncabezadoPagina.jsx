@@ -1,3 +1,4 @@
+import React from 'react';
 import LogoF1 from '../Imagenes/LogoF1.png';
 import '../Estilos/EncabezadoPagina.css';
 
