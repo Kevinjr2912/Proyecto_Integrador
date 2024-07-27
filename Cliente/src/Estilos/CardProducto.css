@@ -1,6 +1,7 @@
 .cardProducto {
-    width: 325px;
-    height: 345px;
+    width: 290px;
+    height: 315px;
+    margin-left: 1%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -16,11 +17,10 @@
 }
 
 .producto {
-    width: 325px;
-    height: 250px;
-    transition: transform 0.2s ease-in-out; 
+    width: 290px;
+    height: 235px;
+    transition: transform 0.2s ease-in-out;
 }
-
 
 .informacion_producto {
     background-color: #1B1A1A;
@@ -30,7 +30,7 @@
 }
 
 .nombreProducto {
-    font-size: 21px;
+    font-size: 18px;
 }
 
 .nombreProducto:hover {
@@ -39,5 +39,5 @@
 
 .precioProducto{
     font-weight: 600;
-    font-size: 17px;
+    font-size: 15px;
 }

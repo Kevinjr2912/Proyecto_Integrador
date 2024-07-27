@@ -13,14 +13,13 @@
 }
 
 .container {
+    color: #2DC289;
     text-align: center;
-    width: 98vmax;
-    margin: auto;
-    background-color: black; 
-    padding: 20px; 
-    height: 0%;
+    width: 90%;
     margin-top: 5%;
+    margin-left: 3.5%;
     margin-bottom: 5%;
+    padding-top: 3%;
 }
 
 .titulo {
@@ -44,7 +43,7 @@
     margin-left: 2.5%;
     display: flex;
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 60px;
 }
 
 .containerFooter{

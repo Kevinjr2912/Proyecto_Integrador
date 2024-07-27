@@ -15,7 +15,6 @@ const carRoutes = require('./routes/carrito');
 const app = express();
 const port = process.env.DB_PORT || 3000;   
 
-
 // Configurar CORS para permitir solicitudes desde cualquier origen
 const corsOptions = {
     origin: '*',

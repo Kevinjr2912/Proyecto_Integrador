@@ -38,7 +38,6 @@ const authenticateJWT = (req, res, next) => {
     res.sendStatus(401); // No autorizado (sin token)
   }
 };
-
 exports.addShippingInformation = async (req, res) => {
     const { codigo_postal, nombre_estado, nombre_municipio, nombre_colonia, calle, referencia } = req.body;
     const idCliente = req.params.idCliente;

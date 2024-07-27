@@ -39,6 +39,7 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
+
 exports.addCar = (req, res) => {
   const { idCliente, idProducto, cantidad } = req.body;
   console.log(req.body);
