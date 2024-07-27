@@ -106,5 +106,17 @@ const findOrInsert = (table, idField, nameField, value) => {
     });
 };
 
+exports.getCustomerAddress = (req,res) => {
+    const idCliente = req.params.idCliente;
+
+    db.query('SELECT D.calle,D.numeroExterior,M.nombre_municipio FROM DatosDomicilio D INNER JOIN Cliente C ON D.idCliente = C.id_cliente INNER JOIN Municipio M WHERE C.id_cliente = ?',[idCliente],(err,result)=>{
+        if(err){
+            return res.json({error: "Error al buscar dicha dirección de envío"});
+        }
+
+        return res.json(result);
+    });
+}
+
 //CAlle,numero exterior,municipio
 

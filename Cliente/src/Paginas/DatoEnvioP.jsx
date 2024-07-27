@@ -3,6 +3,7 @@ import NavBar from "../Componentes/NavBar";
 import WhatsFlotante from "../Componentes/WhatsFlotante";
 import Footer from "../Componentes/Footer";
 import ShippingData from "../Componentes/ShippingData";
+import styles from "../Estilos/DatoEnvioP.module.css"
 
 
 export default function DatoEnvioP(){
