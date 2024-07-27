@@ -5,7 +5,7 @@ body{
 .tituloEnvio{
   font-size: .6em;
   margin-bottom: 2em;
-width: 60%;
+  width: 60%;
 
 }
 
@@ -68,13 +68,14 @@ width: 60%;
   
 
   
-  .direccion-container a {
+  .direccion-button {
     color: #2DC289; 
     text-decoration: none;
+    width: 45%;
   }
   
-  .direccion-container a:hover {
-    text-decoration: underline;
+  .direccion-button:hover {
+   background-color: #333;
   }
   
   .continuar-button {
@@ -85,7 +86,7 @@ width: 60%;
     border-radius: 5px;
     cursor: pointer;
     align-self: flex-end;
-    margin-top: 12vh;
+    margin-top: 14vh;
   }
   
   .continuar-button:hover {

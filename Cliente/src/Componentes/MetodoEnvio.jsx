@@ -4,9 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 export default function MetodoEnvio() {
   const navigate = useNavigate();
+
   const handleContinuarClick = () => {
     navigate('/carritoPago/metodoEnvio/metodoPago');
   };
+
+  const handleDireccionEnvio=()=>{
+    navigate ("/datosEnvio")
+  }
 
   const verifyShippinnInformation = async ()=>{
     try{
@@ -29,7 +34,7 @@ export default function MetodoEnvio() {
           <p></p>
           </div> 
           <hr />
-          <a href="#">Editar o agregar nueva direccion</a>
+          <button onClick={handleDireccionEnvio} className="direccion-button" >Editar o agregar nueva direccion</button>
         </div>
         <button onClick={handleContinuarClick} className="continuar-button">Continuar</button>
       </div>
