@@ -11,6 +11,7 @@ import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
 import tallaReferenciaCascos from "../Imagenes/tallaReferenciaCascos.jpg";
 import tallaReferenciaOveroles from "../Imagenes/tallaReferenciaOveroles.webp";
 import Swal from "sweetalert2";
+import Footer from "../Componentes/Footer";
 
 export default function InformationProduct() {
   const { idProducto } = useParams();
@@ -153,6 +154,7 @@ export default function InformationProduct() {
           <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} />
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

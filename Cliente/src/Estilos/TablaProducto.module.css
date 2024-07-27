@@ -1,4 +1,4 @@
-.header-container {
+.headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,17 +12,33 @@
     border-radius: 5px;
     width: 200px;
     margin-left: 82%;
+    color: white;
 }
 
+.buscador::placeholder{
+    color: white;
+}
 
 .agregarProducto:hover {
     background-color: #2DC289;
 }
 
-.container-tabla {
+.containerTabla {
     margin: 0 auto;
     width: 92%;
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
 }
+
+.eliminarButton,
+.editarButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+}
+
+.eliminarButton:hover, .editarButton:hover{
+    background-color: #45a049;
+  }

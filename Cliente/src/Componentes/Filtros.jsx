@@ -22,7 +22,7 @@ export default function Filtros({ onFilterChange }) {
   return (
     <div className={styles.box}>
       <div className={styles.section}>
-        <h2 className={styles.sectiontitle}>TEAMS:</h2>
+        <h2 className={styles.sectiontitle}>Equipos:</h2>
         <div className={styles.checkboxgroup}>
           {["Alpine", "Kick Sauber", "Mercedes", "Ayrton Senna", "RedBull", "Ferrari", "MacLaren", "Aston Martin"].map((team) => (
             <label key={team} className={styles.checkboxLabel}>

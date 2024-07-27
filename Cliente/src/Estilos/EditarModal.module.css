@@ -1,0 +1,86 @@
+.editarModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.editarModalContent {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.editarBoxSonAdd {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinea los elementos al centro */
+}
+
+.editarBoxSonAdd label {
+  width: 100%; /* Asegura que la etiqueta ocupe todo el ancho disponible */
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.editarBoxSonAdd input, 
+.editarBoxSonAdd select {
+  width: 100%; /* Asegura que el input ocupe todo el ancho disponible */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.editarBoxSonAdd input::placeholder, 
+.editarBoxSonAdd select {
+  color: #888888;
+}
+
+
+.editarActionsProduct {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.editarActionsProduct button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.editarBtnCancelar {
+  background-color: #888888;
+  color: #ffffff;
+}
+
+.editarBtnAddP {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.editarBtnCancelar:hover {
+  background-color: #aaaaaa;
+}
+
+.editarBtnAddP:hover {
+  background-color: #4caf50;
+}

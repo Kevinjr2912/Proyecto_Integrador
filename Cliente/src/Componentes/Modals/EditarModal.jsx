@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../Estilos/EditarModal.css";
+import styles from "../../Estilos/EditarModal.module.css";
 import Swal from 'sweetalert2';
 
 export default function EditarModal({ isOpen, onClose, onEditProduct, product }) {
@@ -24,7 +24,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Producto rebido a editar: " + product.idProductos)
+    console.log("Producto recibido a editar: " + product.idProductos)
     const idProducto = product.idProductos;
     
     const data = {
@@ -53,29 +53,39 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
         onClose();
       } else {
         Swal.fire({
-          icon: "errorr",
+          icon: "error",
           title: "Oops...",
           text: "Error al actualizar el producto",
         });
       }
     } catch (error) {
       Swal.fire({
-        icon: "errorr",
+        icon: "error",
         title: "Oops...",
         text: `Error al enviar la solicitud`,
       });
     }
   };
 
+  const listeEquipment = [
+    { idEquipment: 1, name: "Alpine" },
+    { idEquipment: 2, name: "Kick Sauber" },
+    { idEquipment: 3, name: "Mercedes" },
+    { idEquipment: 4, name: "Aryrton Senna" },
+    { idEquipment: 5, name: "RedBull" },
+    { idEquipment: 6, name: "Ferrari" },
+    { idEquipment: 7, name: "MacLaren" },
+    { idEquipment: 8, name: "Aston Martin" },
+  ];
+
   if (!isOpen) return null;
 
   return (
-    <div className="editar-modal-overlay">
-      <div className="editar-modal-content">
+    <div className={styles.editarModalOverlay}>
+      <div className={styles.editarModalContent}>
         <form
-          className="editar-box-sonAdd"
+          className={styles.editarBoxSonAdd}
           onSubmit={handleSubmit}
-          encType="multipart/form-data"
         >
           <h2>Editando producto: {product?.nombre || "Nuevo Producto"}</h2>
           <label htmlFor="name">Nombre</label>
@@ -96,7 +106,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-          <label className="labelInfo" htmlFor="descripcion">
+          <label className={styles.labelInfo} htmlFor="descripcion">
             Descripción
           </label>
           <input
@@ -108,19 +118,23 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
             onChange={(e) => setDescription(e.target.value)}
           />
           <label htmlFor="equipo">Equipo</label>
-          <input
-            name="equipo"
-            type="text"
-            id="equipo"
-            placeholder="Equipo"
-            value={equipment}
+          <select
+            name="listEquiptments"
+            id="lEquipment"
             onChange={(e) => setEquipment(e.target.value)}
-          />
-          <div className="editar-actionsProduct">
-            <button type="button" className="editar-btn_cancelar" onClick={onClose}>
+          >
+            <option value="">Seleccionar equipo</option>
+            {listeEquipment.map((eq) => (
+              <option key={eq.idEquipment} value={eq.idEquipment}>
+                {eq.name}
+              </option>
+            ))}
+          </select>
+          <div className={styles.editarActionsProduct}>
+            <button type="button" className={styles.editarBtnCancelar} onClick={onClose}>
               Cancelar
             </button>
-            <button type="submit" className="editar-btn_addP">
+            <button type="submit" className={styles.editarBtnAddP}>
               Guardar cambios
             </button>
           </div>

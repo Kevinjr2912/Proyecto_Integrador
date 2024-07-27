@@ -1,4 +1,3 @@
-/* CarritoProducto.module.css */
 .producto {
     display: flex;
     justify-content: space-between;
@@ -7,7 +6,7 @@
     border: 1px solid #ccc;
     margin-bottom: 10px;
     background-color: #2c2c2c;
-    color: #fff;
+    color: #ff0000;
   }
   
   .imagenCarrito {
@@ -20,7 +19,7 @@
   .imagenCarrito img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Esto asegura que la imagen se ajuste correctamente al tamaño del contenedor */
+    object-fit: cover; 
   }
   
   .detalles {
