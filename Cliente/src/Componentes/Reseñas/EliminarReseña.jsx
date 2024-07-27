@@ -2,8 +2,6 @@ import React from "react";
 import styles from "../../Estilos/EliminarReseña.module.css";
 
 export default function EliminarReseña({ resenaId, onDelete, onCancel }) {
-  console.log("reseña id recibida de la lista " + resenaId);
-
   const handleDelete = async () => {
     try {
       const response = await fetch(
@@ -13,22 +11,20 @@ export default function EliminarReseña({ resenaId, onDelete, onCancel }) {
         }
       );
 
-      // Depuración de la respuesta
-      console.log("Response object:", response);
-      console.log("Response status:", response.status);
-      console.log("Response status text:", response.statusText);
-
       if (response.ok) {
+        alert("Reseña eliminada exitosamente");
         onDelete();
+      } else {
+        alert("Error al eliminar reseña");
       }
     } catch (err) {
-      console.log(err);
+      alert("Error de red");
     }
   };
 
   return (
     <div className={styles.eliminarReseña}>
-      <p>¿Estás seguro de que deseas eliminar esta reseña?</p>
+      <p className={styles.acceptDelete}>¿Estás seguro de que deseas eliminar esta reseña?</p>
       <button className={styles.deleteButton} onClick={handleDelete}>
         Eliminar
       </button>

@@ -5,9 +5,7 @@ export default function EditarReseña({ reseña, onSave, onCancel }) {
   const [editedReview, setEditedReview] = useState(reseña.comentario);
   const [editedRating, setEditedRating] = useState(reseña.puntuacion);
 
-  console.log(reseña);
-  const idResenaProducto = reseña.idReseñaProducto;
-
+  console.log(reseña.idResenaProducto, reseña.comentario, reseña.puntuacion);
   const handleEditedReviewChange = (e) => {
     setEditedReview(e.target.value);
   };
@@ -22,12 +20,10 @@ export default function EditarReseña({ reseña, onSave, onCancel }) {
       puntuacion: editedRating,
     };
 
-    console.log(updatedReview.comentario);
-    console.log(updatedReview.puntuacion);
-
     try {
+      console.log("Antes de entrar al fetch " + reseña.idResenaProducto);
       const response = await fetch(
-        `http://localhost:3000/resenas/updateResena/${idResenaProducto}`,
+        `http://localhost:3000/resenas/updateResena/${reseña.idResenaProducto}`,
         {
           method: "PUT",
           headers: {
@@ -37,17 +33,18 @@ export default function EditarReseña({ reseña, onSave, onCancel }) {
         }
       );
 
-      // Depuración de la respuesta
-      console.log("Response object:", response);
-      console.log("Response status:", response.status);
-      console.log("Response status text:", response.statusText);
+      // Log del estado y la respuesta
+      console.log("Response OK:", response.ok);
+      console.log("Response Status:", response.status);
+      console.log("Response Headers:", response.headers.get("Content-Type"));
 
       if (response.ok) {
         const data = await response.json();
+        alert("Reseña editada exitosamente");
         onSave(data);
       }
     } catch (err) {
-      console.log(err);
+      alert("Error de red");
     }
   };
 

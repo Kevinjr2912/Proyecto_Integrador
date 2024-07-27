@@ -1,94 +1,92 @@
 body{
-    background-color: #1d1d1d; 
+  background-color: #1d1d1d; 
 }
 
 .tituloEnvio{
-  font-size: .6em;
-  margin-bottom: 2em;
+font-size: .6em;
+margin-bottom: 2em;
 width: 60%;
 
 }
 
 .main-container {
-    padding: 20px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-  }
-  
-  h3{
-    margin-bottom: 5cm;
-
-  }
-  hr{
-    margin-bottom: 5%;
-  }
-  
-  .metodo-container {
-    background-color: #2d2d2d; 
-    padding: 20px;
-    border-radius: 8px;
-    width: 60%;
-    height: 40vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-
-  }
-  
- .direccion-container {
-  background-color: #3d3d3d;
-  padding: 10px;
-  border-radius: 8px;
-  width: 100%;
-  margin-bottom: 20px;
-  margin-top: 6%;
+  padding: 20px;
+  color: #fff;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+}
+
+h3{
+  margin-bottom: 5cm;
+
+}
+hr{
+  margin-bottom: 5%;
+}
+
+.metodo-container {
+  background-color: #2d2d2d; 
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+
+}
+
+.direccion-container {
+background-color: #3d3d3d;
+padding: 10px;
+border-radius: 8px;
+width: 100%;
+margin-bottom: 20px;
+margin-top: 6%;
+display: flex;
+flex-direction: column;
 }
 
 .textoDireccion {
-  width: 100%;
-  overflow: hidden;
+width: 100%;
+overflow: hidden;
 }
 
 .textoDireccion p {
-  margin: 5px 0;
-  word-wrap: break-word; 
-  overflow-wrap: break-word; 
+margin: 5px 0;
+word-wrap: break-word; 
+overflow-wrap: break-word; 
 }
-  
-  .direccion-container h3 {
-    margin: 0;
-    font-size: 1.2em;
-  }
-  
 
-  
-  .direccion-container a {
-    color: #2DC289; 
-    text-decoration: none;
-  }
-  
-  .direccion-container a:hover {
-    text-decoration: underline;
-  }
-  
-  .continuar-button {
-    background-color: #333; 
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: flex-end;
-    margin-top: 12vh;
-  }
-  
-  .continuar-button:hover {
-    background-color: #2DC289;
-  }
-  
+.direccion-container h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.direccion-button {
+  color: #2DC289; 
+  text-decoration: none;
+  width: 45%;
+}
+
+.direccion-button:hover {
+ background-color: #333;
+}
+
+.continuar-button {
+  background-color: #333; 
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 14vh;
+}
+
+.continuar-button:hover {
+  background-color: #2DC289;
+}

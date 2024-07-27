@@ -15,6 +15,7 @@ import CascosPagina from './Paginas/CascosPagina';
 import OverolesPagina from "./Paginas/OverolesPagina";
 import MetodoEnvioP from './Paginas/MetodoEnvioP';
 import OrdenesP from './Paginas/OrdenesP';
+import DatoEnvioP from './Paginas/DatoEnvioP';
 
 function App() {
   return (
@@ -39,10 +40,12 @@ function App() {
         <Route path="/cascos" element={<CascosPagina />} /> {/*ESTILOS .KEV*/ }
         <Route path="/overoles" element={<OverolesPagina />} /> {/*SAME*/ }
         <Route path="/ordenes" element={<OrdenesP />} />  {/*GOD falta BACK*/ }
+        <Route path="/datosEnvio" element={<DatoEnvioP />} />  {/* falta estilos*/ }
       </Routes>
     </Router>
   );
 }
 
 export default App;
-  
+
+

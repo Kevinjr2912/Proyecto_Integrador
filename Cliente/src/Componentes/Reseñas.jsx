@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import styles from "../Estilos/Reseñas.module.css";
 import ListaReseñas from "./Reseñas/ListasReseñas";
 
-export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
+export default function Reseñas({ reseñas, agregarReseña, idProducto }) {
   const [activeTab, setActiveTab] = useState("Evaluacion");
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
-  const idCliente = 1;
+
+  //Tenemos que hacer que idCliente se vaya pasando en el front
+  const idCliente = 12;
+
+  console.log("Este es el id del producto que va a ser reseñado " + idProducto)
 
   const handleRatingClick = (calificacion) => {
     setRating(calificacion);
@@ -23,9 +27,11 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
         puntuacion: rating,
       };
 
+      console.log(objResena)
+
       try {
         const response = await fetch(
-          `http://localhost:3000/resenas/addResena/${idCliente}/${idProductos}`,
+          `http://localhost:3000/resenas/addResena/${idCliente}/${idProducto}`,
           {
             method: "POST",
             headers: {
@@ -103,7 +109,7 @@ export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
         <ListaReseñas
           reseñas={reseñas}
           setReseñas={agregarReseña}
-          idProductos={idProductos}
+          idProducto={idProducto}
           idCliente={idCliente}
         />
       )}
