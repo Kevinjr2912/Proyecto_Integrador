@@ -1,8 +1,7 @@
 .box {
-  border: 1px solid #ffffff;
+  border: 0.1px solid #ffffff;
   border-radius: 10px;
   overflow: hidden;
-  background-color: darkorange;
 }
 
 .section {
@@ -13,19 +12,17 @@
   text-align: left;
   margin-bottom: 0px;
   color: #2dc289;
-  padding-left: 2.5%;
-  background-color: blue;
+  padding-left: 1.2%;
+  padding-top: 1%;
 }
 
 .checkboxgroup {
-  background-color: brown;
   display: flex;
   flex-wrap: wrap;
-  gap:0.4%;
+  gap: 0.4%;
 }
 
 .checkboxLabel {
-  background-color: #2dc289;
   display: flex;
   align-items: center;
   width: 150px;

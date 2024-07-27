@@ -63,7 +63,7 @@ export default function CascosPagina() {
       <div className={styles.paginacontainer}>
         <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
         <div className={styles.container}>
-          <h1 className="titulo">CASCOS</h1>
+          <h1 className={styles.titulo}>CASCOS</h1>
           <Filtros onFilterChange={handleFilterChange} />
         </div>
 

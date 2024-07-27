@@ -4,7 +4,7 @@ require('dotenv').config();
 const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { error } = require('console');
+
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
@@ -38,6 +38,7 @@ const authenticateJWT = (req, res, next) => {
     res.sendStatus(401); // No autorizado (sin token)
   }
 };
+
 exports.addShippingInformation = async (req, res) => {
     const { codigo_postal, nombre_estado, nombre_municipio, nombre_colonia, calle, referencia } = req.body;
     const idCliente = req.params.idCliente;
@@ -104,3 +105,6 @@ const findOrInsert = (table, idField, nameField, value) => {
         });
     });
 };
+
+//CAlle,numero exterior,municipio
+

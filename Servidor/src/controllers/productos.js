@@ -122,7 +122,7 @@ exports.getAllProducts = (req, res) => {
 
 exports.getAllHelmets = (req, res) => {
   db.query(
-    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos GROUP BY IP.idProducto",
+    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Casco' GROUP BY IP.idProducto;",
     (err, result) => {
       if (err) {
         console.log(err)
@@ -144,6 +144,33 @@ exports.getAllHelmets = (req, res) => {
     }
   );
 };
+
+exports.getAllOveralls = (req, res) => {
+  db.query(
+    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Overol' GROUP BY IP.idProducto;",
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        return res.json({ error: "Error al obtener los cascos" });
+      }
+
+      const products = result.map((product) => ({
+        idProducto: product.idProductos,
+        nombre: product.nombre, 
+        precio: product.precio,
+        descripcion: product.descripcion,
+        nombreCategoria: product.nombreCategoria,
+        nombreEquipo: product.nombre_equipo,
+        filename: product.filename,
+      }));
+
+      // console.log(products);
+      return res.json(products);
+    }
+  );
+};
+
+
 
 exports.getInformationProduct = (req, res) => {
   const idProducto = req.params.idProducto;

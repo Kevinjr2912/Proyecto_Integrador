@@ -3,12 +3,19 @@ import "../Estilos/MetodoEnvio.css";
 import { useNavigate } from 'react-router-dom';
 
 export default function MetodoEnvio() {
-
   const navigate = useNavigate();
-
   const handleContinuarClick = () => {
     navigate('/carritoPago/metodoEnvio/metodoPago');
   };
+
+  const verifyShippinnInformation = async ()=>{
+    try{
+      const response = await fetch()
+    }catch(err){
+      console.log(err);
+    }
+  }
+  
 
   return (
     <div className="main-container">
@@ -19,7 +26,7 @@ export default function MetodoEnvio() {
         <div className="direccion-container">
           <h3>Enviar a casa</h3>
          <div className="textoDireccion">
-          <p>Lorem ipsum jejjejeje  jejejeejjejejejejje jejejejejeejjejejejejjeje jejejejeejjejejejejejjejejejejej </p>
+          <p></p>
           </div> 
           <hr />
           <a href="#">Editar o agregar nueva direccion</a>
