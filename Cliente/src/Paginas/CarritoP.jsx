@@ -69,11 +69,7 @@ export default function CarritoP() {
     }).then((result) => {
       if (result.isConfirmed) {
         quitarDelCarrito(producto);
-        Swal.fire(
-          "Eliminado",
-          `${producto.nombre} ha sido eliminado del carrito`,
-          "success"
-        );
+        
       }
     });
   };
@@ -82,7 +78,29 @@ export default function CarritoP() {
     console.log("Agregar al carrito:", producto);
   };
 
-  const quitarDelCarrito = (producto) => {
+  const quitarDelCarrito = async (producto) => {
+    console.log(producto)
+    try{
+      const response = await fetch(`http://localhost:3000/cars//deleteProductCar/${producto.idProducto}`,{
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({idCliente: 12}),
+      });
+
+      if(response.ok){
+        Swal.fire(
+          "Eliminado",
+          `${producto.nombre} ha sido eliminado del carrito`,
+          "success"
+        );
+
+        cargarProductosCarrito();
+      }
+    }catch(err){
+      console.log(err);
+    }
     console.log("Eliminar del carrito:", producto);
   };
 

@@ -1,0 +1,76 @@
+/* ListasReseñas.module.css */
+.reseñas {
+  margin-top: 20px;
+}
+
+.reseña {
+  background-color: #1B1A1A;
+  border: 0.3px solid #ddd;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+.reseñaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating {
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  width: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: none;
+  background-color: #eae9e9;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background-color: #bebebe;
+}
+
+.puntuacion{
+  color: white;
+  font-size: 18px;
+}
+
+.comentario {
+  margin-top: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.star {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-right: 0.1rem;
+}
+
+.selected {
+  color: #2DC289;
+  font-size: 1.5rem;
+  margin-right: 0.1rem;
+}
+
+.renderStars{
+  margin-left: 15px;
+}
+
+.containerComentario{
+  margin-top: 15px;
+  text-align: justify;
+}

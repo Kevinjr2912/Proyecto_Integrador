@@ -15,7 +15,6 @@ import Footer from "../Componentes/Footer";
 
 export default function InformationProduct() {
   const { idProducto } = useParams();
-  console.log("Este es el id " + idProducto);
   const [producto, setProducto] = useState(null);
   const [carrito, setCarrito] = useState([]);
   const [reseñas, setReseñas] = useState([
@@ -38,7 +37,6 @@ export default function InformationProduct() {
         );
         const data = await response.json();
         setProducto(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -95,7 +93,6 @@ export default function InformationProduct() {
         return carritoActualizado;
       });
     } catch (error) {
-      console.error('Error al agregar el producto al carrito:', error);
       Swal.fire({
         title: 'Error',
         text: 'Hubo un problema al agregar el producto al carrito.',
@@ -151,7 +148,7 @@ export default function InformationProduct() {
           </div>
         </div>
         <div>
-          <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} />
+          <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} idProducto={idProducto}/>
         </div>
       </div>
       <Footer></Footer>

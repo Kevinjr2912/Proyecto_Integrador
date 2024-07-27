@@ -1,0 +1,39 @@
+/* EliminarReseña.module.css */
+.eliminarReseña {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.acceptDelete{
+  color: white;
+  font-size: 16px;
+}
+
+.deleteButton,
+.cancelButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.deleteButton {
+  background-color: #eae9e9;
+  color: rgb(0, 0, 0);
+}
+
+.deleteButton:hover {
+  background-color: #bebebe;
+}
+
+.cancelButton {
+  background-color: #000000;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #2DC289;;
+}

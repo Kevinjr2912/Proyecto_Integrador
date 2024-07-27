@@ -204,7 +204,7 @@ exports.gethPurchaseSummary = (req, res) => {
 
 exports.deleteProductCar = (req, res) => {
   const idProducto = req.params.idProducto;
-  const {idCliente  } = req.body;
+  const {idCliente } = req.body;
 
   db.query('SELECT C.idCarrito FROM Carrito C WHERE C.idCliente = ?',[idCliente],(err,result)=>{
     if(err){

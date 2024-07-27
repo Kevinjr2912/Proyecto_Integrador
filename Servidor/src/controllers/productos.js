@@ -64,11 +64,8 @@ const upload = multer({
 exports.addProduct = (req, res) => {
   upload(req, res, (err) => {
     if (err) {
-      console.error('Error en Multer:', err);
       return res.status(400).send(err.message);
     }
-    
-    console.log('Cuerpo de la solicitud:', req.body);
 
     if (!req.files || req.files.length === 0) {
       return res.status(400).send('No se subieron los archivos');
@@ -94,7 +91,6 @@ exports.addProduct = (req, res) => {
           [imageValues],
           (err) => {
             if (err) {
-              console.error('Error al agregar imágenes:', err);
               return res.status(500).json({ message: "Error al agregar las imágenes del producto" });
             }
             return res.status(201).json({ message: "Producto e imágenes agregadas exitosamente" });
@@ -114,7 +110,6 @@ exports.getAllProducts = (req, res) => {
           .status(500)
           .json({ message: "Error al obtener los elementos" });
       }
-      console.log(result);
       return res.json(result);
     }
   );
@@ -139,7 +134,6 @@ exports.getAllHelmets = (req, res) => {
         filename: product.filename,
       }));
 
-      // console.log(products);
       return res.json(products);
     }
   );
@@ -164,7 +158,6 @@ exports.getAllOveralls = (req, res) => {
         filename: product.filename,
       }));
 
-      // console.log(products);
       return res.json(products);
     }
   );
@@ -214,8 +207,6 @@ exports.getInformationProduct = (req, res) => {
         objInformationProduct.nombreCategoria = result[0].nombreCategoria;
       }
 
-      console.log(objInformationProduct)
-
       return res.json(objInformationProduct);
     }
   );
@@ -231,7 +222,6 @@ exports.updateProduct = (req, res) => {
     [productId],
     (err, result) => {
       if (err) {
-        console.error("Error al obtener el producto:", err);
         return res
           .status(500)
           .json({
@@ -268,7 +258,6 @@ exports.updateProduct = (req, res) => {
         [updateProduct, productId],
         (err, result) => {
           if (err) {
-            console.error("Error al actualizar el producto:", err);
             return res
               .status(500)
               .json({ message: "Error al modificar algún dato del producto" });
