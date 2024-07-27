@@ -29,7 +29,7 @@ export default function MetodoEnvio() {
           <p></p>
           </div> 
           <hr />
-          <a href="#">Editar o agregar nueva direccion</a>
+          <button>Editar o agregar nueva direccion</button>
         </div>
         <button onClick={handleContinuarClick} className="continuar-button">Continuar</button>
       </div>

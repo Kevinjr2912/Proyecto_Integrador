@@ -1,43 +1,73 @@
 import React, { useState } from "react";
 import styles from "../Estilos/Reseñas.module.css";
+import ListaReseñas from "./Reseñas/ListasReseñas";
 
-export default function Reseñas({ reseñas, agregarReseña }) {
+export default function Reseñas({ reseñas, agregarReseña, idProductos }) {
   const [activeTab, setActiveTab] = useState("Evaluacion");
   const [rating, setRating] = useState(0);
-  const [hoverRating] = useState(0);
   const [review, setReview] = useState("");
+  const idCliente = 1;
 
   const handleRatingClick = (calificacion) => {
     setRating(calificacion);
   };
 
-
   const handleReviewChange = (e) => {
     setReview(e.target.value);
   };
 
-  const handleSendClick = () => {
-    if (agregarReseña) {
-      agregarReseña({ rating, comentario: review });
-      setRating(0);
-      setReview("");
+  const handleSendReview = async () => {
+    if (review && rating) {
+      const objResena = {
+        comentario: review,
+        puntuacion: rating,
+      };
+
+      try {
+        const response = await fetch(
+          `http://localhost:3000/resenas/addResena/${idCliente}/${idProductos}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(objResena),
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+          alert("Reseña agregada exitosamente");
+          setRating(0);
+          setReview("");
+          agregarReseña({ comentario: review, puntuacion: rating });
+        } else {
+          alert("Error al agregar reseña");
+        }
+      } catch (error) {
+        alert("Error de red");
+      }
     } else {
-      console.error("agregarReseña no está definido");
+      alert("Por favor, completa todos los campos");
     }
   };
 
   return (
-    <div className={styles.reseñas}>
+    <div className={styles.container}>
       <div className={styles.tabContainer}>
         <div
-          className={`${styles.tab} ${activeTab === "Evaluacion" ? styles.active : ""}`}
+          className={`${styles.tab} ${
+            activeTab === "Evaluacion" ? styles.active : ""
+          }`}
           onClick={() => setActiveTab("Evaluacion")}
         >
-          Evaluacion
+          Evaluación
         </div>
         <div
-          className={`${styles.tab} ${activeTab === "reseñas" ? styles.active : ""}`}
-          onClick={() => setActiveTab("reseñas")}
+          className={`${styles.tab} ${
+            activeTab === "Reseñas" ? styles.active : ""
+          }`}
+          onClick={() => setActiveTab("Reseñas")}
         >
           Reseñas
         </div>
@@ -45,41 +75,37 @@ export default function Reseñas({ reseñas, agregarReseña }) {
 
       {activeTab === "Evaluacion" && (
         <div>
-          <div>Puntuacion</div>
           <div className={styles.starContainer}>
-            {[1, 2, 3, 4, 5].map((estrella) => (
+            {[1, 2, 3, 4, 5].map((star) => (
               <span
-                key={estrella}
-                className={`${styles.estrella} ${estrella <= (hoverRating || rating) ? styles.selected : ""}`}
-                onClick={() => handleRatingClick(estrella)}
+                key={star}
+                className={`${styles.estrella} ${
+                  rating >= star ? styles.selected : ""
+                }`}
+                onClick={() => handleRatingClick(star)}
               >
                 ★
               </span>
             ))}
           </div>
-          <div>Deja tu reseña</div>
           <textarea
             className={styles.textArea}
             value={review}
             onChange={handleReviewChange}
-          ></textarea>
-          <button className={styles.sendButton} onClick={handleSendClick}>Enviar</button>
+          />
+          <button className={styles.sendButton} onClick={handleSendReview}>
+            Enviar
+          </button>
         </div>
       )}
 
-      {activeTab === "reseñas" && (
-        <div>
-          {reseñas.length > 0 ? (
-            reseñas.map((reseña, index) => (
-              <div key={index} className={styles.reseña}>
-                <p className={styles.rating}>Rating: {reseña.rating}</p>
-                <p className={styles.comentario}>Comentario: {reseña.comentario}</p>
-              </div>
-            ))
-          ) : (
-            <p>No hay reseñas todavía</p>
-          )}
-        </div>
+      {activeTab === "Reseñas" && (
+        <ListaReseñas
+          reseñas={reseñas}
+          setReseñas={agregarReseña}
+          idProductos={idProductos}
+          idCliente={idCliente}
+        />
       )}
     </div>
   );
