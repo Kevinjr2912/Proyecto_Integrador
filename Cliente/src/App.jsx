@@ -16,12 +16,16 @@ import OverolesPagina from "./Paginas/OverolesPagina";
 import MetodoEnvioP from './Paginas/MetodoEnvioP';
 import OrdenesP from './Paginas/OrdenesP';
 import DatoEnvioP from './Paginas/DatoEnvioP';
-import { AuthProvider } from './Componentes/AuthContext';
+import { AuthProvider } from './Componentes/Contexto/AuthContext';
+
 
 function App() {
   return (
-    <AuthProvider>
+<AuthProvider>
     <Router>
+
+
+
        {/*FALTA LA IMAGEN DEL NAV BAR, RUTAS NAVBAR,FOOTER Y RUTAS PROTEGIDAS */ }
         {/*FALTA ORDENES */ }
          {/*VISTAS LISTAS (YA CREADAS) */ }
