@@ -37,7 +37,7 @@ padding-bottom: 1%;
 }
 
 .faqQuestion p {
-  flex: 1; /* Permite que el texto de la pregunta ocupe todo el espacio disponible */
+  flex: 1; 
   margin: 0;
 }
 
@@ -53,7 +53,7 @@ padding-bottom: 1%;
 .toggleIcon {
   font-size: 1.5em;
   transition: transform 0.3s ease;
-  margin-left: 10px; /* Añadimos un margen pequeño a la izquierda para separar el icono del texto */
+  margin-left: 10px; 
 }
 
 .faqCheckbox:checked + .faqQuestion .toggleIcon {

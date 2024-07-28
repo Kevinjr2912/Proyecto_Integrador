@@ -33,12 +33,14 @@ label{
     display: block;
 }
 
-input{
+input, select {
     width: 20vw;
     height: 5.2vh;
     border: none;
     border-radius: 0.5vw;
     outline: none;
+    padding: 0.5vw;
+    box-sizing: border-box; 
 }
 
 ::placeholder{
@@ -63,15 +65,11 @@ input{
     flex-direction: column;
 }
 
-#textReferencia{
+#textReferencia {
+    text-align: left;
     width: 47vw;
-    min-height: 10vh;
-    padding: 0.5vw; 
-    box-sizing: border-box; 
-    line-height: 1.2;
-    overflow: hidden; 
-    text-overflow: ellipsis;
-}
+    min-height: 7vh;
+  }
 
 .actionsData {
     display: flex;

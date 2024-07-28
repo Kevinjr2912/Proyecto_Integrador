@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 
 export default function MetodoEnvio() {
-  const [customerAddress, setCustomerAddress] = useState([]); // Inicializa como array vacío
-  const [error, setError] = useState(null);
+  const [customerAddress, setCustomerAddress] = useState([]);
   const navigate = useNavigate();
 
   const handleContinuarClick = () => {
@@ -34,11 +33,8 @@ export default function MetodoEnvio() {
       if (response.ok) {
         const data = await response.json();
         setCustomerAddress(data);
-      } else {
-        setError('No se pudo obtener la dirección.');
       }
     } catch (err) {
-      setError('Error en la solicitud.');
       console.log(err);
     }
   }

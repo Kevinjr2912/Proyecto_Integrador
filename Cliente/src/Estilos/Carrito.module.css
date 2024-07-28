@@ -12,19 +12,23 @@
     flex-direction: column;
     gap: 0; 
     width: 70%;
-    background-color: #7E7E7E;
+   
     padding: 0;
     margin: 0;
     border-top-right-radius:25px;
     border-top-left-radius:25px;
-    
+    border-right: solid;
+    border-left: solid;
+    border-top: solid;
   }
 
   .tituloCarrito {
     text-align: center;
-    margin-bottom: 10px; 
+    margin-bottom: 0px; 
     color: #ffffff; 
     font-size: 24px; 
-
+    background-color: #7E7E7E;
+    border-top-right-radius:25px;
+    border-top-left-radius:25px;
   }
 

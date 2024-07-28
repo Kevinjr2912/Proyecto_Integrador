@@ -1,4 +1,3 @@
-// CascosPagina.jsx
 import React, { useState, useEffect } from "react";
 import NavBar from "../Componentes/NavBar";
 import Filtros from "../Componentes/Filtros";
