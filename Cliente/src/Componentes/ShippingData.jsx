@@ -71,7 +71,7 @@ export default function ShippingData() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: `No pueden quedar campos vacíos`,
+        text: `No pueden quedar campos vacíos`
       });
     } else if (!document.getElementById("colonias").value) {
       Swal.fire({
@@ -100,8 +100,8 @@ export default function ShippingData() {
       };
 
       try {
-        const response = await fetch(
-          `http://localhost:3000/shippingData/addShippingInformation/${idCliente}`,
+        const response = await fetch(`
+          http://localhost:3000/shippingData/addShippingInformation/${idCliente}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

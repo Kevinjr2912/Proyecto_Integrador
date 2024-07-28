@@ -13,6 +13,7 @@ export default function Registro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  
   const handleSumbmit = async (event) => {
     event.preventDefault();
 
@@ -45,7 +46,7 @@ export default function Registro() {
             title: "Cliente agregado exitosamente",
             showConfirmButton: false,
             timer: 1500,
-          });
+          }).then(()=> navigate('/'));
         } else {
           Swal.fire({
             icon: "errorr",

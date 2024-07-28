@@ -219,5 +219,4 @@ console.log(idCliente)
   );
 };
 
-exports.update
 

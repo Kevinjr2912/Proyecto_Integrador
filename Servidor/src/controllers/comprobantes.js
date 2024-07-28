@@ -72,34 +72,53 @@ exports.addComprobante = (req, res) => {
       return res.status(500).json({ message: "Ocurrió un error" });
     }
 
-    const { idPedido } = req.body;
+    const { idCliente } = req.body;
     const archivo = req.file.buffer;
+    console.log(idCliente)
+    console.log(archivo)
 
     if (!req.file) {
       return res.status(404).json({ message: "Archivo no recibido" });
     }
 
-    db.query(
-      "INSERT INTO ComprobantePago (id_Pedido, Comprobante_pago, id_estatus) VALUES (?, ?, ?)",
-      [idPedido, archivo, idEstatus],
-      (err, result) => {
-        if (err) {
-          console.error("Error al insertar el comprobante de pago:", err);
-          return res
-            .status(500)
-            .json({ message: "Error al insertar el comprobante de pago" });
-        }
-
-        console.log("Éxito");
-
-        return res
-          .status(201)
-          .json({
-            message: "Comprobante de pago insertado exitosamente",
-            idVenta: result.insertId,
-          });
+    db.query('SELECT idPedido FROM Pedido WHERE idCliente = ?',[idCliente],(err,result)=>{
+      if(err){
+        console.log(err)
+        return res.status(500).json({error: "Error al buscar dicho idPedido"});
       }
-    );
+
+      if(result.length == 0){
+        console.log("Entrando")
+        db.query('INSERT INTO Pedido (idCliente) VALUES (?)',[idCliente],(err,result)=>{
+          if(err){
+            console.log(err)
+            return res.status(500).json({error: "Error al insertar dicho idCliente en la tabla pedido"});
+          }
+  
+          const idPedido = result.insertId;
+  
+          console.log('Este es el id de pedido ' + idPedido)
+  
+          db.query(
+            "INSERT INTO ComprobantePago (comprobante_pago, id_Pedido) VALUES (?, ?)",
+            [archivo, idPedido],
+            (err, result) => {
+              if (err) {
+                console.error("Error al insertar el comprobante de pago:", err);
+                return res
+                  .status(500)
+                  .json({ message: "Error al insertar el comprobante de pago" });
+              }
+      
+              console.log("Éxito");
+      
+              return res.status(201).json({idPedido: idPedido});
+            }
+          );
+        });
+      }
+
+    });
   });
 };
 

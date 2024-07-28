@@ -10,6 +10,15 @@ import DetalleVentaProductos from "../Modals/DetalleVentaProductos";
 import LinkProducto from "../Modals/LinkProducto";
 import ReciboProducto from "../Modals/ReciboProducto";
 
+//Consumir API para mostrar email, fecha compra, precio total de la compra respecto a un cliente
+const showDetailsOrder = async () => {
+  try{
+    
+  }catch(err){
+
+  }
+}
+
 // Componente para el botón de Detalles
 const DetalleButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.detalleButton}>
@@ -59,28 +68,28 @@ const initialData = [
 const customStyles = {
   rows: {
     style: {
-      backgroundColor: '#1e1e1e',
-      color: '#ffffff',
-    }
+      backgroundColor: "#1e1e1e",
+      color: "#ffffff",
+    },
   },
   headCells: {
     style: {
-      backgroundColor: '#333333',
-      color: '#ffffff',
-    }
+      backgroundColor: "#333333",
+      color: "#ffffff",
+    },
   },
   cells: {
     style: {
-      backgroundColor: '#1e1e1e',
-      color: '#ffffff',
-    }
+      backgroundColor: "#1e1e1e",
+      color: "#ffffff",
+    },
   },
   pagination: {
     style: {
-      backgroundColor: '#1e1e1e',
-      color: '#ffffff',
-    }
-  }
+      backgroundColor: "#1e1e1e",
+      color: "#ffffff",
+    },
+  },
 };
 
 // Componente principal de DetalleVenta
@@ -130,45 +139,45 @@ export default function DetalleVenta() {
   const columns = [
     {
       name: "Detalles",
-      cell: row => <DetalleButton onClick={() => handleDetailClick(row)} />,
+      cell: (row) => <DetalleButton onClick={() => handleDetailClick(row)} />,
       center: true,
     },
     {
       name: "Email",
-      selector: row => row.email,
+      selector: (row) => row.email,
       sortable: true,
       center: true,
     },
     {
       name: "Fecha",
-      selector: row => row.fechaCompra,
+      selector: (row) => row.fechaCompra,
       sortable: true,
       center: true,
     },
     {
       name: "PrecioTotal",
-      selector: row => `$${row.precioTotal}`,
+      selector: (row) => `$${row.precioTotal}`,
       sortable: true,
       center: true,
     },
     {
       name: "Recibo",
-      cell: row => <ReciboButton onClick={() => handleReciboClick(row)} />,
+      cell: (row) => <ReciboButton onClick={() => handleReciboClick(row)} />,
       center: true,
     },
     {
       name: "Confirmar",
-      cell: row => <ConfirmButton onClick={() => handleConfirmChange(row)} />,
+      cell: (row) => <ConfirmButton onClick={() => handleConfirmChange(row)} />,
       center: true,
     },
     {
       name: "Rechazar",
-      cell: row => <CancelButton onClick={() => handleRechazarChange(row)} />,
+      cell: (row) => <CancelButton onClick={() => handleRechazarChange(row)} />,
       center: true,
     },
     {
       name: "Editar Estatus",
-      cell: row => <EnvioButton onClick={() => handleEnvioClick(row)} />,
+      cell: (row) => <EnvioButton onClick={() => handleEnvioClick(row)} />,
       center: true,
     },
   ];
@@ -184,13 +193,16 @@ export default function DetalleVenta() {
           paginationPerPage={10}
           fixedHeader
         />
-
         {modalData && (
           <div className={styles.modal}>
             <div className={styles.modalContent}>
-              <span className={styles.close} onClick={closeModal}>&times;</span>
+              <span className={styles.close} onClick={closeModal}>
+                &times;
+              </span>
               <DetalleVentaProductos data={modalData} />
-              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
+              <button className={styles.confirmButton} onClick={closeModal}>
+                Cerrar
+              </button>
             </div>
           </div>
         )}
@@ -198,9 +210,13 @@ export default function DetalleVenta() {
         {showLinkModal && (
           <div className={styles.modal}>
             <div className={styles.modalContent}>
-              <span className={styles.close} onClick={closeModal}>&times;</span>
+              <span className={styles.close} onClick={closeModal}>
+                &times;
+              </span>
               <LinkProducto />
-              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
+              <button className={styles.confirmButton} onClick={closeModal}>
+                Cerrar
+              </button>
             </div>
           </div>
         )}
@@ -208,9 +224,13 @@ export default function DetalleVenta() {
         {showReciboModal && (
           <div className={styles.modal}>
             <div className={styles.modalContent}>
-              <span className={styles.close} onClick={closeModal}>&times;</span>
+              <span className={styles.close} onClick={closeModal}>
+                &times;
+              </span>
               <ReciboProducto />
-              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
+              <button className={styles.confirmButton} onClick={closeModal}>
+                Cerrar
+              </button>
             </div>
           </div>
         )}

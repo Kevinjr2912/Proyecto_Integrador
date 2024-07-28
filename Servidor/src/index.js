@@ -12,6 +12,7 @@ const shippingDataRoutes = require('./routes/datosEnvio');
 const comprobantesPagoRoutes = require('./routes/comprobantes');
 const carRoutes = require('./routes/carrito');
 const resenasRoutes = require ('./routes/resenas');
+const detailsOrdersRoutes = require('./routes/pedido');
 
 const app = express();
 const port = process.env.DB_PORT || 3000;   
@@ -38,6 +39,7 @@ app.use('/shippingData',shippingDataRoutes);
 app.use('/comprobantes', comprobantesPagoRoutes);
 app.use('/cars',carRoutes);
 app.use('/resenas', resenasRoutes);
+app.use('/orders', detailsOrdersRoutes);
 
 // Servir archivos estáticos desde el directorio 'uploads'
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

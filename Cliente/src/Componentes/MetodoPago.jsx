@@ -4,10 +4,7 @@ import FramePayPalPago from "../Icons/FramePayPalPago.svg";
 import FrameTransferencia from "../Icons/FrameTransferencia.svg";
 
 export default function MetodoPago() {
-  // Valores estáticos
-  const idPedido = 2;
-  const idEstatus = 2;
-
+  const idCliente = 12;
   const [metodoSelect, setMetodoSelect] = useState("");
   const [archivo, setArchivo] = useState(null);
 
@@ -27,17 +24,29 @@ export default function MetodoPago() {
 
     const formData = new FormData();
     formData.append('comprobante', archivo);
-    formData.append('idPedido', idPedido);
-    // formData.append('idEstatus', idEstatus);
+    formData.append('idCliente', idCliente);
 
     try {
-      const response = await fetch("http://localhost:3000/comprobantes/addComprobante", {
+      const response1 = await fetch("http://localhost:3000/comprobantes/addComprobante", {
         method: "POST",
         body: formData
       });
 
-      if (response.ok) {
-        alert('Comprobante subido exitosamente');
+      if (response1.ok) {
+        const data = await response1.json();
+        const response2 = await fetch(`http://localhost:3000/orders/addDetailsOrderCustomer/${idCliente}`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ idPedido: data.idPedido })
+        });
+
+        if (response2.ok) {
+          alert('Tu compra ha pasado al proceso de validación, te pedimos paciencia');
+        } else {
+          alert('Error al agregar detalles del pedido');
+        }
       } else {
         alert('Error al subir el comprobante');
       }
