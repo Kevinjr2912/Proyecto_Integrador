@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import "../Estilos/ShippingData.css";
+import styles from "../Estilos/ShippingData.module.css";
 
 export default function ShippingData() {
   const [codigoPostal, setCodigoPostal] = useState("");
@@ -23,7 +23,7 @@ export default function ShippingData() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data.colonia)
+        console.log(data.colonia);
         setCodigoPostal(data.codigoPostal);
         setEstado(data.estado);
         setMunicipio(data.municipio);
@@ -62,29 +62,29 @@ export default function ShippingData() {
     event.preventDefault();
 
     if (
-      document.getElementById("calle").value == "" ||
-      document.getElementById("textReferencia").value == ""
+      document.getElementById("calle").value === "" ||
+      document.getElementById("textReferencia").value === ""
     ) {
       Swal.fire({
-        icon: "errorr",
+        icon: "error",
         title: "Oops...",
         text: `No pueden quedar campos vacíos`,
       });
     } else {
       if (!document.getElementById("colonias").value) {
         Swal.fire({
-          icon: "errorr",
+          icon: "error",
           title: "Oops...",
           text: `Debes seleccionar una colonia, no haz seleccionado una`,
         });
       }
 
       if (
-        document.getElementById("numero_exterior").value != "" &&
-        isNaN(document.getElementById("numero_exterior").value) == true
+        document.getElementById("numero_exterior").value !== "" &&
+        isNaN(document.getElementById("numero_exterior").value)
       ) {
         Swal.fire({
-          icon: "errorr",
+          icon: "error",
           title: "Oops...",
           text: `El valor para el campo de número exterior debe ser númerico`,
         });
@@ -126,26 +126,26 @@ export default function ShippingData() {
 
   const handleShippingMethod = () => {
     navigate('/carritoPago/metodoEnvio');
-  } 
+  };
 
   return (
-    <form className="containerShippingData" onSubmit={handleSubmit}>
-      <div className="cp">
-        <label htmlFor="codigo_postal">Código postal</label>
-        <input
-          type="text"
-          name="CodigoPostal"
-          placeholder="Código postal"
-          id="codigo_postal"
-          onBlur={blurCP}
-          onChange={(e) => setCodigoPostal(e.target.value)}
-          value={codigoPostal}
-        />
-      </div>
-      <div className="referencias">
-        <div className="box_estado">
+    <form className={styles.containerShippingData} onSubmit={handleSubmit}>
+      <div className={styles.containerForm}>
+        <div>
+          <label htmlFor="codigo_postal">Código postal</label>
+          <input className={styles.inputShipping}
+            type="text"
+            name="CodigoPostal"
+            placeholder="Código postal"
+            id="codigo_postal"
+            onBlur={blurCP}
+            onChange={(e) => setCodigoPostal(e.target.value)}
+            value={codigoPostal}
+          />
+        </div>
+        <div>
           <label htmlFor="estado">Estado</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="Estado"
             id="estado"
@@ -154,9 +154,9 @@ export default function ShippingData() {
             readOnly
           />
         </div>
-        <div className="box_municipio">
+        <div>
           <label htmlFor="municipio">Municipio</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="Municipio"
             id="municipio"
@@ -165,27 +165,25 @@ export default function ShippingData() {
             readOnly
           />
         </div>
-      </div>
-      <div className="cols">
-        <label htmlFor="colonia">Colonia</label>
-        <select
-          name="ListaColonias"
-          id="colonias"
-          value={coloniaSeleccionada}
-          onChange={(e) => setColoniaSeleccionada(e.target.value)}
-        >
-          <option value="">Seleccionar</option>
-          {colonias.map((colonia, colonia_id) => (
-            <option key={colonia_id} value={colonia}>
-              {colonia}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="referencia_cercana">
-        <div className="box_calle">
+        <div>
+          <label htmlFor="colonia">Colonia</label>
+          <select className={styles.inputSelect}
+            name="ListaColonias"
+            id="colonias"
+            value={coloniaSeleccionada}
+            onChange={(e) => setColoniaSeleccionada(e.target.value)}
+          >
+            <option value="">Seleccionar</option>
+            {colonias.map((colonia, colonia_id) => (
+              <option key={colonia_id} value={colonia}>
+                {colonia}
+              </option>
+            ))}
+          </select >
+        </div>
+        <div>
           <label htmlFor="calle">Calle</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="Calle"
             id="calle"
@@ -194,9 +192,9 @@ export default function ShippingData() {
             onChange={(e) => setCalle(e.target.value)}
           />
         </div>
-        <div className="box_numeroExterior">
+        <div>
           <label htmlFor="numero_exterior">Número exterior</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="NumeroExterior"
             id="numero_exterior"
@@ -205,19 +203,19 @@ export default function ShippingData() {
             onChange={(e) => setNumeroExterior(e.target.value)}
           />
         </div>
+        <div>
+          <label htmlFor="textReferencia">Referencia</label>
+          <input className={styles.inputShipping_ref} 
+            name="textReferencia"
+            id="textReferencia"
+            value={referencia}
+            onChange={(e) => setReferencia(e.target.value)}
+          />
+        </div>
       </div>
-      <div className="ref">
-        <label htmlFor="textReferencia">Referencia</label>
-        <input
-          name="textReferencia"
-          id="textReferencia"
-          value={referencia}
-          onChange={(e) => setReferencia(e.target.value)}
-        ></input>
-      </div>
-      <div className="actionsData">
-        <button className="btn_c" onClick={handleShippingMethod}>Cancelar</button>
-        <button className="saveData" type="submit">
+      <div className={styles.actionsData}>
+        <button className={styles.btnC} onClick={handleShippingMethod}>Cancelar</button>
+        <button className={styles.saveData} type="submit">
           Guardar datos envío
         </button>
       </div>

@@ -16,33 +16,35 @@ import OverolesPagina from "./Paginas/OverolesPagina";
 import MetodoEnvioP from './Paginas/MetodoEnvioP';
 import OrdenesP from './Paginas/OrdenesP';
 import DatoEnvioP from './Paginas/DatoEnvioP';
+import { AuthProvider } from './Componentes/AuthContext';
 
 function App() {
   return (
-    
+    <AuthProvider>
     <Router>
        {/*FALTA LA IMAGEN DEL NAV BAR, RUTAS NAVBAR,FOOTER Y RUTAS PROTEGIDAS */ }
         {/*FALTA ORDENES */ }
          {/*VISTAS LISTAS (YA CREADAS) */ }
       <Routes>
         <Route path="/" element={<Principal />} />   {/*Faltan estilos, los carruseles*/ }
-        <Route path="/loginAdmin" element={<LoginAdministrador />} /> {/*GOD*/ }
-        <Route path="/loginUsuario" element={<LoginUsuario />} /> {/*GOD*/ }
-        <Route path="/homeAdmin" element={<HomeAdminP />} />  {/*Faltan estilos*/ }
-        <Route path="/gestionarProductos" element={<GestionarProductosP />} />  {/*FALTAN ESTILOOOOOOOOOOOOOOOOOOOS*/ }
-        <Route path="/registroPagina" element={<RegistroPagina />} />  {/*GOD*/ }
-        <Route path="/detalleVenta" element={<DetalleVentaP />} />   {/*ERROR MASIVOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO*/ }
-        <Route path="/carritoPago" element={<CarritoP />} />   {/*FALTAN ESTILOS*/ }
+        <Route path="/loginAdmin" element={<LoginAdministrador />} /> {/*LISTO*/ }
+        <Route path="/loginUsuario" element={<LoginUsuario />} /> {/*LISTO*/ }
+        <Route path="/homeAdmin" element={<HomeAdminP />} />  {/*LISTO*/ }
+        <Route path="/gestionarProductos" element={<GestionarProductosP />} />  {/*LISTO*/ }
+        <Route path="/registroPagina" element={<RegistroPagina />} />  {/*listo*/ }
+        <Route path="/detalleVenta" element={<DetalleVentaP />} />   {/*FALTA BACK*/ }
+        <Route path="/carritoPago" element={<CarritoP />} />   {/*LISTO*/ }
         <Route path="/carritoPago/metodoEnvio" element={<MetodoEnvioP />} />  {/*Falta BACK */ }
-        <Route path="/carritoPago/metodoEnvio/metodoPago" element={<MetodoPagoP />} />  {/*GOD */ }
-        <Route path="/faqs" element={<Faqs />} />  {/*Faltan preguntas y respuestas*/ }
-        <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />  {/*LO MANEJA KEV*/ }
-        <Route path="/cascos" element={<CascosPagina />} /> {/*ESTILOS .KEV*/ }
-        <Route path="/overoles" element={<OverolesPagina />} /> {/*SAME*/ }
+        <Route path="/carritoPago/metodoEnvio/metodoPago" element={<MetodoPagoP />} />  {/*FALTA BACK */ }
+        <Route path="/faqs" element={<Faqs />} />  {/*LISTO*/ }
+        <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />  {/*LISTO*/ }
+        <Route path="/cascos" element={<CascosPagina />} /> {/*LISTO*/ }
+        <Route path="/overoles" element={<OverolesPagina />} /> {/*LISTO*/ }
         <Route path="/ordenes" element={<OrdenesP />} />  {/*GOD falta BACK*/ }
-        <Route path="/datosEnvio" element={<DatoEnvioP />} />  {/* falta estilos*/ }
+        <Route path="/datosEnvio" element={<DatoEnvioP />} />  {/*LISTO*/ }
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 

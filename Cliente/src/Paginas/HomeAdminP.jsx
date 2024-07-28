@@ -1,9 +1,8 @@
 import React from "react";
-import '../Estilos/HomeAdmin.css'
 import NavBar from "../Componentes/NavBar";
 import Footer from "../Componentes/Footer";
 import HomeAdmin from "../Componentes/HomeAdmin";
-import DetalleStatus from "../Componentes/DetalleStatus";
+
 
 
 export default function HomeAdminP(){
@@ -15,11 +14,16 @@ export default function HomeAdminP(){
             
         },
         {
-            id: 1,
+            id: 2,
+            nombre: 'MENU',
+            
+        },
+        {
+            id: 3,
             nombre: 'GESTIÓN PRODUCTO',
         },
         {
-            id: 2,
+            id: 3,
             nombre: 'DETALLES DE VENTA',
         }
     ];

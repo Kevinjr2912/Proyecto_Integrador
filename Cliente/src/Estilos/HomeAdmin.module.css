@@ -1,4 +1,4 @@
-.main-container {
+.main_container {
   background-color: #1d1d1d; 
   height: 100vh;
   display: flex;
@@ -14,19 +14,19 @@
   height: 30vw;
 }
 
-.container-topDiv {
+.container_topDiv {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 20px;
 }
 
-.container-topDiv h2 {
+.container_topDiv h2 {
   color: #fff; 
   margin: 5px 0;
 }
 
-.sign-off {
+.sign_off {
   background-color: #000;
   color: #fff;
   border: none;
@@ -35,7 +35,7 @@
   align-self: flex-end; 
 }
 
-.container-detalles {
+.container_detalles {
   background-color: #3d3d3d;
   border-radius: 8px;
   padding: 10px;
@@ -47,7 +47,7 @@
   margin-left: 20%;
 }
 
-.detalles-button  {
+.detalles_button  {
   color: #fff; 
   margin: 10px 0;
   padding: 15px;
@@ -55,13 +55,13 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-bottom: 1px solid #5a5a5a; /* Añade una línea inferior */
+  border-bottom: 1px solid #5a5a5a;
 }
 
-.detalles-button:last-child {
-  border-bottom: none; /* Elimina la línea inferior del último botón */
+.detalles_button:last-child {
+  border-bottom: none; 
 }
 
-.container-detalles button:hover, .sign-off:hover {
+.container_detalles button:hover, .sign-off:hover {
   background-color: #2DC289; 
 }

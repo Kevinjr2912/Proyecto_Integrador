@@ -5,20 +5,26 @@ import DetalleVenta from "../Componentes/DetalleVenta/DetalleVenta.jsx";
 import Footer from "../Componentes/Footer.jsx";
 export default function DetalleVentaP() {
 
-    const seccionesNav = [
-        {
-          id: 0,
-          nombre: 'INICIO',
-      },
-      {
-          id: 1,
-          nombre: 'GESTIÓN PRODUCTO',
-      },
-      {
-          id: 2,
-          nombre: 'DETALLES DE VENTA',
-      }
-      ];
+  const seccionesNav = [
+    {
+        id: 0,
+        nombre: 'INICIO',
+        
+    },
+    {
+        id: 2,
+        nombre: 'MENU',
+        
+    },
+    {
+        id: 3,
+        nombre: 'GESTIÓN PRODUCTO',
+    },
+    {
+        id: 3,
+        nombre: 'DETALLES DE VENTA',
+    }
+];
 
   return (
     <>
