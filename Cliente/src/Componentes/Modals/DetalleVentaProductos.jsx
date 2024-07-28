@@ -1,53 +1,16 @@
 import React from 'react';
-import DataTable from "react-data-table-component";
+import styles from '../../Estilos/DetalleVentaP.module.css';
 
-export default function DetalleVentaProductos({ data }) {
-  const productoData = [
-    {
-      id: 1,
-      producto: "Producto 1",
-      cantidad: 2,
-      precio: 25,
-    },
-    {
-      id: 2,
-      producto: "Producto 2",
-      cantidad: 1,
-      precio: 25,
-    },
-  ];
-
-  const columns = [
-    {
-      name: "Producto",
-      selector: (row) => row.producto,
-      sortable: true,
-      center: true,
-    },
-    {
-      name: "Cantidad",
-      selector: (row) => row.cantidad,
-      sortable: true,
-      center: true,
-    },
-    {
-      name: "Precio",
-      selector: (row) => `$${row.precio}`,
-      sortable: true,
-      center: true,
-    },
-  ];
-
+const DetalleVentaProductos = ({ data }) => {
   return (
-    <>
-      <h2>Detalles de la Venta para </h2>
-      <DataTable
-       
-      />
-      <div>
-        <h3>Lugar de destino</h3>
-        <p>{data.lugarDestino || "No especificado"}</p>
-      </div>
-    </>
+    <div className={styles.detalleVentaProductos}>
+      <h2>Detalles del Pedido</h2>
+      <p><strong>Email del Cliente:</strong> {data.email}</p>
+      <p><strong>Fecha de Compra:</strong> {data.fechaCompra}</p>
+      <p><strong>Precio Total:</strong> ${data.precioTotal}</p>
+      <p><strong>Comprobante de Pago:</strong> {data.comprobantePago}</p>
+    </div>
   );
-}
+};
+
+export default DetalleVentaProductos;

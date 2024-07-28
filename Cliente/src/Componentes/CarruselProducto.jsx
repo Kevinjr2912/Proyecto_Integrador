@@ -1,8 +1,8 @@
 import React from 'react';
 import CardProducto from './CardProducto';
 import NewCarrusel from './NewCarrusel';
-import imagen_home from '../Imagenes/imagen_home.jpg';
-import '../Estilos/CarruselProducto.css';
+
+
 
 const CarruselProducto = () => {
   return (

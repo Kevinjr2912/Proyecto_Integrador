@@ -32,7 +32,7 @@ export default function DetalleVentaP() {
       <div>
         <DetalleVenta></DetalleVenta>
         </div>
-    <Footer></Footer>
+    
  
       
     </>

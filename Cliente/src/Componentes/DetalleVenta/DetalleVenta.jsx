@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import styles from "../../Estilos/DetalleVenta.module.css";
 import FrameOjo from "../../Icons/FrameOjo.svg";
@@ -10,52 +10,36 @@ import DetalleVentaProductos from "../Modals/DetalleVentaProductos";
 import LinkProducto from "../Modals/LinkProducto";
 import ReciboProducto from "../Modals/ReciboProducto";
 
-// Componente para el botón de Detalles
 const DetalleButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.detalleButton}>
     <img src={FrameOjo} alt="Detalles" />
   </button>
 );
 
-// Componente para el botón de Recibo
 const ReciboButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.reciboButton}>
     <img src={FrameRecibo} alt="Recibo" />
   </button>
 );
 
-// Componente para el botón de Confirmar
 const ConfirmButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.confirmButton}>
     <img src={FrameConfirmar} alt="Confirmar" />
   </button>
 );
 
-// Componente para el botón de Cancelar
 const CancelButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.cancelButton}>
     <img src={FrameCancelar} alt="Rechazar" />
   </button>
 );
 
-// Componente para el botón de Enviar
 const EnvioButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.envioButton}>
     <img src={FrameEnvio} alt="Enviar" />
   </button>
 );
 
-// Datos estáticos iniciales para la tabla
-const initialData = [
-  {
-    id: 1,
-    email: "example1@example.com",
-    fechaCompra: "2023-07-20",
-    precioTotal: 50,
-  },
-];
-
-// Estilos personalizados para la tabla
 const customStyles = {
   rows: {
     style: {
@@ -83,50 +67,64 @@ const customStyles = {
   }
 };
 
-// Componente principal de DetalleVenta
 export default function DetalleVenta() {
-  // Estado para los datos de la tabla
-  const [data, setData] = useState(initialData);
-  // Estado para los datos del modal
+  const [data, setData] = useState([]);
   const [modalData, setModalData] = useState(null);
-  // Estado para mostrar el modal de LinkProducto
   const [showLinkModal, setShowLinkModal] = useState(false);
-  // Estado para mostrar el modal de ReciboProducto
   const [showReciboModal, setShowReciboModal] = useState(false);
+  const [comprobantePago, setComprobantePago] = useState(null);
 
-  // Función para manejar el clic en el botón de detalles
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/customers/getClienteComprobante/1");
+        const result = await response.json();
+
+        console.log("Resultado del fetch:", result);
+
+        if (result && typeof result === "object" && result.comprobantePagoUrl) {
+          console.log("Longitud de base64:", result.comprobantePagoUrl.length);
+          setData([result]); // Encapsula el objeto en un array
+        } else {
+          throw new Error("Expected an object with comprobantePagoUrl");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleDetailClick = (row) => {
+    console.log("Detalle click:", row);
     setModalData(row);
   };
 
-  // Función para manejar el clic en el botón de recibo
   const handleReciboClick = (row) => {
+    console.log("Recibo click:", row);
+    console.log("Longitud de base64 en click:", row.comprobantePagoUrl.length);
+    setComprobantePago(row.comprobantePagoUrl); 
     setShowReciboModal(true);
   };
 
-  // Función para manejar el cambio en el botón de confirmar
   const handleConfirmChange = (row) => {
     alert(`Confirmar venta de: ${row.email}`);
   };
 
-  // Función para manejar el cambio en el botón de rechazar
   const handleRechazarChange = (row) => {
     alert(`Rechazar venta de: ${row.email}`);
   };
 
-  // Función para manejar el clic en el botón de enviar
   const handleEnvioClick = (row) => {
     setShowLinkModal(true);
   };
 
-  // Función para cerrar los modales
   const closeModal = () => {
     setModalData(null);
     setShowLinkModal(false);
     setShowReciboModal(false);
   };
 
-  // Columnas de la tabla
   const columns = [
     {
       name: "Detalles",
@@ -190,7 +188,8 @@ export default function DetalleVenta() {
             <div className={styles.modalContent}>
               <span className={styles.close} onClick={closeModal}>&times;</span>
               <DetalleVentaProductos data={modalData} />
-              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
+              <button className={styles.confirmarButton}>Confirmar</button>
+              <button className={styles.cancelarButton}>Cancelar</button>
             </div>
           </div>
         )}
@@ -200,7 +199,8 @@ export default function DetalleVenta() {
             <div className={styles.modalContent}>
               <span className={styles.close} onClick={closeModal}>&times;</span>
               <LinkProducto />
-              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
+              <button className={styles.confirmarButton}>Confirmar</button>
+              <button className={styles.cancelarButton}>Cancelar</button>
             </div>
           </div>
         )}
@@ -209,8 +209,7 @@ export default function DetalleVenta() {
           <div className={styles.modal}>
             <div className={styles.modalContent}>
               <span className={styles.close} onClick={closeModal}>&times;</span>
-              <ReciboProducto />
-              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
+              <ReciboProducto comprobantePagoUrl={comprobantePago} />
             </div>
           </div>
         )}

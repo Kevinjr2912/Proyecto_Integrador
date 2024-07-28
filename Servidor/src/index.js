@@ -3,10 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const customersRoutes = require('./routes/clientes');
-const productsRoutes = require('./routes/productos');
-const comprobantesPagoRoutes = require('./routes/comprobantes');
-const resenasRoutes = require('./routes/resenas');
+const customersRoutes = require ('./routes/clientes');
+const productsRoutes = require ('./routes/productos');
+const comprobantesPagoRoutes = require ('./routes/comprobantes');
+const resenasRoutes = require ('./routes/resenas');
+const adminRoutes = require ('./routes/administrador');
+const dipomexRoutes = require('./routes/dipomex');
+const shippingDataRoutes = require('./routes/datosEnvio')
+const carRoutes = require ('./routes/carrito')
 
 const app = express();
 const port = process.env.DB_PORT || 3000;
@@ -29,9 +33,10 @@ app.use('/customers', customersRoutes);
 app.use('/products', productsRoutes);
 app.use('/admins',adminRoutes);
 app.use('/api',dipomexRoutes);
-app.use('/shippingData',shippingDataRoutes);
+//app.use('/shippingData',shippingDataRoutes);
 app.use('/comprobantes', comprobantesPagoRoutes);
 app.use('/cars',carRoutes);
+app.use('/resenas', resenasRoutes)
 
 app.listen(port, () => {
     console.log(`Servidor Express en ejecución en http://localhost:${port}`);

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import styles from '../Estilos/MetodoPago.module.css';
 import FramePayPalPago from "../Icons/FramePayPalPago.svg";
-import FrameTransferencia from "../Icons/FrameTransferencia.svg"
+import FrameTransferencia from "../Icons/FrameTransferencia.svg";
 
 export default function MetodoPago() {
-  const [metodoSelect, setMetodoSelect] = useState("");
-  const [archivo, setArchivo] = useState("");
- 
-  
+  // Valores estáticos
+  const idPedido = 2;
+  const idEstatus = 2;
 
+  const [metodoSelect, setMetodoSelect] = useState("");
+  const [archivo, setArchivo] = useState(null);
 
   const handleMetodoCambio = (metodo) => {
     setMetodoSelect(metodo);
@@ -26,7 +27,8 @@ export default function MetodoPago() {
 
     const formData = new FormData();
     formData.append('comprobante', archivo);
-    formData.append('idVenta', idVenta); // Añadir el idVenta al formulario
+    formData.append('idPedido', idPedido);
+    formData.append('idEstatus', idEstatus);
 
     try {
       const response = await fetch("http://localhost:3000/comprobantes/addComprobante", {
@@ -67,11 +69,11 @@ export default function MetodoPago() {
             <p>Concepto: F1OwnStore + Productos</p>
             <input 
               type="file" 
-              accept=".pdf" 
+              accept=".pdf, .png, .jpg, .jpeg" 
               className={styles.subirComprobante}
-              onChange={handleArchivoCambio} // Modificado
+              onChange={handleArchivoCambio}
             />
-            <button onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
+            <button onClick={handleSubmit}>Subir Comprobante</button>
           </div>
         </div>
       </div>
@@ -93,11 +95,11 @@ export default function MetodoPago() {
             <p>Concepto: F1OwnStore + Productos</p>
             <input 
               type="file" 
-              accept=".pdf" 
+              accept=".pdf, .png, .jpg, .jpeg" 
               className={styles.subirComprobante}
-              onChange={handleArchivoCambio} // Modificado
+              onChange={handleArchivoCambio}
             />
-            <button onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
+            <button onClick={handleSubmit}>Subir Comprobante</button>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Servicios from "../Componentes/Servicios.jsx";
 import SeccionesTienda from "../Componentes/SeccionesTienda.jsx";
 import CarruselProducto from "../Componentes/CarruselProducto.jsx";
 import ImageSlide from "../Componentes/ImagenSlide.jsx";
-import imagen_home from "../Imagenes/imagen_home.jpg";
+
 import "../Estilos/Home.css";
 import Footer from "../Componentes/Footer.jsx";
 import NewCarrusel from "../Componentes/NewCarrusel.jsx";

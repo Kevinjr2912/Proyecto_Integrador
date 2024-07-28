@@ -27,8 +27,8 @@ export default function Footer(){
       };
 
     return(
-        <footer class="footer">
-        <div class="footer-links">
+        <footer className="footer">
+        <div className="footer-links">
  
             <a onClick={handleNavigateToFaqs} >FAQs</a>
             <span>|</span>
