@@ -15,12 +15,24 @@
     bottom: 0;
 }
 
+.footer-links_a{
+    text-decoration: none;
+    cursor:pointer;
+}
+
+.footer-links_a:hover {
+    color: #00fe99;
+  }
 .footer-links {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    cursor: 'pointer';
+    text-decoration: none;
 }
+
+
 
 .footer-links a {
     color: #00fe99;
@@ -47,6 +59,4 @@
     margin: 0 10px;
 }
 
-.footer-icons img:hover {
-    color: #2DC289;
-}
+

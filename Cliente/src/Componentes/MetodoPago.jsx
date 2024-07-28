@@ -20,7 +20,7 @@ export default function MetodoPago() {
 
   const handleSubmit = async () => {
     if (!archivo) {
-      alert('Por favor, selecciona un archivo antes de enviar.');
+      alert('Por favor, selecciona un archivo antes de pagar.');
       return;
     }
 
@@ -71,7 +71,7 @@ export default function MetodoPago() {
               className={styles.subirComprobante}
               onChange={handleArchivoCambio} // Modificado
             />
-            <button onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
+            <button className={styles.botonComprobante}  onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function MetodoPago() {
               className={styles.subirComprobante}
               onChange={handleArchivoCambio} // Modificado
             />
-            <button onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
+            <button className={styles.botonComprobante} onClick={handleSubmit}>Subir Comprobante</button> {/* Nuevo botón para enviar */}
           </div>
         </div>
       </div>

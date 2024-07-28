@@ -7,24 +7,28 @@ export default function Faqs() {
   const seccionesNav = [
     {
       id: 0,
-      nombre: "ABOUT US",
+      nombre: "CONOCENOS",
     },
     {
       id: 1,
-      nombre: "OVERALLS",
+      nombre: "OVEROLES",
     },
     {
       id: 2,
-      nombre: "HELMETS",
+      nombre: "CASCOS",
     },
     {
       id: 3,
-      nombre: "OFFERS",
+      nombre: "MIS ORDENES",
     },
-    {
-      id: 4,
-      nombre: "REVIEWS",
-    },
+  ];
+
+  const faqsData = [
+    { question: "¿Cómo puedo saber cuál es mi talla?", answer: "En nuestra página web y en tienda contamos con una guía de tallas detallada. También puedes contactarnos." },
+    { question: "¿Cuáles son las formas de pago que aceptan?", answer: "Aceptamos pagos con transferencias bancarias y por transferencia en PayPal." },
+    { question: "¿Ofrecen envío a todo el país de México?", answer: "Sí, realizamos envíos a todo el territorio mexicano." },
+    { question: "¿Puedo personalizar el número y nombre en el casco?", answer: "Sí, ofrecemos servicio de personalización de cascos. Puedes elegir el número y nombre que desees, y nosotros lo aplicaremos." },
+    { question: "¿Tienen tienda física?", answer: "Por el momento, no contamos con una tienda física más que tienda online." },
   ];
 
   return (
@@ -32,14 +36,7 @@ export default function Faqs() {
       <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
       <section className={styles.faqs}>
         <h2 className={styles.faqsTitle}>FAQs</h2>
-        {[
-          { question: "hola mi nopmbre es andre julian gutierrez", answer: "La respuesta jejej" },
-          { question: "Segunda pregunta", answer: "Respues jeje" },
-          { question: "Tercera pregunta jejeje", answer: "Respuestita" },
-          { question: "Cuarta pregunta jejeje", answer: "Respuestita" },
-          { question: "Quinta pregunta jejeje", answer: "Respuestita" },
-        ].map((faq, index) => (
-          
+        {faqsData.map((faq, index) => (
           <div key={index} className={styles.faqItem}>
             <input type="checkbox" id={`faq${index}`} className={styles.faqCheckbox} />
             <label htmlFor={`faq${index}`} className={styles.faqQuestion}>

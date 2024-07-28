@@ -74,8 +74,25 @@ export default function CarritoP() {
     });
   };
 
-  const agregarAlCarrito = (producto) => {
+  const handleAgregarAlCarrito = (producto) => {
     console.log("Agregar al carrito:", producto);
+    Swal.fire({
+      title: "¿Agregar al carrito?",
+      text: `Agregando ${producto.nombre} al carrito`,
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonText: "Sí, añadir",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        introducirAlCarrito (producto);
+        
+      }
+    });
+  };
+
+  const introducirAlCarrito = async (producto)=>{
+
   };
 
   const quitarDelCarrito = async (producto) => {
@@ -121,7 +138,7 @@ export default function CarritoP() {
                   <CarritoProducto
                     key={producto.idProducto}
                     producto={producto}
-                    agregarAlCarrito={agregarAlCarrito}
+                    agregarAlCarrito={handleAgregarAlCarrito}
                     quitarDelCarrito={handleQuitarDelCarrito}
                   />
                 ))
@@ -133,6 +150,7 @@ export default function CarritoP() {
               productos={purchaseSummary.cantidad}
               total={purchaseSummary.precioTotal}
             />
+            
           </>
         )}
       </div>
