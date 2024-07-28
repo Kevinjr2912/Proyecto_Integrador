@@ -4,6 +4,7 @@ import Filtros from "../Componentes/Filtros";
 import Footer from "../Componentes/Footer.jsx";
 import CardProducto from "../Componentes/CardProducto.jsx";
 import styles from "../Estilos/CascosPagina.module.css";
+import WhatsFlotante from "../Componentes/WhatsFlotante.jsx";
 
 export default function OverolesPagina() {
   const [products, setProducts] = useState([]);
@@ -61,6 +62,7 @@ export default function OverolesPagina() {
 
   return (
     <>
+    <WhatsFlotante></WhatsFlotante>
       <div className={styles.paginacontainer}>
         <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
         <div className={styles.container}>

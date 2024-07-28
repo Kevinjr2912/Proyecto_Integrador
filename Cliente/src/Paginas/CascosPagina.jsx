@@ -1,10 +1,10 @@
-// CascosPagina.jsx
 import React, { useState, useEffect } from "react";
 import NavBar from "../Componentes/NavBar";
 import Filtros from "../Componentes/Filtros";
 import Footer from "../Componentes/Footer";
 import CardProducto from "../Componentes/CardProducto";
 import styles from "../Estilos/CascosPagina.module.css";
+import WhatsFlotante from "../Componentes/WhatsFlotante";
 
 export default function CascosPagina() {
   const [products, setProducts] = useState([]);
@@ -60,6 +60,7 @@ export default function CascosPagina() {
 
   return (
     <>
+    <WhatsFlotante></WhatsFlotante>
       <div className={styles.paginacontainer}>
         <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
         <div className={styles.container}>

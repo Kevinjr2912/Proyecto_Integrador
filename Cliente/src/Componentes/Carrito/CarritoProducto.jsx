@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../Estilos/CarritoProducto.module.css';
 
-export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelCarrito }) {
+export default function CarritoProducto({ producto, introducirAlCarrito, quitarDelCarrito }) {
   const [cantidad, setCantidad] = useState(producto.cantidad);
 
   const incrementarCantidad = () => {
@@ -16,6 +16,10 @@ export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelC
     }
   };
 
+  const añadirProducto=()=>{
+    introducirAlCarrito(producto);
+  }
+
   const eliminarProducto = () => {
     quitarDelCarrito(producto);
   };
@@ -26,14 +30,19 @@ export default function CarritoProducto({ producto, agregarAlCarrito, quitarDelC
         <img src={`http://localhost:3000/uploads/${producto.filenameImagen}`} alt={producto.nombre} className={styles.imagen} />
       </div>
       <div className={styles.detalles}>
-        <h4>{producto.nombre}</h4>
-        <p>Precio: <span className={styles.precio}>{producto.precio}</span></p>
-        <div className={styles.cantidad}>
-          <button onClick={disminuirCantidad}>-</button>
-          <span>{cantidad}</span>
-          <button onClick={incrementarCantidad}>+</button>
+        <div className={styles.info}>
+          <h4 className={styles.nombre}>{producto.nombre}</h4>
+          <p>Precio: <span className={styles.precio}>{producto.precio}</span></p>
         </div>
-        <button onClick={eliminarProducto}>Confirmar.  </button>
+        <div className={styles.acciones}>
+          <div className={styles.cantidad}>
+            <button onClick={disminuirCantidad}>-</button>
+            <span>{cantidad}</span>
+            <button onClick={incrementarCantidad}>+</button>
+          </div>
+          <button onClick={añadirProducto}>Añadir</button>
+          <button onClick={eliminarProducto}>Eliminar</button>
+        </div>
       </div>
     </div>
   );

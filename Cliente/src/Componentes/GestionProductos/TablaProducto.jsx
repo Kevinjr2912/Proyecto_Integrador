@@ -1,10 +1,28 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
-import "../../Estilos/TablaProducto.module.css";
+import styles from "../../Estilos/TablaProducto.module.css";
 import EliminarModal from "../Modals/EliminarModal";
 import EditarModal from "../Modals/EditarModal";
+import FrameEditar from "../../Icons/FrameEditar.svg"
+import FrameEliminar from "../../Icons/FrameEliminar.svg"
 import Swal from 'sweetalert2';
+
+
+  // Componente para el botón de edirtar
+  const EditarButton = ({ onClick }) => (
+    <button onClick={onClick} className={styles.editarButton}>
+      <img src={FrameEditar} alt="Editar" />
+    </button>
+  );
+  
+    // Componente para el botón de eliminnar
+    const EliminarButton = ({ onClick }) => (
+      <button onClick={onClick} className={styles.eliminarButton}>
+        <img src={FrameEliminar} alt="Editar" />
+      </button>
+    );
+    
 
 function TablaProducto({ products }) {
   const [isEliminarModalOpen, setIsEliminarModalOpen] = useState(false);
@@ -12,39 +30,49 @@ function TablaProducto({ products }) {
   const [productToDelete, setProductToDelete] = useState(null);
   const [productToEdit, setProductToEdit] = useState(null);
 
+
+
   const columns = [
     {
       name: "IdProductos",
       selector: row => row.idProductos,
-      omit: true
+      omit: true,
+    
     },
     {
       name: "Producto",
       selector: row => row.nombre,
-      sortable: true
+      sortable: true,
+      center:true
+      
     },
     {
       name: "Categoría",
       selector: row => row.nombreCategoria || row.categoria,
-      sortable: true
+      sortable: true,
+      center:true
     },
     {
       name: "Precio",
       selector: row => row.precio,
-      sortable: true
+      sortable: true,
+      center:true
     },
     {
       name: "Descripción",
-      selector: row => row.descripcion
+      selector: row => row.descripcion,
+      center:true
     },
     {
       name: "Acciones",
       cell: row => (
         <div>
-          <button onClick={() => handleEdit(row)}>Editar</button>
-          <button onClick={() => handleDelete(row)}>Eliminar</button>
+          <EditarButton onClick={() => handleEdit(row)}/>
+          
+          <EliminarButton onClick={() => handleDelete(row)}/>
         </div>
-      )
+      ),
+     center:true
     }
   ];
 
@@ -118,24 +146,27 @@ function TablaProducto({ products }) {
       style: {
         backgroundColor: '#1e1e1e',
         color: '#ffffff',
+        
       }
     },
     headCells: {
       style: {
         backgroundColor: '#333333',
         color: '#ffffff',
-      }
+        }
     },
     cells: {
       style: {
         backgroundColor: '#1e1e1e',
         color: '#ffffff',
+       
       }
     },
     pagination: {
       style: {
-        backgroundColor: '#1e1e1e',
+        backgroundColor: '#333333',
         color: '#ffffff',
+
       }
     }
   };
@@ -143,10 +174,10 @@ function TablaProducto({ products }) {
   return (
     <>
       <div>
-        <div className="header-container">
-          <input className="buscador" type="text" onChange={handleChange} placeholder="Buscar..." />
+        <div className={styles.headerContainer}>
+          <input className={styles.buscador} type="text" onChange={handleChange} placeholder="Buscar..." />
         </div>
-        <div className="container-tabla">
+        <div className={styles.containerTabla}>
           <DataTable
             columns={columns}
             data={records}
