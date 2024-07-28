@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import "../Estilos/ShippingData.css";
@@ -23,14 +22,13 @@ export default function ShippingData() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data.colonia)
         setCodigoPostal(data.codigoPostal);
-        setEstado(data.estado);
-        setMunicipio(data.municipio);
         setColoniaSeleccionada(data.colonia);
         setNumeroExterior(data.numeroExterior);
         setCalle(data.calle);
         setReferencia(data.referencia);
+
+        await blurCP(data.codigoPostal);
       } else {
         console.log("No se pudieron obtener los datos de envío");
       }
@@ -43,18 +41,23 @@ export default function ShippingData() {
     getFormCustomerAddress();
   }, []);
 
-  const blurCP = async () => {
+  const blurCP = async (postalCode) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/codigo_postal?cp=${codigoPostal}`
+        `http://localhost:3000/api/codigo_postal?cp=${postalCode}`
       );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
       const data = await response.json();
 
       setEstado(data.codigo_postal.estado);
       setMunicipio(data.codigo_postal.municipio);
       setColonias(data.codigo_postal.colonias);
     } catch (err) {
-      console.log("Error al enviar la petición al servidor");
+      console.log("Error al enviar la petición al servidor:", err);
     }
   };
 
@@ -62,64 +65,62 @@ export default function ShippingData() {
     event.preventDefault();
 
     if (
-      document.getElementById("calle").value == "" ||
-      document.getElementById("textReferencia").value == ""
+      document.getElementById("calle").value === "" ||
+      document.getElementById("textReferencia").value === ""
     ) {
       Swal.fire({
-        icon: "errorr",
+        icon: "error",
         title: "Oops...",
         text: `No pueden quedar campos vacíos`,
       });
+    } else if (!document.getElementById("colonias").value) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Debes seleccionar una colonia, no has seleccionado una`,
+      });
+    } else if (
+      document.getElementById("numero_exterior").value !== "" &&
+      isNaN(document.getElementById("numero_exterior").value)
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `El valor para el campo de número exterior debe ser numérico`,
+      });
     } else {
-      if (!document.getElementById("colonias").value) {
-        Swal.fire({
-          icon: "errorr",
-          title: "Oops...",
-          text: `Debes seleccionar una colonia, no haz seleccionado una`,
-        });
-      }
+      const data = {
+        codigo_postal: codigoPostal,
+        nombre_estado: estado,
+        nombre_municipio: municipio,
+        nombre_colonia: coloniaSeleccionada,
+        calle: calle,
+        numeroExterior: numeroExterior,
+        referencia: referencia,
+      };
 
-      if (
-        document.getElementById("numero_exterior").value != "" &&
-        isNaN(document.getElementById("numero_exterior").value) == true
-      ) {
-        Swal.fire({
-          icon: "errorr",
-          title: "Oops...",
-          text: `El valor para el campo de número exterior debe ser númerico`,
-        });
-      } else {
-        const data = {
-          codigo_postal: codigoPostal,
-          nombre_estado: estado,
-          nombre_municipio: municipio,
-          nombre_colonia: coloniaSeleccionada,
-          calle: calle,
-          numeroExterior: numeroExterior,
-          referencia: referencia,
-        };
-
-        try {
-          const response = await fetch(
-            `http://localhost:3000/shippingData/addShippingInformation/${idCliente}`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            }
-          );
-
-          if (response.ok) {
-            Swal.fire({
-              icon: "success",
-              title: "Datos de envío establecidos correctamente",
-              showConfirmButton: false,
-              timer: 1500,
-            }).then(() => navigate("/carritoPago/metodoEnvio"));
+      try {
+        const response = await fetch(
+          `http://localhost:3000/shippingData/addShippingInformation/${idCliente}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
           }
-        } catch (err) {
-          console.log("Error al enviar la solicitud al servidor");
+        );
+
+        if (response.ok) {
+          Swal.fire({
+            icon: "success",
+            title: "Datos de envío establecidos correctamente",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => navigate("/carritoPago/metodoEnvio"));
+        } else {
+          console.log("Error en la respuesta al enviar la solicitud");
         }
+      } catch (err) {
+        console.log("Error al enviar la solicitud al servidor:", err);
       }
     }
   };
@@ -137,7 +138,7 @@ export default function ShippingData() {
           name="CodigoPostal"
           placeholder="Código postal"
           id="codigo_postal"
-          onBlur={blurCP}
+          onBlur={() => blurCP(codigoPostal)}
           onChange={(e) => setCodigoPostal(e.target.value)}
           value={codigoPostal}
         />

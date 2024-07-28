@@ -5,7 +5,6 @@ export default function EditarReseña({ reseña, onSave, onCancel }) {
   const [editedReview, setEditedReview] = useState(reseña.comentario);
   const [editedRating, setEditedRating] = useState(reseña.puntuacion);
 
-  console.log(reseña.idResenaProducto, reseña.comentario, reseña.puntuacion);
   const handleEditedReviewChange = (e) => {
     setEditedReview(e.target.value);
   };
@@ -32,11 +31,6 @@ export default function EditarReseña({ reseña, onSave, onCancel }) {
           body: JSON.stringify(updatedReview),
         }
       );
-
-      // Log del estado y la respuesta
-      console.log("Response OK:", response.ok);
-      console.log("Response Status:", response.status);
-      console.log("Response Headers:", response.headers.get("Content-Type"));
 
       if (response.ok) {
         const data = await response.json();

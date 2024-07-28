@@ -201,7 +201,6 @@ exports.gethPurchaseSummary = (req, res) => {
   });
 };
 
-
 exports.deleteProductCar = (req, res) => {
   const idProducto = req.params.idProducto;
   const {idCliente } = req.body;

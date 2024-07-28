@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "../../Estilos/ListaReseñas.module.css";
 import EditarReseña from "./EditarReseña";
 import EliminarReseña from "./EliminarReseña";
+import Swal from "sweetalert2";
 
 export default function ListaReseñas({ idProducto, idCliente }) {
   const [reseñas, setReseñas] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
-  // Función para obtener reseñas
   const fetchReseñas = async () => {
     try {
       const response = await fetch(
@@ -43,11 +43,14 @@ export default function ListaReseñas({ idProducto, idCliente }) {
 
       if (response.ok) {
         await response.json();
-        fetchReseñas(); // Actualiza las reseñas después de la edición
+        fetchReseñas();
+        Swal.fire({
+          icon: "success",
+          title: "Producto agregado exitosamente",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setEditIndex(null);
-        alert("Reseña actualizada exitosamente");
-      } else {
-        alert("Error al actualizar la reseña");
       }
     } catch (error) {
       console.error("Error al actualizar reseña:", error);

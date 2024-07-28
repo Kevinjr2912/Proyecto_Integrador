@@ -23,69 +23,83 @@ db.connect((err) => {
 });
 
 // Middleware de autenticación
-//const authenticateJWT = (req, res, next) => {
-  //const authHeader = req.headers.authorization;
-  //if (authHeader) {
-    //const token = authHeader.split(" ")[1];
-    //jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-      //if (err) {
-        //return res.sendStatus(403); // Prohibido (token inválido)
-      //}
-      //req.user = user;
-      //next();
-    //});
-  //} else {
-   // res.sendStatus(401); // No autorizado (sin token)
-  //}
-//};
+const authenticateJWT = (req, res, next) => {
+const authHeader = req.headers.authorization;
+if (authHeader) {
+const token = authHeader.split(" ")[1];
+jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+if (err) {
+return res.sendStatus(403); // Prohibido (token inválido)
+}
+req.user = user;
+next();
+});
+} else {
+res.sendStatus(401); // No autorizado (sin token)
+}
+};
 
-
-// Configuración de Multer para aceptar un solo archivo en memoria
 const storage = multer.memoryStorage();
-const upload = multer({ 
+const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 }, // Limitar tamaño del archivo (opcional)
+  limits: { fileSize: 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    // Filtrar solo archivos PDF
-    if (file.mimetype === 'application/pdf') {
+    const allowedTypes = [
+      "application/pdf",
+      "image/png",
+      "image/jpg",
+      "image/jpeg",
+    ];
+    if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('El archivo debe ser formato PDF'));
+      cb(
+        new Error(
+          "El archivo debe ser formato PDF o una imagen (PNG, JPG, JPEG)"
+        )
+      );
     }
-  }
-}).single('comprobante'); // Solo se acepta un archivo llamado 'comprobante'
+  },
+}).single("comprobante");
 
 exports.addComprobante = (req, res) => {
-    upload(req, res, (err) => {
-      if (err instanceof multer.MulterError) {
-        console.log(err);
-        return res.status(500).json({ message: 'Error al subir el comprobante' });
-      } else if (err) {
-        console.log(err);
-        return res.status(500).json({ message: 'Ocurrió un error' });
-      }
-  
-      const idCliente = 11;
-      const pdf = req.file.buffer;
-      console.log(pdf);
-  
-      if (!req.file) {
-        return res.status(404).json({ message: 'Archivo PDF no recibido' });
-      }
-  
-      db.query(
-        'INSERT INTO Venta (idCliente, comprobantePago) VALUES (?, ?)',
-        [idCliente, pdf],
-        (err, result) => {
-          if (err) {
-            console.error('Error al insertar el comprobante de pago:', err);
-            return res.status(500).json({ message: 'Error al insertar el comprobante de pago' });
-          }
+  upload(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      console.log(err);
+      return res.status(500).json({ message: "Error al subir el comprobante" });
+    } else if (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Ocurrió un error" });
+    }
 
-          console.log("Exito");
-  
-          return res.status(201).json({ message: 'Comprobante de pago insertado exitosamente', idVenta: result.insertId });
+    const { idPedido } = req.body;
+    const archivo = req.file.buffer;
+
+    if (!req.file) {
+      return res.status(404).json({ message: "Archivo no recibido" });
+    }
+
+    db.query(
+      "INSERT INTO ComprobantePago (id_Pedido, Comprobante_pago, id_estatus) VALUES (?, ?, ?)",
+      [idPedido, archivo, idEstatus],
+      (err, result) => {
+        if (err) {
+          console.error("Error al insertar el comprobante de pago:", err);
+          return res
+            .status(500)
+            .json({ message: "Error al insertar el comprobante de pago" });
         }
-      );
-    });
-  };
+
+        console.log("Éxito");
+
+        return res
+          .status(201)
+          .json({
+            message: "Comprobante de pago insertado exitosamente",
+            idVenta: result.insertId,
+          });
+      }
+    );
+  });
+};
+

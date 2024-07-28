@@ -141,7 +141,7 @@ exports.getAllHelmets = (req, res) => {
 
 exports.getAllOveralls = (req, res) => {
   db.query(
-    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Overol' GROUP BY IP.idProducto;",
+    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Overol' GROUP BY IP.idProducto",
     (err, result) => {
       if (err) {
         console.log(err)
@@ -162,8 +162,6 @@ exports.getAllOveralls = (req, res) => {
     }
   );
 };
-
-
 
 exports.getInformationProduct = (req, res) => {
   const idProducto = req.params.idProducto;

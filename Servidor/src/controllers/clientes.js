@@ -119,3 +119,61 @@ exports.allCustomers = [authenticateJWT,(req, res) => {
   });
 }];
 
+
+exports.getClienteComprobante = async (req, res) => {
+  const { id_cliente } = req.params;
+  console.log("ID del cliente:", id_cliente);
+
+  try {
+    db.query(
+      `SELECT 
+          ca.email,
+          p.fecha AS fechaCompra,
+          p.total AS precioTotal,
+          cp.Comprobante_pago
+        FROM 
+          Cliente c
+        INNER JOIN 
+          Pedido p ON c.id_cliente = p.idCliente
+        INNER JOIN 
+          ComprobantePago cp ON p.idPedido = cp.id_Pedido
+        INNER JOIN 
+          CredencialAccesoCliente ca ON c.id_credencial_cliente = ca.id_credencial_cliente
+        WHERE 
+          c.id_cliente = ?`, [id_cliente], (error, result) => {
+      if (error) {
+        console.error("Error en la consulta SQL:", error);
+        return res.status(500).json({ error: "Error en la consulta SQL" });
+      }
+
+      console.log("Resultado de la consulta:", result);
+
+      if (result.length > 0) {
+        const { email, fechaCompra, precioTotal, Comprobante_pago } = result[0];
+
+        console.log("Comprobante_pago BLOB:", Comprobante_pago);
+
+        const base64Comprobante = Comprobante_pago.toString('base64');
+        console.log("Base64 Comprobante:", base64Comprobante);
+
+        const imageBase64 = `data:image/png;base64,${base64Comprobante}`;
+        console.log("Image Base64 URL:", imageBase64);
+
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Disposition', 'inline');
+        res.status(200).json({
+          email,
+          fechaCompra,
+          precioTotal,
+          comprobantePagoUrl: imageBase64
+        });
+      } else {
+        console.warn("No se encontró el comprobante para el cliente:", id_cliente);
+        res.status(404).json({ error: "No se encontró el comprobante" });
+      }
+    });
+  } catch (error) {
+    console.error("Error al obtener los comprobantes del cliente:", error);
+    res.status(500).json({ error: "Error al obtener los comprobantes del cliente" });
+  }
+};
