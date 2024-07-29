@@ -42,7 +42,7 @@ export default function LoginPagina({ setIsLoggedIn, setIsAdmin }) {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          navigate('/GestionarProductosP');
+          navigate('/homeAdmin');
         });
       } else {
         Swal.fire({

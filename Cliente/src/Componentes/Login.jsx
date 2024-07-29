@@ -33,7 +33,7 @@ export default function Login() {
       );
 
       if (response.ok) {
-        handleLogin(false); // Asumiendo que este login es para usuarios no administradores
+        handleLogin(false); 
         Swal.fire({
           icon: "success",
           title: "Acceso concedido",

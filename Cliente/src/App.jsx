@@ -18,52 +18,104 @@ import OrdenesP from './Paginas/OrdenesP';
 import DatoEnvioP from './Paginas/DatoEnvioP';
 import { AuthProvider } from './Componentes/Contexto/AuthContext';
 import AboutUs from "./Componentes/AboutUs";
-
-
+import PrivateRoute from "./Componentes/PrivateRoute";
+import AdminRoute from "./Componentes/AdminRoute"; // Importa el componente AdminRoute
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsAdmin(false);
     console.log("Cerrando sesión...");
-    Navigate("/")
+    Navigate("/");
   };
+
   return (
-<AuthProvider>
-    <Router>
-    
-
-
-       {/*FALTA LA IMAGEN DEL NAV BAR, RUTAS NAVBAR,FOOTER Y RUTAS PROTEGIDAS */ }
-        {/*FALTA ORDENES */ }
-         {/*VISTAS LISTAS (YA CREADAS) */ }
-      <Routes>
-        <Route path="/" element={<Principal />} />   {/*Faltan estilos, los carruseles*/ }
-        <Route path="/loginAdmin" element={<LoginAdministrador />} /> {/*LISTO*/ }
-        <Route path="/loginUsuario" element={<LoginUsuario setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} handleLogout={handleLogout}  />} /> {/*LISTO*/ }
-        <Route path="/homeAdmin" element={<HomeAdminP />} />  {/*LISTO*/ }
-        <Route path="/gestionarProductos" element={<GestionarProductosP />} />  {/*LISTO*/ }
-        <Route path="/registroPagina" element={<RegistroPagina />} />  {/*listo*/ }
-        <Route path="/detalleVenta" element={<DetalleVentaP />} />   {/*FALTA BACK*/ }
-        <Route path="/carritoPago" element={<CarritoP />} />   {/*LISTO*/ }
-        <Route path="/carritoPago/metodoEnvio" element={<MetodoEnvioP />} />  {/*Falta BACK */ }
-        <Route path="/carritoPago/metodoEnvio/metodoPago" element={<MetodoPagoP />} />  {/*FALTA BACK */ }
-        <Route path="/faqs" element={<Faqs />} />  {/*LISTO*/ }
-        <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />  {/*LISTO*/ }
-        <Route path="/cascos" element={<CascosPagina />} /> {/*LISTO*/ }
-        <Route path="/overoles" element={<OverolesPagina />} /> {/*LISTO*/ }
-        <Route path="/ordenes" element={<OrdenesP />} />  {/*GOD falta BACK*/ }
-        <Route path="/datosEnvio" element={<DatoEnvioP />} />  {/*LISTO*/ }
-        <Route path="/nosotros" element={<AboutUs />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Principal />} />
+          <Route path="/loginAdmin" element={<LoginAdministrador />} />
+          <Route path="/loginUsuario" element={<LoginUsuario setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} handleLogout={handleLogout} />} />
+          <Route path="/registroPagina" element={<RegistroPagina />} /> {/* Ruta de registro no protegida */}
+          
+          <Route
+            path="/homeAdmin"
+            element={
+              <AdminRoute>
+                <HomeAdminP />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/gestionarProductos"
+            element={
+              <AdminRoute>
+                <GestionarProductosP />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/detalleVenta"
+            element={
+              <AdminRoute>
+                <DetalleVentaP />
+              </AdminRoute>
+            }
+          />
+          
+          <Route
+            path="/carritoPago"
+            element={
+              <PrivateRoute>
+                <CarritoP />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/carritoPago/metodoEnvio"
+            element={
+              <PrivateRoute>
+                <MetodoEnvioP />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/carritoPago/metodoEnvio/metodoPago"
+            element={
+              <PrivateRoute>
+                <MetodoPagoP />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ordenes"
+            element={
+              <PrivateRoute>
+                <OrdenesP />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/datosEnvio"
+            element={
+              <PrivateRoute>
+                <DatoEnvioP />
+              </PrivateRoute>
+            }
+          />
+          
+          <Route path="/faqs" element={<Faqs />} />
+          <Route path="/informacionProducto/:idProducto" element={<InformationProduct />} />
+          <Route path="/cascos" element={<CascosPagina />} />
+          <Route path="/overoles" element={<OverolesPagina />} />
+          <Route path="/nosotros" element={<AboutUs />} />
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
 
 export default App;
-
-
