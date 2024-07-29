@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../Componentes/NavBar";
 import "../Estilos/InformacionProducto.css";
@@ -10,6 +11,7 @@ import NombrePrecioProducto from "../Componentes/NombrePrecioProducto";
 import tallaReferenciaCascos from "../Imagenes/tallaReferenciaCascos.jpg";
 import tallaReferenciaOveroles from "../Imagenes/tallaReferenciaOveroles.webp";
 import Swal from "sweetalert2";
+import Footer from "../Componentes/Footer";
 
 export default function InformationProduct() {
   const { idProducto } = useParams();
@@ -35,7 +37,6 @@ export default function InformationProduct() {
         );
         const data = await response.json();
         setProducto(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -92,7 +93,6 @@ export default function InformationProduct() {
         return carritoActualizado;
       });
     } catch (error) {
-      console.error('Error al agregar el producto al carrito:', error);
       Swal.fire({
         title: 'Error',
         text: 'Hubo un problema al agregar el producto al carrito.',
@@ -127,9 +127,9 @@ export default function InformationProduct() {
         <div className="product">
           <div className="aboutProduct">
             <ImagenesReferencia
-              img1={producto.img1}
-              img2={producto.img2}
-              img3={producto.img3}
+              img1={producto.img1Filename}
+              img2={producto.img2Filename}
+              img3={producto.img3Filename}
               img4={imagenProductoTalla}
             />
             <div className="productInfo">
@@ -146,9 +146,16 @@ export default function InformationProduct() {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} idProductos={producto.idProductos} />
+=======
+        </div>
+        <div>
+          <Reseñas reseñas={reseñas} agregarReseña={agregarReseña} idProducto={idProducto}/>
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

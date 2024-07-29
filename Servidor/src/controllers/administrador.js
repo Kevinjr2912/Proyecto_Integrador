@@ -4,7 +4,6 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { Console } = require("console");
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
@@ -38,6 +37,7 @@ const authenticateJWT = (req, res, next) => {
     res.sendStatus(401); // No autorizado (sin token)
   }
 };
+
 
 exports.addAdmin = (req, res) => {
   const newAdmin = req.body;

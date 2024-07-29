@@ -23,9 +23,9 @@ export default function AccionesProducto({ producto, onAddToCart }) {
         <>
             <div className="container-btn__main">
             <div className="containerBtn">
-                <button className="btn" onClick={amountRest}>-</button>
+                <button className="btnAc" onClick={amountRest}>-</button>
                 <div className="amount">{count}</div>
-                <button className="btn" onClick={handleClick}>+</button>
+                <button className="btnAc" onClick={handleClick}>+</button>
             </div>
             <button className="btn_add-to-cart" onClick={handleAddToCart}>Agregar al Carrito</button>
             </div>

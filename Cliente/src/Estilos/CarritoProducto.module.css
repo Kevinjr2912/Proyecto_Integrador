@@ -1,0 +1,73 @@
+.producto {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 3px solid #ccc;
+  background-color: #282828;
+  color: #fff;
+}
+
+.imagenCarrito {
+  width: 200px; 
+  height: 150px; 
+  overflow: hidden; 
+  margin-right: 1cm;
+  margin-right: 1cm;
+}
+
+.imagenCarrito img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.detalles {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.infoProducto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nombre {
+  font-size: 18px;
+  margin: 0;
+}
+
+.precio {
+  color: green;
+  margin: 0;
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+}
+
+.cantidad {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.cantidad button {
+  margin: 0 5px;
+}
+
+button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #2DC289;
+}

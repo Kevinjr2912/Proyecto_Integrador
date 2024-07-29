@@ -5,7 +5,12 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+<<<<<<< HEAD
 const { query } = require("express");
+=======
+const path = require('path');
+const fs = require('fs');
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
@@ -40,14 +45,38 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-//Configurar multer
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).array("imagen", 5);
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, path.join(__dirname, '..','uploads'));
+  },
+  filename: (req, file, cb) => {
+      cb(null, `${file.originalname}`);
+  }
+});
 
-// Ruta para agregar producto y subir imágenes
+const upload = multer({ 
+  storage, 
+  limits: { fileSize: 10 * 1024 * 1024 }, // Limita el tamaño del archivo a 10MB
+  fileFilter: (req, file, cb) => {        
+      if (!file.mimetype.startsWith('image/')) {
+          return cb(new Error('Please upload an image'));
+      }
+      cb(null, true);
+  }
+}).array("imagen",3);
+
 exports.addProduct = (req, res) => {
   upload(req, res, (err) => {
+    if (err) {
+      return res.status(400).send(err.message);
+    }
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).send('No se subieron los archivos');
+    }
+
     const files = req.files;
+<<<<<<< HEAD
     console.log (req.files)
     if (!files) {
       return res.status(404).json({ message: "Imagenes no recibidas" });
@@ -64,36 +93,30 @@ exports.addProduct = (req, res) => {
     } else {
       idCategoria = 1;
     }
+=======
+    const { nombre, precio, descripcion, id_equipo, id_categoria } = req.body;
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 
     db.query(
       "INSERT INTO Productos (nombre, precio, descripcion, id_equipo, id_categoria) VALUES (?, ?, ?, ?, ?)",
-      [nombre, precio, descripcion, id_equipo, idCategoria],
+      [nombre, precio, descripcion, id_equipo, id_categoria],
       (err, result) => {
         if (err) {
-          return res
-            .status(500)
-            .json({ message: "Error al agregar el producto" });
+          console.error('Error al agregar producto:', err);
+          return res.status(500).json({ message: "Error al agregar el producto" });
         }
 
         const idProducto = result.insertId;
-        const imageValues = files.map((file) => [idProducto, file.buffer]);
+        const imageValues = files.map((file) => [idProducto, file.filename, file.path]);
 
         db.query(
-          "INSERT INTO ImagenProducto (idProducto,imagen) VALUES ?",
+          "INSERT INTO ImagenProducto (idProducto, filename, filepath) VALUES ?",
           [imageValues],
-          (err, result) => {
+          (err) => {
             if (err) {
-              console.log("Sucedio un error");
-
-              return res
-                .status(500)
-                .json({
-                  message: "Error al agregar las imágenes del producto",
-                });
+              return res.status(500).json({ message: "Error al agregar las imágenes del producto" });
             }
-            return res
-              .status(201)
-              .json({ message: "Producto e imágenes agregadas exitosamente" });
+            return res.status(201).json({ message: "Producto e imágenes agregadas exitosamente" });
           }
         );
       }
@@ -110,7 +133,6 @@ exports.getAllProducts = (req, res) => {
           .status(500)
           .json({ message: "Error al obtener los elementos" });
       }
-      console.log(result);
       return res.json(result);
     }
   );
@@ -118,9 +140,10 @@ exports.getAllProducts = (req, res) => {
 
 exports.getAllHelmets = (req, res) => {
   db.query(
-    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo , MIN(IP.imagen) AS imagen FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto INNER JOIN Equipo E ON P.id_equipo = E.idEquipo WHERE P.id_categoria = 1 GROUP BY P.idProductos",
+    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Casco' GROUP BY IP.idProducto;",
     (err, result) => {
       if (err) {
+        console.log(err)
         return res.json({ error: "Error al obtener los cascos" });
       }
 
@@ -131,24 +154,47 @@ exports.getAllHelmets = (req, res) => {
         descripcion: product.descripcion,
         nombreCategoria: product.nombreCategoria,
         nombreEquipo: product.nombre_equipo,
-        imagen: product.imagen.toString("base64"),
+        filename: product.filename,
       }));
 
-      console.log(products);
-
-      res.json(products);
+      return res.json(products);
     }
   );
 };
+
+exports.getAllOveralls = (req, res) => {
+  db.query(
+    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Overol' GROUP BY IP.idProducto;",
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        return res.json({ error: "Error al obtener los cascos" });
+      }
+
+      const products = result.map((product) => ({
+        idProducto: product.idProductos,
+        nombre: product.nombre, 
+        precio: product.precio,
+        descripcion: product.descripcion,
+        nombreCategoria: product.nombreCategoria,
+        nombreEquipo: product.nombre_equipo,
+        filename: product.filename,
+      }));
+
+      return res.json(products);
+    }
+  );
+};
+
+
 
 exports.getInformationProduct = (req, res) => {
   const idProducto = req.params.idProducto;
   console.log(idProducto);
   let objInformationProduct = {};
-  let img = [];
 
   db.query(
-    "SELECT IP.imagen FROM ImagenProducto IP WHERE IP.idProducto = ?",
+    "SELECT IP.filename FROM ImagenProducto IP WHERE IP.idProducto = ?",
     [idProducto],
     (err, result) => {
       if (err) {
@@ -157,11 +203,12 @@ exports.getInformationProduct = (req, res) => {
         });
       }
 
-      let images = result.map((img) => img.imagen.toString("base64"));
+      let imagesReferences = result.map((imgFilename) => imgFilename.filename);
 
-      objInformationProduct.img1 = images[0];
-      objInformationProduct.img2 = images[1];
-      objInformationProduct.img3 = images[2];
+      console.log(imagesReferences)
+      objInformationProduct.img1Filename = imagesReferences[0];
+      objInformationProduct.img2Filename = imagesReferences[1];
+      objInformationProduct.img3Filename = imagesReferences[2];
     }
   );
 
@@ -198,7 +245,6 @@ exports.updateProduct = (req, res) => {
     [productId],
     (err, result) => {
       if (err) {
-        console.error("Error al obtener el producto:", err);
         return res
           .status(500)
           .json({
@@ -235,7 +281,6 @@ exports.updateProduct = (req, res) => {
         [updateProduct, productId],
         (err, result) => {
           if (err) {
-            console.error("Error al actualizar el producto:", err);
             return res
               .status(500)
               .json({ message: "Error al modificar algún dato del producto" });

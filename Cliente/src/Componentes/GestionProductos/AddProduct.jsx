@@ -112,7 +112,11 @@ export default function AddProduct({ onAddProduct, onClose }) {
         onClose();
       } catch (error) {
         Swal.fire({
+<<<<<<< HEAD
           icon: "err",
+=======
+          icon: "errorr",
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
           title: "Oops...",
           text: `Error al eviar la solicitud`,
         });

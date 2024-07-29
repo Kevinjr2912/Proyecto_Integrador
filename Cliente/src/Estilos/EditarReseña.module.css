@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*EditarReseña.module.css*/
+=======
+/* EditarReseña.module.css */
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 .editarReseña {
   display: flex;
   flex-direction: column;
@@ -7,11 +11,21 @@
 }
 
 .textArea {
+<<<<<<< HEAD
   width: 100%;
   height: 60px;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 10px;
+=======
+  max-width: 100%;
+  height: 80px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 400;
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 }
 
 .starContainer {
@@ -21,10 +35,18 @@
 
 .estrella {
   cursor: pointer;
+<<<<<<< HEAD
 }
 
 .estrella.selected {
   color: gold;
+=======
+  color: white;
+}
+
+.estrella.selected {
+  color: #2DC289;
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 }
 
 .saveButton,
@@ -36,6 +58,7 @@
 }
 
 .saveButton {
+<<<<<<< HEAD
   background-color: #28a745;
   color: white;
 }
@@ -46,9 +69,27 @@
 
 .cancelButton {
   background-color: #dc3545;
+=======
+  background-color: #bebebe;
+  color: rgb(0, 0, 0);
+}
+
+.saveButton:hover {
+  background-color: #000000;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #000000;
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
   color: white;
 }
 
 .cancelButton:hover {
+<<<<<<< HEAD
   background-color: #c82333;
 }
+=======
+  background-color: #2DC289;
+}
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88

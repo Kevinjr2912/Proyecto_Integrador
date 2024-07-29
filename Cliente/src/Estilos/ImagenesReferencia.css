@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .box-container-img{
     width: 445px;
 }
@@ -19,22 +20,35 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+=======
+.box-container-img {
+  width: 445px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.img-principal {
+  width: 350px;
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 }
 
 .img-principal img {
-    width: 370px;
-    height: 350px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .box-container-childs {
-    display: flex;
-    gap: 20px;
-    padding-top: 10px;
-    box-sizing: border-box;
+  display: flex;
+  gap: 15px;
+  padding-top: 10px;
+  box-sizing: border-box;
 }
 
 .box-container-childs img {
-    width: 78px;
-    height: 66px;
-    cursor: pointer;
+  width: 76px;
+  height: 69px;
+  cursor: pointer;
 }

@@ -65,9 +65,9 @@
 
 .metodoPagoInfo button{
   position: absolute;
-  margin-left: 10%;
-  margin-top: .5%;
-  height: 14%;
+  margin-left: 5%;
+  margin-top: .7%;
+  height: 15%;
 }
 
 .metodoPagoInfo p {
@@ -76,7 +76,8 @@
 
 .subirComprobante {
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 10px 10px;
+  margin-right: 2.5cm;
   background-color: #908c8c;
   border: none;
   border-radius: 5px;
@@ -86,4 +87,9 @@
 
 .subirComprobante:hover {
   background-color: #00fe99;
+}
+
+.botonComprobante{
+  margin-right: 2%;
+  width: 19%;
 }

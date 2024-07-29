@@ -30,19 +30,20 @@ export default function Footer(){
         <footer className="footer">
         <div className="footer-links">
  
-            <a onClick={handleNavigateToFaqs} >FAQs</a>
+            <a className="footer-links_a" onClick={handleNavigateToFaqs} >FAQs</a>
             <span>|</span>
-            <a onClick={handleNavigateToNosotros}>Sobre nosotros</a>
+            <a className="footer-links_a" onClick={handleNavigateToNosotros} >Sobre nosotros </a>
             <span>|</span>
-            <a href="https://api.whatsapp.com/send?phone=1234567891&text=Hola,%20me%20gustaria%20Obtener%20m%C3%A1s%20informaci%C3%B3n" >Contacto</a>
+            <a className="footer-links_a" href="https://api.whatsapp.com/send?phone=1234567891&text=Hola,%20me%20gustaria%20Obtener%20m%C3%A1s%20informaci%C3%B3n" >Contacto</a>
         </div>
         <div class="footer-icons">
-            <img src={FrameInstagram} alt="img" />
-            <img src={FrameFacebook} alt="img" />
-            <img src={FrameX} alt="img" />
-            <img src={FrameTikTok} alt="img" />
-            <img src={FrameCard} alt="img" />
-            <img src={FramePayPal} alt="img" />
+           
+            <a href="https://www.instagram.com/f1owstoremx/" target="_blank" ><img src={FrameInstagram} alt="img" /></a>
+            <a href="https://www.facebook.com/profile.php?id=61552626731205&locale=es_LA" target="_blank" ><img src={FrameFacebook} alt="img" /></a>
+            <a href="https://x.com/F1owStoreMX" target="_blank" ><img src={FrameX} alt="img" /></a>
+            <a href="https://www.tiktok.com/@f1owstoremx?lang=es" target="_blank" ><img src={FrameTikTok} alt="img" /></a>
+            <a href=""><img src={FrameCard} alt="img" /></a>
+            <a href=""><img src={FramePayPal} alt="img" /></a>
             
         </div>
   

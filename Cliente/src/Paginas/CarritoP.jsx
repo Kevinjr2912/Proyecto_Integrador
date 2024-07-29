@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import NavBar from "../Componentes/NavBar";
 import WhatsFlotante from "../Componentes/WhatsFlotante";
 import Footer from "../Componentes/Footer";
+
 export default function CarritoP() {
   const seccionesNav = [
     {
@@ -68,20 +69,55 @@ export default function CarritoP() {
     }).then((result) => {
       if (result.isConfirmed) {
         quitarDelCarrito(producto);
+        
+      }
+    });
+  };
+
+  const handleAgregarAlCarrito = (producto) => {
+    console.log("Agregar al carrito:", producto);
+    Swal.fire({
+      title: "¿Agregar al carrito?",
+      text: `Agregando ${producto.nombre} al carrito`,
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonText: "Sí, añadir",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        introducirAlCarrito (producto);
+        
+      }
+    });
+  };
+
+  const introducirAlCarrito = async (producto)=>{
+
+  };
+
+  const quitarDelCarrito = async (producto) => {
+    console.log(producto)
+    try{
+      const response = await fetch(`http://localhost:3000/cars//deleteProductCar/${producto.idProducto}`,{
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({idCliente: 12}),
+      });
+
+      if(response.ok){
         Swal.fire(
           "Eliminado",
           `${producto.nombre} ha sido eliminado del carrito`,
           "success"
         );
+
+        cargarProductosCarrito();
       }
-    });
-  };
-
-  const agregarAlCarrito = (producto) => {
-    console.log("Agregar al carrito:", producto);
-  };
-
-  const quitarDelCarrito = (producto) => {
+    }catch(err){
+      console.log(err);
+    }
     console.log("Eliminar del carrito:", producto);
   };
 
@@ -94,15 +130,15 @@ export default function CarritoP() {
         {location.pathname === "/carritoPago/metodoEnvio" ? (
           <MetodoEnvioP />
         ) : (
-          <sdsdsdsds>
-            <h2>Carrito de Compras</h2>
+          <>
             <div className={styles.productos}>
+              <h2 className={styles.tituloCarrito}>Carrito de Compras</h2>
               {dataProducts.length > 0 ? (
                 dataProducts.map((producto) => (
                   <CarritoProducto
                     key={producto.idProducto}
                     producto={producto}
-                    agregarAlCarrito={agregarAlCarrito}
+                    agregarAlCarrito={handleAgregarAlCarrito}
                     quitarDelCarrito={handleQuitarDelCarrito}
                   />
                 ))
@@ -114,7 +150,8 @@ export default function CarritoP() {
               productos={purchaseSummary.cantidad}
               total={purchaseSummary.precioTotal}
             />
-          </sdsdsdsds>
+            
+          </>
         )}
       </div>
       <Footer></Footer>

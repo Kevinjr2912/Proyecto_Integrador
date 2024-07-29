@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*EliminarReseña.module.css*/
+=======
+/* EliminarReseña.module.css */
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 .eliminarReseña {
   display: flex;
   flex-direction: column;
@@ -6,12 +10,21 @@
   margin-top: 10px;
 }
 
+<<<<<<< HEAD
+=======
+.acceptDelete{
+  color: white;
+  font-size: 16px;
+}
+
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
 .deleteButton,
 .cancelButton {
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+<<<<<<< HEAD
 }
 
 .deleteButton {
@@ -25,9 +38,30 @@
 
 .cancelButton {
   background-color: #6c757d;
+=======
+  outline: none;
+}
+
+.deleteButton {
+  background-color: #eae9e9;
+  color: rgb(0, 0, 0);
+}
+
+.deleteButton:hover {
+  background-color: #bebebe;
+}
+
+.cancelButton {
+  background-color: #000000;
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88
   color: white;
 }
 
 .cancelButton:hover {
+<<<<<<< HEAD
   background-color: #5a6268;
 }
+=======
+  background-color: #2DC289;;
+}
+>>>>>>> 073de4a1e0b822c7eddf6e7be1e6fcb83fe69e88

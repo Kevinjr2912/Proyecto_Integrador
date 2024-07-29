@@ -1,5 +1,7 @@
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import "../Estilos/ShippingData.css";
 
 export default function ShippingData() {
@@ -11,6 +13,35 @@ export default function ShippingData() {
   const [calle, setCalle] = useState("");
   const [numeroExterior, setNumeroExterior] = useState("");
   const [referencia, setReferencia] = useState("");
+  const navigate = useNavigate();
+  const idCliente = 13;
+
+  const getFormCustomerAddress = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/shippingData/getFormCustomerAddress/${idCliente}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.colonia)
+        setCodigoPostal(data.codigoPostal);
+        setEstado(data.estado);
+        setMunicipio(data.municipio);
+        setColoniaSeleccionada(data.colonia);
+        setNumeroExterior(data.numeroExterior);
+        setCalle(data.calle);
+        setReferencia(data.referencia);
+      } else {
+        console.log("No se pudieron obtener los datos de envío");
+      }
+    } catch (err) {
+      console.log("Error al obtener los datos de envío:", err);
+    }
+  };
+
+  useEffect(() => {
+    getFormCustomerAddress();
+  }, []);
 
   const blurCP = async () => {
     try {
@@ -27,18 +58,20 @@ export default function ShippingData() {
     }
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (document.getElementById("calle").value == "" || document.getElementById("textReferencia").value == "") {
+    if (
+      document.getElementById("calle").value == "" ||
+      document.getElementById("textReferencia").value == ""
+    ) {
       Swal.fire({
         icon: "errorr",
         title: "Oops...",
         text: `No pueden quedar campos vacíos`,
       });
-    } else{
-      if(!document.getElementById('colonias').value){
+    } else {
+      if (!document.getElementById("colonias").value) {
         Swal.fire({
           icon: "errorr",
           title: "Oops...",
@@ -46,55 +79,59 @@ export default function ShippingData() {
         });
       }
 
-      if (document.getElementById("numero_exterior").value != "" && isNaN(document.getElementById("numero_exterior").value) == true) {
+      if (
+        document.getElementById("numero_exterior").value != "" &&
+        isNaN(document.getElementById("numero_exterior").value) == true
+      ) {
         Swal.fire({
           icon: "errorr",
           title: "Oops...",
           text: `El valor para el campo de número exterior debe ser númerico`,
         });
-      } else{
-
+      } else {
         const data = {
-          'codigo_postal' : codigoPostal,
-          'nombre_estado' : estado,
-          'nombre_municipio' : municipio,
-          'nombre_colonia' : coloniaSeleccionada,
-          'calle' : calle,
-          'numeroExterior' : numeroExterior,
-          'referencia' : referencia
-        }
+          codigo_postal: codigoPostal,
+          nombre_estado: estado,
+          nombre_municipio: municipio,
+          nombre_colonia: coloniaSeleccionada,
+          calle: calle,
+          numeroExterior: numeroExterior,
+          referencia: referencia,
+        };
 
-        try{
-          const response = await fetch('http://localhost:3000/shippingData/addShippingInformation/11',{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data),
-          });
+        try {
+          const response = await fetch(
+            `http://localhost:3000/shippingData/addShippingInformation/${idCliente}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            }
+          );
 
-          if(response.ok){
+          if (response.ok) {
             Swal.fire({
               icon: "success",
-              title: 'Datos de envío establecidos correctamente',
+              title: "Datos de envío establecidos correctamente",
               showConfirmButton: false,
               timer: 1500,
-            });
+            }).then(() => navigate("/carritoPago/metodoEnvio"));
           }
-          
-        }catch(err){
+        } catch (err) {
           console.log("Error al enviar la solicitud al servidor");
         }
-
-        
       }
     }
-
-    
   };
+
+  const handleShippingMethod = () => {
+    navigate('/carritoPago/metodoEnvio');
+  } 
 
   return (
     <form className="containerShippingData" onSubmit={handleSubmit}>
       <div className="cp">
-        <label htmlFor="codigo_postal" >Código postal</label>
+        <label htmlFor="codigo_postal">Código postal</label>
         <input
           type="text"
           name="CodigoPostal"
@@ -102,6 +139,7 @@ export default function ShippingData() {
           id="codigo_postal"
           onBlur={blurCP}
           onChange={(e) => setCodigoPostal(e.target.value)}
+          value={codigoPostal}
         />
       </div>
       <div className="referencias">
@@ -130,7 +168,12 @@ export default function ShippingData() {
       </div>
       <div className="cols">
         <label htmlFor="colonia">Colonia</label>
-        <select name="ListaColonias" id="colonias" value={coloniaSeleccionada} onChange={(e) => setColoniaSeleccionada(e.target.value)}>
+        <select
+          name="ListaColonias"
+          id="colonias"
+          value={coloniaSeleccionada}
+          onChange={(e) => setColoniaSeleccionada(e.target.value)}
+        >
           <option value="">Seleccionar</option>
           {colonias.map((colonia, colonia_id) => (
             <option key={colonia_id} value={colonia}>
@@ -173,7 +216,7 @@ export default function ShippingData() {
         ></input>
       </div>
       <div className="actionsData">
-        <button className="btn_c">Cancelar</button>
+        <button className="btn_c" onClick={handleShippingMethod}>Cancelar</button>
         <button className="saveData" type="submit">
           Guardar datos envío
         </button>
