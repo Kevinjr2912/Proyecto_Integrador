@@ -58,18 +58,7 @@ exports.addAdmin = (req, res) => {
         return res.status(500).send('Error al agregar credenciales del administrador');
       }
 
-      const idAdmin = result.insertId;
-      console.log(idAdmin);
-
-      // Insertar los detalles del administrador
-      db.query('INSERT INTO Administrador (primerNombre,segundoNombre,apellidoPaterno,apellidoMaterno,correoPayPal,id_credencial_admin) VALUES (?,?,?,?,?,?)', 
-        [newAdmin.primerNombre, newAdmin.segundoNombre, newAdmin.apellidoPaterno, newAdmin.apellidoMaterno, newAdmin.correoPayPal, idAdmin], (err, result) => {
-        if (err) {
-          return res.status(500).send('Error al agregar datos del administrador');
-        }
-
-        res.status(200).send("Administrador agregado exitosamente");
-      });
+      res.status(200).send("Administrador agregado exitosamente");
     });
   });
 };
@@ -105,6 +94,6 @@ exports.login = async (req, res) => {
         }
       );
       return res.json({ token });
-    }
-  );
+}
+);
 };

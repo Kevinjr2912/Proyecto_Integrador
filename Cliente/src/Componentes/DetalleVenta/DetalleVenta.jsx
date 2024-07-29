@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import styles from "../../Estilos/DetalleVenta.module.css";
 import FrameOjo from "../../Icons/FrameOjo.svg";
@@ -9,15 +9,6 @@ import FrameEnvio from "../../Icons/FrameEnvio.svg";
 import DetalleVentaProductos from "../Modals/DetalleVentaProductos";
 import LinkProducto from "../Modals/LinkProducto";
 import ReciboProducto from "../Modals/ReciboProducto";
-
-//Consumir API para mostrar email, fecha compra, precio total de la compra respecto a un cliente
-const showDetailsOrder = async () => {
-  try{
-    
-  }catch(err){
-
-  }
-}
 
 // Componente para el botón de Detalles
 const DetalleButton = ({ onClick }) => (
@@ -54,16 +45,6 @@ const EnvioButton = ({ onClick }) => (
   </button>
 );
 
-// Datos estáticos iniciales para la tabla
-const initialData = [
-  {
-    id: 1,
-    email: "example1@example.com",
-    fechaCompra: "2023-07-20",
-    precioTotal: 50,
-  },
-];
-
 // Estilos personalizados para la tabla
 const customStyles = {
   rows: {
@@ -95,7 +76,7 @@ const customStyles = {
 // Componente principal de DetalleVenta
 export default function DetalleVenta() {
   // Estado para los datos de la tabla
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState([]);
   // Estado para los datos del modal
   const [modalData, setModalData] = useState(null);
   // Estado para mostrar el modal de LinkProducto
@@ -182,6 +163,32 @@ export default function DetalleVenta() {
     },
   ];
 
+  //Consumir API para mostrar email, fecha compra, precio total de la compra respecto a un cliente
+  const showDetailsOrder = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/sales/getInformationSale"
+      );
+
+      if (response.ok) {
+        const dataJSON = await response.json();
+        const information = dataJSON.map((detailsSale) => ({
+          idPedido: detailsSale.idPedido,
+          email: detailsSale.email,
+          fechaCompra: new Date(detailsSale.fecha).toISOString().split("T")[0],
+          precioTotal: detailsSale.total,
+        }));
+        setData(information);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    showDetailsOrder();
+  });
+
   return (
     <>
       <div className={styles["tabla-detalles_venta"]}>
@@ -227,7 +234,7 @@ export default function DetalleVenta() {
               <span className={styles.close} onClick={closeModal}>
                 &times;
               </span>
-              <ReciboProducto />
+              <ReciboProducto/>
               <button className={styles.confirmButton} onClick={closeModal}>
                 Cerrar
               </button>

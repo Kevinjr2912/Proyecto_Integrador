@@ -8,7 +8,7 @@ export default function Reseñas({ reseñas, agregarReseña, idProducto }) {
   const [review, setReview] = useState("");
 
   //Tenemos que hacer que idCliente se vaya pasando en el front
-  const idCliente = 14;
+  const idCliente = 15;
 
   console.log("Este es el id del producto que va a ser reseñado " + idProducto)
 

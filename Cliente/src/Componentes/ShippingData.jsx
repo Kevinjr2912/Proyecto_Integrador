@@ -13,7 +13,7 @@ export default function ShippingData() {
   const [numeroExterior, setNumeroExterior] = useState("");
   const [referencia, setReferencia] = useState("");
   const navigate = useNavigate();
-  const idCliente = 13;
+  const idCliente = 15 ;
 
   const blurCP = async (postalCode) => {
     try {

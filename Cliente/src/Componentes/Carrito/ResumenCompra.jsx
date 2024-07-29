@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../Estilos/ResumenCompra.module.css'; 
+import Swal from 'sweetalert2';
 
 export default function ResumenCompra({ productos, total }) {
   const navigate = useNavigate();
 
   const handlePagarClick = () => {
-    navigate('/carritoPago/metodoEnvio');
+      navigate('/carritoPago/metodoEnvio');
+    
+    
   };
 
   return (

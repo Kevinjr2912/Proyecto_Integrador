@@ -19,7 +19,7 @@ import DatoEnvioP from './Paginas/DatoEnvioP';
 import { AuthProvider } from './Componentes/Contexto/AuthContext';
 import AboutUs from "./Componentes/AboutUs";
 import PrivateRoute from "./Componentes/PrivateRoute";
-import AdminRoute from "./Componentes/AdminRoute"; // Importa el componente AdminRoute
+import AdminRoute from "./Componentes/AdminRoute"; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,25 +44,25 @@ function App() {
           <Route
             path="/homeAdmin"
             element={
-              <AdminRoute>
+
                 <HomeAdminP />
-              </AdminRoute>
+
             }
           />
           <Route
             path="/gestionarProductos"
             element={
-              <AdminRoute>
+       
                 <GestionarProductosP />
-              </AdminRoute>
+          
             }
           />
           <Route
             path="/detalleVenta"
             element={
-              <AdminRoute>
+             
                 <DetalleVentaP />
-              </AdminRoute>
+             
             }
           />
           

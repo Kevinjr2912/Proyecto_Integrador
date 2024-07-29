@@ -24,7 +24,7 @@ export default function MetodoEnvio() {
     navigate("/datosEnvio");
   }
 
-  const idCliente = 14;
+  const idCliente = 15;
 
   const verifyShippingInformation = async () => {
     try {

@@ -4,7 +4,7 @@ import FramePayPalPago from "../Icons/FramePayPalPago.svg";
 import FrameTransferencia from "../Icons/FrameTransferencia.svg";
 
 export default function MetodoPago() {
-  const idCliente = 14;
+  const idCliente = 15;
   const [metodoSelect, setMetodoSelect] = useState("");
   const [archivo, setArchivo] = useState(null);
 
