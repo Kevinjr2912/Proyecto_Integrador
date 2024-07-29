@@ -46,7 +46,7 @@ export default function Registro() {
             title: "Cliente agregado exitosamente",
             showConfirmButton: false,
             timer: 1500,
-          }).then(()=> navigate('/'));
+          }).then(()=> navigate('/loginUsuario'));
         } else {
           Swal.fire({
             icon: "errorr",

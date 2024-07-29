@@ -24,19 +24,18 @@ export default function DatoEnvioP() {
       nombre: "MIS ORDENES",
     },
   ];
+
   return (
     <>
-      <WhatsFlotante></WhatsFlotante>
+      <WhatsFlotante />
       <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
-
       <div className={styles.containerShippingData}>
         <div className={styles.subcontainerShippingData}>
-        <h2 className={styles.tittleShippingData}>DATOS DE ENVÍO</h2>
-        <ShippingData></ShippingData>
+          <h2 className={styles.tittleShippingData}>DATOS DE ENVÍO</h2>
+          <ShippingData />
         </div>
       </div>
-
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }

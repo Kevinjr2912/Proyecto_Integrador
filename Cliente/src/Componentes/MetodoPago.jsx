@@ -62,20 +62,21 @@ export default function MetodoPago() {
 
       <div className={styles.metodoPagoOption}>
         <input 
+        className={styles.metodoPagoOption_input}
           type="radio" 
           id="transferencia" 
           name="metodoPago" 
           onChange={() => handleMetodoCambio('transferencia')} 
         />
-        <label htmlFor="transferencia">
+        <label className={styles.metodoPagoOption_label} htmlFor="transferencia">
           <span className={styles.icono}><img src={FrameTransferencia} alt="" /></span> Transferencia
         </label>
         <div className={metodoSelect === 'transferencia' ? styles.active : styles.inactive}>
           <div className={styles.metodoPagoInfo}>
-            <p>Titular de la tarjeta: Andre Kevin Andre</p>
-            <p>Numero de la tarjeta: xxxx xxxx xxxx xxxx</p>
+          <p>Titular de la tarjeta: Luis Antonio Cisneros Mazariegos</p>
+            <p>Numero de la tarjeta: 5247 8753 9987 5469</p>
             <p>Banco: BBVA</p>
-            <p>Concepto: F1OwnStore + Productos</p>
+            <p>Concepto: F1OwnStore Productos</p>
             <input 
               type="file" 
               accept=".pdf, .png, .jpg, .jpeg" 
@@ -89,19 +90,20 @@ export default function MetodoPago() {
 
       <div className={styles.metodoPagoOption}>
         <input 
+          className={styles.metodoPagoOption_input}
           type="radio" 
           id="paypal" 
           name="metodoPago" 
           onChange={() => handleMetodoCambio('paypal')} 
         />
-        <label htmlFor="paypal">
+        <label className={styles.metodoPagoOption_label} htmlFor="paypal">
           <span className={styles.icono}><img src={FramePayPalPago} alt="" /></span> PayPal
         </label>
         <div className={metodoSelect === 'paypal' ? styles.active : styles.inactive}>
           <div className={styles.metodoPagoInfo}>
-            <p>Nombre del beneficiario: André Kevin André</p>
-            <p>Correo Electrónico: ExampleF1@gmail.com</p>
-            <p>Concepto: F1OwnStore + Productos</p>
+          <p>Nombre del beneficiario: Luis Antonio Cisneros Mazariegos</p>
+            <p>Correo Electrónico: luisantonioC@gmail.com</p>
+            <p>Concepto: F1OwnStore Productos</p>
             <input 
               type="file" 
               accept=".pdf, .png, .jpg, .jpeg" 

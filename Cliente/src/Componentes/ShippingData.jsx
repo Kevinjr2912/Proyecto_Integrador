@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import "../Estilos/ShippingData.css";
+import styles from "../Estilos/ShippingData.module.css"; 
 
 export default function ShippingData() {
   const [codigoPostal, setCodigoPostal] = useState("");
@@ -104,10 +104,11 @@ export default function ShippingData() {
   } 
 
   return (
-    <form className="containerShippingData" onSubmit={handleSubmit}>
-      <div className="cp">
+    <form className={styles.containerShippingData} onSubmit={handleSubmit}>
+      <div className={styles.containerForm}>
+      <div >
         <label htmlFor="codigo_postal">Código postal</label>
-        <input
+        <input className={styles.inputShipping}
           type="text"
           name="CodigoPostal"
           placeholder="Código postal"
@@ -117,10 +118,10 @@ export default function ShippingData() {
           value={codigoPostal}
         />
       </div>
-      <div className="referencias">
-        <div className="box_estado">
+     
+        <div >
           <label htmlFor="estado">Estado</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="Estado"
             id="estado"
@@ -129,9 +130,9 @@ export default function ShippingData() {
             readOnly
           />
         </div>
-        <div className="box_municipio">
+        <div >
           <label htmlFor="municipio">Municipio</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="Municipio"
             id="municipio"
@@ -140,10 +141,10 @@ export default function ShippingData() {
             readOnly
           />
         </div>
-      </div>
-      <div className="cols">
+     
+       <div >
         <label htmlFor="colonia">Colonia</label>
-        <select
+        <select  className={styles.inputSelect}
           name="ListaColonias"
           id="colonias"
           value={coloniaSeleccionada}
@@ -156,11 +157,11 @@ export default function ShippingData() {
             </option>
           ))}
         </select>
-      </div>
-      <div className="referencia_cercana">
-        <div className="box_calle">
+       </div>
+     
+        <div >
           <label htmlFor="calle">Calle</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="Calle"
             id="calle"
@@ -169,9 +170,9 @@ export default function ShippingData() {
             onChange={(e) => setCalle(e.target.value)}
           />
         </div>
-        <div className="box_numeroExterior">
+        <div>
           <label htmlFor="numero_exterior">Número exterior</label>
-          <input
+          <input className={styles.inputShipping}
             type="text"
             name="NumeroExterior"
             id="numero_exterior"
@@ -180,22 +181,24 @@ export default function ShippingData() {
             onChange={(e) => setNumeroExterior(e.target.value)}
           />
         </div>
-      </div>
-      <div className="ref">
+      
+        <div >
         <label htmlFor="textReferencia">Referencia</label>
-        <input
+        <input className={styles.inputShipping_ref}
           name="textReferencia"
           id="textReferencia"
           value={referencia}
           onChange={(e) => setReferencia(e.target.value)}
-        ></input>
-      </div>
-      <div className="actionsData">
-        <button className="btn_c" onClick={handleShippingMethod}>Cancelar</button>
-        <button className="saveData" type="submit">
+        />
+        </div>
+        </div>
+        <div className={styles.actionsData}>
+        <button className={styles.btnC} onClick={handleShippingMethod}>Cancelar</button>
+        <button className={styles.saveData} type="submit">
           Guardar datos envío
         </button>
-      </div>
+        
+       </div>
     </form>
   );
 }

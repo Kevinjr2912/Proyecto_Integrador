@@ -1,26 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../Estilos/HomeAdmin.css";
+import styles from "../Estilos/HomeAdmin.module.css";
 
 export default function HomeAdmin() {
   const navigate = useNavigate();
 
   const handleGestionarProductosClick = () => {
-    navigate('/gestionarProductosP');
+    navigate('/gestionarProductos');
   };
 
   return (
     <>
-      <div className="main-container">
-        <div className="container">
-          <div className="container-topDiv">
-            <h2>Admin</h2>
-            <h2>Admin@gmail.com</h2>
-            <button className="sign-off" onClick={() => { navigate('/'); }}>Cerrar sesión</button>
+      <div className={styles.main_container}>
+        <div className={styles.container}>
+          <div className={styles.container_topDiv}>
+            <h2>Adminstrador</h2>
+            <h2>luisantonioC126@gmail.com</h2>
+            <button className={styles.sign_off} onClick={() => { navigate('/'); }}>Cerrar sesión</button>
           </div>
-          <div className="container-detalles">
-            <button className="detalles-button" onClick={handleGestionarProductosClick}>Gestión de productos</button>
-            <button className="detalles-button" onClick={() => { navigate(''); }}>Detalles de ventas</button>
+          <div className={styles.container_detalles}>
+            <button className={styles.detalles_button} onClick={handleGestionarProductosClick}>Gestión de productos</button>
+            <button className={styles.detalles_button} onClick={() => { navigate('/detalleVenta'); }}>Detalles de ventas</button>
           </div>
         </div>
       </div>
