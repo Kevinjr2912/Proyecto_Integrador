@@ -1,85 +1,64 @@
-.containerShippingData{
+/* .containerShippingData {
     background-color: #282828;
     width: 50vw;
-    height: 55vw;
+    padding: 2vw 1.5vw;
+    border-radius: 1.3vw;
     display: flex;
     flex-direction: column;
     gap: 1.7vw;
-    border-radius: 1.3vw;
-    padding-left: 1.5vw;
-    padding-top: 2vw;
-}
-
-.referencias{
+  }
+  
+  .containerForm {
     display: flex;
-    gap: 7vw;
-}
-
-.box_estado{
-    display: flex;
-    flex-direction: column;
-}
-
-.box_municipio{
+    flex-wrap: wrap;
+    gap: 1.5vw;
+    width: 40vw;
+  }
+  
+  .containerForm > div {
     display: flex;
     flex-direction: column;
-}
-
-label{
-    margin-bottom: 0.5vw;
+    gap: 0.5vw;
+    flex: 1 1 45%;
+  }
+  
+  label {
     color: white;
     font-weight: 500;
-    width: 8vw;
-    display: block;
-}
-
-input, select {
-    width: 20vw;
+  }
+  
+  .inputShipping, .inputSelect{
+    width: 100%;
     height: 5.2vh;
     border: none;
     border-radius: 0.5vw;
     outline: none;
     padding: 0.5vw;
-    box-sizing: border-box; 
-}
-
-::placeholder{
-    color: rgb(0, 0, 0);
-    font-weight: 500;
-}
-
-#colonias{
-    width: 20vw;
-    height: 5.2vh;
-    border-radius: 0.5vw;
-    border: none;
-}
-
-.referencia_cercana{
-    display: flex;
-    gap: 7vw;
-}
-
-.box_calle, .box_numeroExterior{
-    display: flex;
-    flex-direction: column;
-}
-
-#textReferencia {
-    text-align: left;
-    width: 47vw;
-    min-height: 7vh;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #000;
   }
 
-.actionsData {
+  
+
+  .inputShipping_ref{
+        text-align: left;
+        margin-left: 7%;
+        width: 40vw;
+        min-height: 10vh;
+        background-color: #ffffff;
+      color: #000;
+  }
+  
+  .actionsData {
     display: flex;
     justify-content: flex-end;
     gap: 1vw;
     margin-top: 2.3vw;
     padding-right: 1.5vw;
-}
-
-.actionsData button {
+  }
+  
+  .actionsData button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,4 +66,15 @@ input, select {
     padding: 0.5vw 1vw;
     border: none;
     cursor: pointer;
-}
+  }
+  
+  .btnC {
+    background-color: #000;
+    color: white;
+  }
+  
+  .saveData {
+    background-color: #a9a9a9;
+    color: white;
+  }
+   */

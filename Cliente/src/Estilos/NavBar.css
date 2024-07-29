@@ -56,3 +56,18 @@ margin-top: 5%;
 .Hello {
   font-weight:700;
 }
+
+.logout-button {
+  background-color: #2DC289;
+  color: white;
+  border: none;
+  padding: 7px 10px;
+
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 0;
+}
+
+.logout-button:hover {
+  background-color: #ff4b5c
+}

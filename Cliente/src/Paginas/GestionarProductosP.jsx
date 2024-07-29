@@ -34,19 +34,21 @@ export default function GestionarProductosP() {
   };
 
   const seccionesNav = [
+
     {
-      id: 0,
-      nombre: 'INICIO',
-  },
-  {
-      id: 1,
-      nombre: 'GESTIÓN PRODUCTO',
-  },
-  {
-      id: 2,
-      nombre: 'DETALLES DE VENTA',
-  }
-  ];
+        id: 1,
+        nombre: 'MENU',
+        
+    },
+    {
+        id: 2,
+        nombre: 'GESTIÓN PRODUCTO',
+    },
+    {
+        id: 3,
+        nombre: 'DETALLES DE VENTA',
+    }
+];
 
   return (
     <div className="box-product">

@@ -1,0 +1,80 @@
+.containerShippingData {
+    background-color: #282828;
+    width: 50vw;
+    padding: 2vw 1.5vw;
+    border-radius: 1.3vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.7vw;
+  }
+  
+  .containerForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5vw;
+    width: 40vw;
+  }
+  
+  .containerForm > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    flex: 1 1 45%;
+  }
+  
+  label {
+    color: white;
+    font-weight: 500;
+  }
+  
+  .inputShipping, .inputSelect{
+    width: 100%;
+    height: 5.2vh;
+    border: none;
+    border-radius: 0.5vw;
+    outline: none;
+    padding: 0.5vw;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #000;
+  }
+
+  
+
+  .inputShipping_ref{
+        text-align: left;
+        margin-left: 7%;
+        width: 40vw;
+        min-height: 10vh;
+        background-color: #ffffff;
+      color: #000;
+  }
+  
+  .actionsData {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1vw;
+    margin-top: 2.3vw;
+    padding-right: 14vw;
+  }
+  
+  .actionsData button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5vw;
+    padding: 0.5vw 1vw;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btnC {
+    background-color: #000;
+    color: white;
+  }
+  
+  .saveData {
+    background-color: #a9a9a9;
+    color: white;
+  }
+  

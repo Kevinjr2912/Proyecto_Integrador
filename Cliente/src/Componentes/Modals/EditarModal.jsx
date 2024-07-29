@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../Estilos/EditarModal.css";
+import styles from "../../Estilos/EditarModal.module.css";
 import Swal from 'sweetalert2';
 
 export default function EditarModal({ isOpen, onClose, onEditProduct, product }) {
@@ -34,15 +34,14 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Producto rebido a editar: " + product.idProductos)
     const idProducto = product.idProductos;
-    
+
     const data = {
       nombre: name,
       precio: price,
       descripcion: description,
       equipo: parseInt(equipment)
-    };    
+    };
 
     try {
       const response = await fetch(`http://localhost:3000/products/updateProduct/${idProducto}`, {
@@ -58,19 +57,19 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
           title: 'Producto editado exitosamente',
           showConfirmButton: false,
           timer: 1500,
-        }); 
+        });
         onEditProduct(updatedProduct);
         onClose();
       } else {
         Swal.fire({
-          icon: "errorr",
+          icon: "error",
           title: "Oops...",
           text: "No existen cambios",
         });
       }
     } catch (error) {
       Swal.fire({
-        icon: "errorr",
+        icon: "error",
         title: "Oops...",
         text: `Error al enviar la solicitud`,
       });
@@ -80,10 +79,10 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
   if (!isOpen) return null;
 
   return (
-    <div className="editar-modal-overlay">
-      <div className="editar-modal-content">
+    <div className={styles.editarModalOverlay}>
+      <div className={styles.editarModalContent}>
         <form
-          className="editar-box-sonAdd"
+          className={styles.editarBoxSonAdd}
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
@@ -120,6 +119,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
           <select
             name="listEquiptments"
             id="lEquipment"
+            value={equipment}
             onChange={(e) => setEquipment(e.target.value)}
           >
             <option value="">Seleccionar equipo</option>
@@ -129,11 +129,11 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
               </option>
             ))}
           </select>
-          <div className="editar-actionsProduct">
-            <button type="button" className="editar-btn_cancelar" onClick={onClose}>
+          <div className={styles.editarActionsProduct}>
+            <button type="button" className={styles.editarBtnCancelar} onClick={onClose}>
               Cancelar
             </button>
-            <button type="submit" className="editar-btn_addP">
+            <button type="submit" className={styles.editarBtnAddP}>
               Guardar cambios
             </button>
           </div>

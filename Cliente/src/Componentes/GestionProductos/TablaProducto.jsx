@@ -43,25 +43,36 @@ function TablaProducto({ products }) {
       name: "Producto",
       selector: row => row.nombre,
       sortable: true,
-      center:true
+      center:true,
+      maxWidth: '600px',     
+       
       
     },
     {
       name: "Categoría",
       selector: row => row.nombreCategoria || row.categoria,
       sortable: true,
-      center:true
+      center:true,
+      maxWidth: '150px'
+       
     },
     {
       name: "Precio",
       selector: row => row.precio,
       sortable: true,
-      center:true
+      center:true,
+      maxWidth: '150px'
+       
     },
     {
       name: "Descripción",
-      selector: row => row.descripcion,
-      center:true
+      selector: row => truncateText(row.descripcion, 30),
+      maxWidth: '600px',
+      center:true,
+      wrap:true,
+      
+      
+       
     },
     {
       name: "Acciones",
@@ -72,9 +83,17 @@ function TablaProducto({ products }) {
           <EliminarButton onClick={() => handleDelete(row)}/>
         </div>
       ),
-     center:true
+      maxWidth: '600px',
+      center:true,
+       
     }
   ];
+  const truncateText = (text, maxWords) => {
+    if (!text) return "";
+    const words = text.split(" ");
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(" ") + "...";
+  };
 
   const [records, setRecords] = useState(products);
 
@@ -150,6 +169,8 @@ function TablaProducto({ products }) {
       style: {
         backgroundColor: '#1e1e1e',
         color: '#ffffff',
+        maxWidth: '100%',
+        
         
       }
     },
@@ -157,13 +178,14 @@ function TablaProducto({ products }) {
       style: {
         backgroundColor: '#333333',
         color: '#ffffff',
+        
         }
     },
     cells: {
       style: {
         backgroundColor: '#1e1e1e',
         color: '#ffffff',
-       
+        padding: '7px 10px',
       }
     },
     pagination: {

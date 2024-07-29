@@ -4,9 +4,10 @@ import '../Estilos/NavBar.css';
 
 const rutas = {
   'INICIO': '/',
+  "MENU":"/homeAdmin",
   'GESTIÓN PRODUCTO': '/gestionarProductos',
   'DETALLES DE VENTA': '/detalleVenta',
-  'CONOCENOS': '/conocenos',
+  'CONOCENOS': '/',
   'OVEROLES': '/overoles',
   'CASCOS': '/cascos',
   'MIS ORDENES': '/ordenes'
