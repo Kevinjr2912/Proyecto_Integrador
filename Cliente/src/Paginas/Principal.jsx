@@ -2,6 +2,14 @@ import React from "react";
 import NavBar from "../Componentes/NavBar.jsx";
 import Servicios from "../Componentes/Servicios.jsx";
 import SeccionesTienda from "../Componentes/SeccionesTienda.jsx";
+import ImageSlide from "../Componentes/ImagenSlide.jsx";
+import Cascos from "../Componentes/PrincipalOverHell/Cascos.jsx";
+import Overoles from "../Componentes/PrincipalOverHell/Overoles.jsx";
+import ParrillaEquipos from "../Imagenes/ParrillaEquipos.jpg"
+import equipos from "../Imagenes/equipos.jpg"
+import NewCarrusel from "../Componentes/NewCarrusel.jsx";
+import AboutUs from "../Componentes/AboutUs.jsx";
+import MasSobreMi from "../Componentes/MasSobreMi.jsx";
 import "../Estilos/Home.css";
 import Footer from "../Componentes/Footer.jsx";
 import WhatsFlotante from "../Componentes/WhatsFlotante.jsx";
@@ -34,7 +42,10 @@ export default function Home() {
       <div className="home">
         <NavBar seccionesNav={seccionesNav} esSeccionCliente={true} />
         <div className="contenedor_carro">
-          {/* <img className="img_home" src={imagen_home} alt="Imagen carro" /> */}
+          <NewCarrusel slidesPerView={1} spaceBetween={0}>
+            <ImageSlide src={equipos} alt="Imagen carro" />
+            <ImageSlide src={ParrillaEquipos} alt="Imagen carro" />
+          </NewCarrusel>
         </div>
         <Servicios />
         <div className="secciones">
@@ -44,6 +55,15 @@ export default function Home() {
             className="Hello"
           />
         </div>
+        <Cascos />
+          <Overoles />
+       
+        
+
+        <NewCarrusel slidesPerView={1} spaceBetween={0}>
+          <AboutUs />
+          <MasSobreMi />
+        </NewCarrusel>
       </div>
       <Footer></Footer>
     </>

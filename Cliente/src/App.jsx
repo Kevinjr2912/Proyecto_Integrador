@@ -17,7 +17,7 @@ import MetodoEnvioP from './Paginas/MetodoEnvioP';
 import OrdenesP from './Paginas/OrdenesP';
 import DatoEnvioP from './Paginas/DatoEnvioP';
 import { AuthProvider } from './Componentes/Contexto/AuthContext';
-import Home from './Paginas/Home';
+
 
 
 function App() {
@@ -47,7 +47,6 @@ function App() {
         <Route path="/overoles" element={<OverolesPagina />} /> {/*LISTO*/ }
         <Route path="/ordenes" element={<OrdenesP />} />  {/*GOD falta BACK*/ }
         <Route path="/datosEnvio" element={<DatoEnvioP />} />  {/*LISTO*/ }
-        <Route path="/home" element={<Home></Home>} />  {/*LISTO*/ }
       </Routes>
     </Router>
     </AuthProvider>

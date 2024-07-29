@@ -24,7 +24,16 @@ export default function Overoles() {
     }
   
     return (
-      <div className="product-list">
+          
+    <div style={{ 
+        paddingTop: '5%', 
+      }}
+        
+      className="product-list"
+      
+      
+      
+      >
         <NewCarrusel>
         {products.map((product) => (
           <CardProducto

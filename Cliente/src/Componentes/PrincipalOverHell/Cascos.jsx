@@ -24,9 +24,11 @@ export default function Cascos() {
 
   return (
     
-    <div>
+    <div style={{ 
+      paddingTop: '5%', 
+    }}>
       <NewCarrusel
-      margin={"6cm"}
+     
       >
       {products.length > 0 ? (
         products.map((product) => (
