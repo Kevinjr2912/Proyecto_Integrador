@@ -5,6 +5,7 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+const { query } = require("express");
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
@@ -47,13 +48,14 @@ const upload = multer({ storage: storage }).array("imagen", 5);
 exports.addProduct = (req, res) => {
   upload(req, res, (err) => {
     const files = req.files;
-
+    console.log (req.files)
     if (!files) {
       return res.status(404).json({ message: "Imagenes no recibidas" });
     }
 
     const { nombre, precio, nombreCategoria, descripcion, id_equipo } =
       req.body;
+      console.log(req.body);
 
     let idCategoria = 0;
 
@@ -278,6 +280,70 @@ exports.deleteProduct = (req, res) => {
         .send(
           "Producto eliminado de la base de datos así como sus respectivas imágenes"
         );
+    }
+  );
+};
+
+exports.getOchoHelmets = (req, res) => {
+  db.query(
+    `SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo, MIN(IP.imagen) AS imagen 
+     FROM Productos P 
+     INNER JOIN Categoria C ON P.id_categoria = C.idCategoria 
+     INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto 
+     INNER JOIN Equipo E ON P.id_equipo = E.idEquipo 
+     WHERE P.id_categoria = 1 
+     GROUP BY P.idProductos 
+     LIMIT 8`,
+    (err, result) => {
+      if (err) {
+        return res.json({ error: "Error al obtener los cascos" });
+      }
+
+      const products = result.map((product) => ({
+        idProducto: product.idProductos,
+        nombre: product.nombre, 
+        precio: product.precio,
+        descripcion: product.descripcion,
+        nombreCategoria: product.nombreCategoria,
+        nombreEquipo: product.nombre_equipo,
+        imagen: product.imagen.toString("base64"),
+      }));
+
+      console.log(products);
+
+      res.json(products);
+    }
+  );
+};
+
+exports.getOchoOveroles = (req, res) => {
+  db.query(
+    `SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo, MIN(IP.imagen) AS imagen 
+     FROM Productos P 
+     INNER JOIN Categoria C ON P.id_categoria = C.idCategoria 
+     INNER JOIN ImagenProducto IP ON P.idProductos = IP.idProducto 
+     INNER JOIN Equipo E ON P.id_equipo = E.idEquipo 
+     WHERE P.id_categoria = 2
+     GROUP BY P.idProductos 
+     LIMIT 8`,
+    (err, result) => {
+      if (err) {
+        return res.json({ error: "Error al obtener los overoles" });
+      }
+
+      const products = result.map((product) => ({
+        idProducto: product.idProductos,
+        nombre: product.nombre, 
+        precio: product.precio,
+        descripcion: product.descripcion,
+        nombreCategoria: product.nombreCategoria,
+        nombreEquipo: product.nombre_equipo,
+        imagen: product.imagen.toString("base64"),
+      }));
+
+      console.log(products);
+
+      res.json(products);
     }
   );
 };

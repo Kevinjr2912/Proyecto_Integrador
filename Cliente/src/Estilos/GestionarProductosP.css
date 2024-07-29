@@ -1,6 +1,6 @@
 .box-product{
     background-color: #1B1A1A;
-    min-width: 100vw;
+    min-width: 97vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -41,10 +41,9 @@
 }
 
 .box-footer{
-    width: 100vw;
+    width: 100%;
 }
 
 .container-main{
     margin-bottom:80px;
 }
-

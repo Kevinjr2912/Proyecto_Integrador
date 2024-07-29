@@ -3,7 +3,7 @@ import ListaProducto from "../Componentes/GestionProductos/ListaProducto";
 import NavBar from "../Componentes/NavBar.jsx";
 import Footer from "../Componentes/Footer.jsx";
 import AddProduct from "../Componentes/GestionProductos/AddProduct";
-import '../Estilos/GestionarProductosP.module.css';
+import '../Estilos/GestionarProductosP.css';
 
 export default function GestionarProductosP() {
   const [isModalOpen, setIsModalOpen] = useState(false);
