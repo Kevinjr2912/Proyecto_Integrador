@@ -1,29 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
 export default function DetalleVentaProductos({ data }) {
   const [productos, setProductos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [customerAddress, setCustomerAddress] = useState([]);
+
+  const handleDetails = async () => {
+    try {
+      const [response1, response2] = await Promise.all([
+        fetch(`http://localhost:3000/sales/getDetailsOrder/${data.idPedido}`),
+        fetch(
+          `http://localhost:3000/sales/shippingDetail/${data.idPedido}`
+        ),
+      ]);
+
+      if (response1.ok && response2.ok) {
+        const data1 = await response1.json();
+        const listProducts = data1.map((product) => ({
+          producto: product.nombre,
+          cantidad: product.cantidad,
+          precio: product.precio,
+        }));
+        const data2 = await response2.json();
+        console.log(data2)
+        setCustomerAddress(data2);
+        setProductos(listProducts);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const response = await fetch(`/api/productos/${data.id}`);
-        if (!response.ok) {
-          throw new Error('Error en la carga de datos');
-        }
-        const result = await response.json();
-        setProductos(result);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProductos();
-  }, [data.id]);
+    handleDetails();
+  }, []);
 
   // Columnas para la tabla de productos
   const columns = [
@@ -47,13 +57,7 @@ export default function DetalleVentaProductos({ data }) {
     },
   ];
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  console.log(customerAddress)
 
   return (
     <>
@@ -67,7 +71,16 @@ export default function DetalleVentaProductos({ data }) {
       />
       <div>
         <h3>Lugar de destino</h3>
-        <p>{data.lugarDestino || "No especificado"}</p>
+        <p>
+          {customerAddress.codigoPostal}
+          {customerAddress.estado}
+          {customerAddress.municipio}
+          {customerAddress.colonia}
+          {customerAddress.calle}
+          {customerAddress.calle}
+          {customerAddress.numeroExterior}
+          {customerAddress.referencia}
+        </p>
       </div>
     </>
   );

@@ -12,8 +12,34 @@ export default function ShippingData() {
   const [calle, setCalle] = useState("");
   const [numeroExterior, setNumeroExterior] = useState("");
   const [referencia, setReferencia] = useState("");
+  const [bandera, setBandera] = useState(false);
   const navigate = useNavigate();
-  const idCliente = 13;
+  const idCliente = 14;
+
+  const getFormCustomerAddress = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/shippingData/getFormCustomerAddress/${idCliente}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setCodigoPostal(data.codigoPostal);
+        setColoniaSeleccionada(data.colonia);
+        setCalle(data.calle);
+        setReferencia(data.referencia);
+        setBandera(true);
+        await blurCP(data.codigoPostal);
+      } else {
+        console.log("No se pudieron obtener los datos de envío");
+      }
+    } catch (err) {
+      console.log("Error al obtener los datos de envío:", err);
+    }
+  };
+
+  useEffect(() => {
+    getFormCustomerAddress();
+  }, []);
 
   const blurCP = async (postalCode) => {
     try {
@@ -45,7 +71,7 @@ export default function ShippingData() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: `No pueden quedar campos vacíos`
+        text: `No pueden quedar campos vacíos`,
       });
     } else if (!document.getElementById("colonias").value) {
       Swal.fire({
@@ -72,21 +98,26 @@ export default function ShippingData() {
         numeroExterior: numeroExterior,
         referencia: referencia,
       };
-
+  
       try {
-        const response = await fetch(`
-          http://localhost:3000/shippingData/addShippingInformation/${idCliente}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          }
-        );
-
+        const response = bandera 
+          ? await fetch(`http://localhost:3000/shippingData/updateShippingInformation/${idCliente}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            })
+          : await fetch(`http://localhost:3000/shippingData/addShippingInformation/${idCliente}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+  
         if (response.ok) {
           Swal.fire({
             icon: "success",
-            title: "Datos de envío establecidos correctamente",
+            title: bandera 
+              ? "Datos de envío actualizados correctamente"
+              : "Datos de envío establecidos correctamente",
             showConfirmButton: false,
             timer: 1500,
           }).then(() => navigate("/carritoPago/metodoEnvio"));
@@ -98,7 +129,7 @@ export default function ShippingData() {
       }
     }
   };
-
+  
   const handleShippingMethod = () => {
     navigate('/carritoPago/metodoEnvio');
   } 

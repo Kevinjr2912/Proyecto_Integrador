@@ -123,17 +123,25 @@ exports.addDetailsOrderCustomer = (req, res) => {
                     (err, result) => {
                       if (err) {
                         console.log(err);
-                        return res
-                          .status(500)
-                          .json({ error: "Error al actualizar el pedido" });
+                        return res.status(500).json({ error: "Error al actualizar el pedido" });
                       }
 
-                      return res
-                        .status(201)
-                        .json({
-                          message:
-                            "Detalles del pedido insertados, total actualizado y fecha registrada exitosamente",
+                      db.query('DELETE FROM  CarritoProducto WHERE idCarrito = ?',[idCar],(err,result) => {
+                        if(err){
+                          console.log(err)
+                          return res.status(500).json({error: "Error al eliminar los registros correspondientes "});
+                        }
+
+                        db.query('DELETE FROM Carrito WHERE idCarrito = ?',[idCar],(err,result) => {
+                          if(err){
+                            console.log(err)
+                            return res.status(500).json({error: "Error al eliminar el id"});
+                          }
+  
+                          return res.status(201).json({message:"Detalles del pedido insertados, total actualizado y fecha registrada exitosamente"});
+                          
                         });
+                      });
                     }
                   );
                 }

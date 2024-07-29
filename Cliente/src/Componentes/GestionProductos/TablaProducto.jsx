@@ -136,11 +136,15 @@ function TablaProducto({ products }) {
   };
 
   const handleEditProduct = (editedProduct) => {
-    setRecords(records.map(record => (record === productToEdit ? editedProduct : record)));
+    setRecords(prevRecords =>
+      prevRecords.map(record => 
+        record.idProductos === editedProduct.idProductos ? editedProduct : record
+      )
+    );
     setIsEditarModalOpen(false);
     setProductToEdit(null);
   };
-
+  
   const customStyles = {
     rows: {
       style: {
