@@ -7,6 +7,16 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [equipment, setEquipment] = useState("");
+  const listeEquipment = [
+    { idEquipment: 1, name: "Alpine" },
+    { idEquipment: 2, name: "Kick Sauber" },
+    { idEquipment: 3, name: "Mercedes" },
+    { idEquipment: 4, name: "Aryrton Senna" },
+    { idEquipment: 5, name: "RedBull" },
+    { idEquipment: 6, name: "Ferrari" },
+    { idEquipment: 7, name: "MacLaren" },
+    { idEquipment: 8, name: "Aston Martin" },
+  ];
 
   useEffect(() => {
     if (product) {
@@ -31,7 +41,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
       nombre: name,
       precio: price,
       descripcion: description,
-      equipo: equipment
+      equipo: parseInt(equipment)
     };    
 
     try {
@@ -55,7 +65,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
         Swal.fire({
           icon: "errorr",
           title: "Oops...",
-          text: "Error al actualizar el producto",
+          text: "No existen cambios",
         });
       }
     } catch (error) {
@@ -107,15 +117,18 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <label htmlFor="equipo">Equipo</label>
-          <input
-            name="equipo"
-            type="text"
-            id="equipo"
-            placeholder="Equipo"
-            value={equipment}
+          <select
+            name="listEquiptments"
+            id="lEquipment"
             onChange={(e) => setEquipment(e.target.value)}
-          />
+          >
+            <option value="">Seleccionar equipo</option>
+            {listeEquipment.map((eq) => (
+              <option key={eq.idEquipment} value={eq.idEquipment}>
+                {eq.name}
+              </option>
+            ))}
+          </select>
           <div className="editar-actionsProduct">
             <button type="button" className="editar-btn_cancelar" onClick={onClose}>
               Cancelar

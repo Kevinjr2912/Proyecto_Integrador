@@ -212,10 +212,10 @@ exports.getInformationProduct = (req, res) => {
 
 exports.updateProduct = (req, res) => {
   const productId = req.params.id;
-  const productFront = req.body;
   const { nombre, precio, descripcion, equipo } = req.body;
+  let productFront = req.body;
 
-  db.query(
+  db.query( 
     "SELECT * FROM Productos WHERE idProductos = ?",
     [productId],
     (err, result) => {
@@ -236,19 +236,32 @@ exports.updateProduct = (req, res) => {
       }
 
       const product = result[0];
+      console.log(product)
       const updateProduct = {};
 
       if (nombre != product.nombre) {
         updateProduct.nombre = nombre;
+        productFront.nombre = nombre;
       }
       if (precio != product.precio) {
         updateProduct.precio = precio;
+        productFront.precio = precio;
       }
       if (descripcion != product.descripcion) {
         updateProduct.descripcion = descripcion;
+        productFront.descripcion = descripcion;
       }
-      if (equipo != product.equipo) {
-        updateProduct.equipo = equipo;
+      if (equipo != product.id_equipo) {
+        updateProduct.id_equipo = equipo;
+        productFront.equipo = equipo;
+      }
+
+      console.log(updateProduct)
+
+      if (Object.keys(updateProduct).length === 0) {
+        return res.status(400).json({
+          message: "No hay datos para actualizar",
+        });
       }
 
       db.query(
@@ -256,6 +269,7 @@ exports.updateProduct = (req, res) => {
         [updateProduct, productId],
         (err, result) => {
           if (err) {
+            console.log(err)
             return res
               .status(500)
               .json({ message: "Error al modificar algún dato del producto" });
@@ -266,6 +280,7 @@ exports.updateProduct = (req, res) => {
     }
   );
 };
+
 
 exports.deleteProduct = (req, res) => {
   const productId = req.params.id;

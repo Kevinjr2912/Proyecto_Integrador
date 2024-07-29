@@ -15,32 +15,6 @@ export default function ShippingData() {
   const navigate = useNavigate();
   const idCliente = 13;
 
-  const getFormCustomerAddress = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/shippingData/getFormCustomerAddress/${idCliente}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setCodigoPostal(data.codigoPostal);
-        setColoniaSeleccionada(data.colonia);
-        setNumeroExterior(data.numeroExterior);
-        setCalle(data.calle);
-        setReferencia(data.referencia);
-
-        await blurCP(data.codigoPostal);
-      } else {
-        console.log("No se pudieron obtener los datos de envío");
-      }
-    } catch (err) {
-      console.log("Error al obtener los datos de envío:", err);
-    }
-  };
-
-  useEffect(() => {
-    getFormCustomerAddress();
-  }, []);
-
   const blurCP = async (postalCode) => {
     try {
       const response = await fetch(

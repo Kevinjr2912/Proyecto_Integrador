@@ -26,7 +26,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Middleware para analizar los cuerpos de las solicitudes
+// Middlewa|re para analizar los cuerpos de las solicitudes
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
 

@@ -57,7 +57,7 @@ export default function InformationProduct() {
         body: JSON.stringify({
           idProducto: nuevoProducto.idProducto,
           cantidad: nuevoProducto.cantidad,
-          idCliente: 12,
+          idCliente: 14,
         }),
       });
 
