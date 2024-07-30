@@ -292,6 +292,7 @@ exports.deleteProduct = (req, res) => {
     productId,
     (err, result) => {
       if (err) {
+        console.log(err)
         res
           .status(500)
           .send(
@@ -306,6 +307,7 @@ exports.deleteProduct = (req, res) => {
     "DELETE FROM Productos WHERE idProductos = ?",
     productId,
     (err, result) => {
+      console.log(err)
       if (err) {
         res.status(500).send("Error al eliminar dicho producto");
       }

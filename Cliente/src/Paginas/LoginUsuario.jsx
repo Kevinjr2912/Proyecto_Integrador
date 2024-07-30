@@ -36,11 +36,12 @@ export default function LoginPagina() {
       <WhatsFlotante />
       <NavBar
         seccionesNav={seccionesNav}
-        esSeccionCliente={!isAdmin}
+        esSeccionCliente={true}
         isLoggedIn={isLoggedIn}
         handleLogout={handleLogout}
       />
       <Login setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />
+      <Login/>
       <Footer />
     </>
   );

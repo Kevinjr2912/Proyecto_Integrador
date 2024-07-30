@@ -37,8 +37,8 @@ export default function CarritoP() {
   const cargarProductosCarrito = async () => {
     try {
       const [response1, response2] = await Promise.all([
-        fetch(`http://localhost:3000/cars/getProductsCar/14`),
-        fetch(`http://localhost:3000/cars/getPurchaseSummary/14`),
+        fetch(`http://localhost:3000/cars/getProductsCar/15`),
+        fetch(`http://localhost:3000/cars/getPurchaseSummary/15`),
       ]);
 
       if (response1.ok && response2.ok) {

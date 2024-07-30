@@ -10,15 +10,6 @@ import DetalleVentaProductos from "../Modals/DetalleVentaProductos";
 import LinkProducto from "../Modals/LinkProducto";
 import ReciboProducto from "../Modals/ReciboProducto";
 
-//Consumir API para mostrar email, fecha compra, precio total de la compra respecto a un cliente
-const showDetailsOrder = async () => {
-  try{
-    
-  }catch(err){
-
-  }
-}
-
 // Componente para el botón de Detalles
 const DetalleButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.detalleButton}>

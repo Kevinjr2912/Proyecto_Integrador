@@ -91,3 +91,16 @@ exports.getShippingDetail = (req, res) => {
 
   })
 }
+
+
+exports.getPDFSale = (req,res) => {
+  const { idPedido } = req.params;
+  
+  db.query('SELECT CP.comprobante_pago FROM ComprobantePago CP INNER JOIN Pedido P ON CP.id_pedido = P.idPedido INNER JOIN DetallePedido DP ON P.idPedido = DP.id_pedido WHERE CP.id_pedido = ?',[idPedido],(err,result)=>{
+    if(err){
+      return res.status(500).json({error: "Error al obtener dicha imagen de pago"})
+    }
+
+    return res.status(200).json(result)
+  })
+}

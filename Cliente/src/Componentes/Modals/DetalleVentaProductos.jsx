@@ -3,15 +3,13 @@ import DataTable from "react-data-table-component";
 
 export default function DetalleVentaProductos({ data }) {
   const [productos, setProductos] = useState([]);
-  const [customerAddress, setCustomerAddress] = useState([]);
+  const [customerAddress, setCustomerAddress] = useState({});
 
   const handleDetails = async () => {
     try {
       const [response1, response2] = await Promise.all([
         fetch(`http://localhost:3000/sales/getDetailsOrder/${data.idPedido}`),
-        fetch(
-          `http://localhost:3000/sales/shippingDetail/${data.idPedido}`
-        ),
+        fetch(`http://localhost:3000/sales/shippingDetail/${data.idPedido}`),
       ]);
 
       if (response1.ok && response2.ok) {
@@ -22,7 +20,7 @@ export default function DetalleVentaProductos({ data }) {
           precio: product.precio,
         }));
         const data2 = await response2.json();
-        console.log(data2)
+        console.log(data2);
         setCustomerAddress(data2);
         setProductos(listProducts);
       }
@@ -57,7 +55,7 @@ export default function DetalleVentaProductos({ data }) {
     },
   ];
 
-  console.log(customerAddress)
+  console.log(customerAddress);
 
   return (
     <>
@@ -70,17 +68,19 @@ export default function DetalleVentaProductos({ data }) {
         fixedHeader
       />
       <div>
-        <h3>Lugar de destino</h3>
-        <p>
-          {customerAddress.codigoPostal}
-          {customerAddress.estado}
-          {customerAddress.municipio}
-          {customerAddress.colonia}
-          {customerAddress.calle}
-          {customerAddress.calle}
-          {customerAddress.numeroExterior}
-          {customerAddress.referencia}
-        </p>
+        <div>
+          <h3>Lugar de destino</h3>
+          {customerAddress.codigoPostal ? (
+            <p>
+              {customerAddress.codigoPostal} {customerAddress.estado}{" "}
+              {customerAddress.municipio} {customerAddress.colonia}{" "}
+              {customerAddress.calle} {customerAddress.numeroExterior}{" "}
+              {customerAddress.referencia}
+            </p>
+          ) : (
+            <p>Cargando datos de envío...</p>
+          )}
+        </div>
       </div>
     </>
   );
