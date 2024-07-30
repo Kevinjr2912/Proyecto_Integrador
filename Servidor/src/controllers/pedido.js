@@ -39,7 +39,7 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-exports.addDetailsOrderCustomer = (req, res) => {
+exports.addDetailsOrderCustomer = [authenticateJWT,(req, res) => {
   const { idCliente } = req.params;
   const { idPedido } = req.body;
 
@@ -152,4 +152,4 @@ exports.addDetailsOrderCustomer = (req, res) => {
       );
     }
   );
-};
+}];

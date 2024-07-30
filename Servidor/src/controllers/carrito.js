@@ -40,7 +40,7 @@ const authenticateJWT = (req, res, next) => {
 };
 
 
-exports.addCar = (req, res) => {
+exports.addCar = [authenticateJWT,(req, res) => {
   const { idCliente, idProducto, cantidad } = req.body;
   console.log(req.body);
   db.query(
@@ -131,9 +131,9 @@ exports.addCar = (req, res) => {
       }
     }
   );
-};
+}];
 
-exports.getProductsCar = (req, res) => {
+exports.getProductsCar = [authenticateJWT,(req, res) => {
   const idCliente = req.params.idCustomer;
 
   db.query(
@@ -170,9 +170,9 @@ exports.getProductsCar = (req, res) => {
       );
     }
   );
-};
+}];
 
-exports.gethPurchaseSummary = (req, res) => {
+exports.gethPurchaseSummary = [authenticateJWT,(req, res) => {
   const idCustomer = req.params.idCustomer;
 
   db.query('SELECT Carrito.idCarrito FROM Carrito WHERE Carrito.idCliente = ?',[idCustomer],(err,result)=>{
@@ -199,9 +199,9 @@ exports.gethPurchaseSummary = (req, res) => {
       }
     );
   });
-};
+}];
 
-exports.deleteProductCar = (req, res) => {
+exports.deleteProductCar = [authenticateJWT,(req, res) => {
   const idProducto = req.params.idProducto;
   const {idCliente } = req.body;
 
@@ -233,4 +233,4 @@ exports.deleteProductCar = (req, res) => {
     );
     })
   });
-};
+}];

@@ -40,7 +40,7 @@ db.connect((err) => {
 
 
 // Agregar una reseña
-exports.addResena = (req, res) => {
+exports.addResena = [authenticateJWT,(req, res) => {
   const { idCliente, idProducto } = req.params;
   const { comentario, puntuacion } = req.body;
 
@@ -55,9 +55,9 @@ exports.addResena = (req, res) => {
 
     return res.json({message: "Reseña agregada exitosamente"})
   });
-};
+}];
 
-exports.updateResena = (req, res) => {
+exports.updateResena = [authenticateJWT,(req, res) => {
   const idResenaProducto = req.params.idResenaProducto;
   const { comentario, puntuacion } = req.body;
 
@@ -95,12 +95,12 @@ exports.updateResena = (req, res) => {
       return res.json({ message: "Reseña actualizada exitosamente" });
     });
   });
-};
+}];
 
 
 
 // Eliminar una reseña
-exports.deleteResena = (req, res) => {
+exports.deleteResena = [authenticateJWT,(req, res) => {
   console.log("Esta entrando al controlador")
   console.log(req.params)
   const {resenaId} = req.params;
@@ -115,10 +115,10 @@ exports.deleteResena = (req, res) => {
     return res.json({ message: "Reseña eliminada exitosamente" });
   }
   )
-};
+}];
 
 //muestra las reseñas referentes a un id de producto
-exports.getResenas = async (req, res) => {
+exports.getResenas = [authenticateJWT,async (req, res) => {
   const { idProducto } = req.params; 
   try {
     db.query('SELECT RP.comentario, RP.puntuacion, RP.idResenaProducto, RP.idCliente FROM ResenaProducto RP WHERE RP.idProductos = ?', [idProducto], (err, result) => {
@@ -131,4 +131,4 @@ exports.getResenas = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Error al obtener reseñas" });
   }
-};
+}];

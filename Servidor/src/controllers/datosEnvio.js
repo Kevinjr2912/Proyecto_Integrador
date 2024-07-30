@@ -38,7 +38,7 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-exports.addShippingInformation = async (req, res) => {
+exports.addShippingInformation = [authenticateJWT,async (req, res) => {
   const {
     codigo_postal,
     nombre_estado,
@@ -134,7 +134,7 @@ exports.addShippingInformation = async (req, res) => {
       error: "Error al procesar la información de envío: " + error,
     });
   }
-};
+}];
 
 const findOrInsert = (table, idField, nameField, value) => {
   return new Promise((resolve, reject) => {
@@ -164,7 +164,7 @@ const findOrInsert = (table, idField, nameField, value) => {
   });
 };
 
-exports.getCustomerAddress = (req, res) => {
+exports.getCustomerAddress = [authenticateJWT,(req, res) => {
   const idCliente = req.params.idCliente;
 
   db.query(
@@ -182,9 +182,9 @@ exports.getCustomerAddress = (req, res) => {
       return res.json(result);
     }
   );
-};
+}];
 
-exports.getFormCustomerAddress = (req, res) => {
+exports.getFormCustomerAddress = [authenticateJWT,(req, res) => {
 const {idCliente} =req.params;
 console.log(idCliente)
   db.query(
@@ -221,10 +221,10 @@ console.log(idCliente)
       return res.status(200).json(infoEnvio);
     }
   );
-};
+}];
 
 
-exports.updateShippingInformation = async (req, res) => {
+exports.updateShippingInformation = [authenticateJWT,async (req, res) => {
   const {
     codigo_postal,
     nombre_estado,
@@ -300,6 +300,6 @@ exports.updateShippingInformation = async (req, res) => {
       error: "Error al procesar la información de envío: " + error,
     });
   }
-};
+}];
 
 
