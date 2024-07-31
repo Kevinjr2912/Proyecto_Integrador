@@ -320,3 +320,63 @@ exports.deleteProduct = [authenticateJWT,(req, res) => {
     }
   );
 }];
+
+
+// Controlador
+exports.getOchoHelmets = (req, res) => {
+  console.log("Fetching helmets...");
+  db.query(
+    "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Casco' GROUP BY IP.idProducto LIMIT 8;",
+    (err, result) => {
+      if (err) {
+        console.error("Error al obtener los cascos:", err);
+        return res.json({ error: "Error al obtener los cascos" });
+      }
+
+      console.log("Raw result:", result);
+
+      const products = result.map((product) => ({
+        idProducto: product.idProductos,
+        nombre: product.nombre, 
+        precio: product.precio,
+        descripcion: product.descripcion,
+        nombreCategoria: product.nombreCategoria,
+        nombreEquipo: product.nombre_equipo,
+        filename: product.filename,
+      }));
+
+      console.log("Processed products:", products);
+
+      res.json(products);
+    }
+  );
+};
+
+exports.getOchoOveroles = (req, res) => {
+  console.log("Fetching overalls...");
+  db.query(
+   "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Overol  ' GROUP BY IP.idProducto LIMIT 8;",
+    (err, result) => {
+      if (err) {
+        console.error("Error al obtener los overoles:", err);
+        return res.json({ error: "Error al obtener los overoles" });
+      }
+
+      console.log("Raw result:", result);
+
+      const products = result.map((product) => ({
+        idProducto: product.idProductos,
+        nombre: product.nombre, 
+        precio: product.precio,
+        descripcion: product.descripcion,
+        nombreCategoria: product.nombreCategoria,
+        nombreEquipo: product.nombre_equipo,
+        filename: product.filename,
+      }));
+
+      console.log("Processed products:", products);
+
+      res.json(products);
+    }
+  );
+};

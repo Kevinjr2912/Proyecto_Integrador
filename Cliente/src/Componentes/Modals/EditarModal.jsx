@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../Estilos/EditarModal.module.css";
 import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
 export default function EditarModal({ isOpen, onClose, onEditProduct, product }) {
   const [name, setName] = useState("");
@@ -18,35 +19,43 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
     { idEquipment: 8, name: "Aston Martin" },
   ];
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (product) {
       setName(product.nombre || "");
       setPrice(product.precio || "");
       setDescription(product.descripcion || "");
       setEquipment(product.equipo || "");
-    } else {
-      setName("");
-      setPrice("");
-      setDescription("");
-      setEquipment("");
     }
   }, [product]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const token = localStorage.getItem('jwtToken');
+
+    if (!token) {
+      navigate('/loginAdmin');
+      return;
+    }
+
     const idProducto = product.idProductos;
 
     const data = {
       nombre: name,
       precio: price,
       descripcion: description,
-      equipo: parseInt(equipment)
+      equipo: parseInt(equipment),
     };
 
     try {
       const response = await fetch(`http://localhost:3000/products/updateProduct/${idProducto}`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Incluye el token en los headers
+        },
         body: JSON.stringify(data),
       });
 
@@ -84,7 +93,6 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
         <form
           className={styles.editarBoxSonAdd}
           onSubmit={handleSubmit}
-          encType="multipart/form-data"
         >
           <h2>Editando producto: {product?.nombre || "Nuevo Producto"}</h2>
           <label htmlFor="name">Nombre</label>
@@ -105,9 +113,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-          <label className="labelInfo" htmlFor="descripcion">
-            Descripción
-          </label>
+          <label htmlFor="descripcion">Descripción</label>
           <input
             name="descripcion"
             type="text"
@@ -116,6 +122,7 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          <label htmlFor="lEquipment">Equipo</label>
           <select
             name="listEquiptments"
             id="lEquipment"

@@ -10,7 +10,6 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { handleLogin } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,9 +17,8 @@ export default function Login() {
     const data = {
       email: email,
       password: password,
+      
     };
-
-    console.log("Datos enviados:", data);
 
     try {
       const response = await fetch(
@@ -33,8 +31,9 @@ export default function Login() {
       );
 
       if (response.ok) {
-        handleLogin(false); // Asumiendo que este login es para usuarios no administradores
-        Swal.fire({
+        const dataToke= await response.json();
+        console.log(dataToke.id_cliente);
+          Swal.fire({
           icon: "success",
           title: "Acceso concedido",
           showConfirmButton: false,

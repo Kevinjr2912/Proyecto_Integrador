@@ -1,37 +1,81 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function DetalleVentaProductos({ data }) {
   const [productos, setProductos] = useState([]);
   const [customerAddress, setCustomerAddress] = useState({});
+  const navigate = useNavigate();
 
-  const handleDetails = async () => {
-    try {
-      const [response1, response2] = await Promise.all([
-        fetch(`http://localhost:3000/sales/getDetailsOrder/${data.idPedido}`),
-        fetch(`http://localhost:3000/sales/shippingDetail/${data.idPedido}`),
-      ]);
-
-      if (response1.ok && response2.ok) {
-        const data1 = await response1.json();
-        const listProducts = data1.map((product) => ({
-          producto: product.nombre,
-          cantidad: product.cantidad,
-          precio: product.precio,
-        }));
-        const data2 = await response2.json();
-        console.log(data2);
-        setCustomerAddress(data2);
-        setProductos(listProducts);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const token = localStorage.getItem("jwtToken");
 
   useEffect(() => {
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "No estás autenticado",
+        text: "Por favor, inicia sesión para continuar.",
+      }).then(() => {
+        navigate("/loginAdmin");
+      });
+      return;
+    }
+
+    const handleDetails = async () => {
+      try {
+        const [response1, response2] = await Promise.all([
+          fetch(`http://localhost:3000/sales/getDetailsOrder/${data.idPedido}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          }),
+          fetch(`http://localhost:3000/sales/shippingDetail/${data.idPedido}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          }),
+        ]);
+
+        if (response1.status === 401 || response2.status === 401) {
+          // Token expirado o no autorizado
+          Swal.fire({
+            icon: "warning",
+            title: "Sesión expirada",
+            text: "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.",
+          }).then(() => {
+            localStorage.removeItem("jwtToken"); // Elimina el token del almacenamiento local
+            navigate("/loginAdmin"); // Redirige a la página de inicio de sesión
+          });
+          return;
+        }
+
+        if (response1.ok && response2.ok) {
+          const data1 = await response1.json();
+          const listProducts = data1.map((product) => ({
+            producto: product.nombre,
+            cantidad: product.cantidad,
+            precio: product.precio,
+          }));
+          const data2 = await response2.json();
+          setCustomerAddress(data2);
+          setProductos(listProducts);
+        } else {
+          // Maneja otros errores de respuesta
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudieron obtener los detalles.",
+          });
+        }
+      } catch (err) {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Hubo un problema al obtener los detalles.",
+        });
+      }
+    };
+
     handleDetails();
-  }, []);
+  }, [data, token, navigate]);
 
   // Columnas para la tabla de productos
   const columns = [
@@ -54,8 +98,6 @@ export default function DetalleVentaProductos({ data }) {
       center: true,
     },
   ];
-
-  console.log(customerAddress);
 
   return (
     <>

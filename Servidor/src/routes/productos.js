@@ -10,5 +10,8 @@ router.get('/getInformationProduct/:idProducto', productsControllers.getInformat
 router.post('/addProduct', productsControllers.addProduct);
 router.put('/updateProduct/:id', productsControllers.updateProduct);
 router.delete('/deleteProduct/:id', productsControllers.deleteProduct);
+//andre routes
+router.get('/getOchoHelmets',productsControllers.getOchoHelmets)
+router.get('/getOchoOveroles',productsControllers.getOchoOveroles)
 
 module.exports = router;

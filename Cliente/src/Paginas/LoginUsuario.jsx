@@ -5,13 +5,6 @@ import WhatsFlotante from "../Componentes/WhatsFlotante";
 import Footer from "../Componentes/Footer";
 
 export default function LoginPagina() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setIsAdmin(false);
-    // Navegar a la página de login o realizar otras acciones de logout
-  };
   const seccionesNav = [
     {
       id: 0,
@@ -37,10 +30,7 @@ export default function LoginPagina() {
       <NavBar
         seccionesNav={seccionesNav}
         esSeccionCliente={true}
-        isLoggedIn={isLoggedIn}
-        handleLogout={handleLogout}
       />
-      <Login setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />
       <Login/>
       <Footer />
     </>

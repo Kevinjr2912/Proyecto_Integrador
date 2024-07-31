@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 import styles from "../../Estilos/DetalleVenta.module.css";
 import FrameOjo from "../../Icons/FrameOjo.svg";
 import FrameRecibo from "../../Icons/FrameRecibo.svg";
@@ -10,38 +12,10 @@ import DetalleVentaProductos from "../Modals/DetalleVentaProductos";
 import LinkProducto from "../Modals/LinkProducto";
 import ReciboProducto from "../Modals/ReciboProducto";
 
-// Componente para el botón de Detalles
-const DetalleButton = ({ onClick }) => (
-  <button onClick={onClick} className={styles.detalleButton}>
-    <img src={FrameOjo} alt="Detalles" />
-  </button>
-);
-
-// Componente para el botón de Recibo
-const ReciboButton = ({ onClick }) => (
-  <button onClick={onClick} className={styles.reciboButton}>
-    <img src={FrameRecibo} alt="Recibo" />
-  </button>
-);
-
-// Componente para el botón de Confirmar
-const ConfirmButton = ({ onClick }) => (
-  <button onClick={onClick} className={styles.confirmButton}>
-    <img src={FrameConfirmar} alt="Confirmar" />
-  </button>
-);
-
-// Componente para el botón de Cancelar
-const CancelButton = ({ onClick }) => (
-  <button onClick={onClick} className={styles.cancelButton}>
-    <img src={FrameCancelar} alt="Rechazar" />
-  </button>
-);
-
-// Componente para el botón de Enviar
-const EnvioButton = ({ onClick }) => (
-  <button onClick={onClick} className={styles.envioButton}>
-    <img src={FrameEnvio} alt="Enviar" />
+// Componente para botones
+const Button = ({ onClick, icon, altText, style }) => (
+  <button onClick={onClick} className={style}>
+    <img src={icon} alt={altText} />
   </button>
 );
 
@@ -75,52 +49,93 @@ const customStyles = {
 
 // Componente principal de DetalleVenta
 export default function DetalleVenta() {
-  // Estado para los datos de la tabla
   const [data, setData] = useState([]);
-  // Estado para los datos del modal
   const [modalData, setModalData] = useState(null);
-  // Estado para mostrar el modal de LinkProducto
   const [showLinkModal, setShowLinkModal] = useState(false);
-  // Estado para mostrar el modal de ReciboProducto
   const [showReciboModal, setShowReciboModal] = useState(false);
+  const navigate = useNavigate();
 
-  // Función para manejar el clic en el botón de detalles
-  const handleDetailClick = (row) => {
-    setModalData(row);
-  };
+  // Obtén el token desde el almacenamiento local
+  const token = localStorage.getItem('jwtToken');
 
-  // Función para manejar el clic en el botón de recibo
-  const handleReciboClick = (row) => {
-    setShowReciboModal(true);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!token) {
+        Swal.fire({
+          icon: "warning",
+          title: "No estás autenticado",
+          text: "Por favor, inicia sesión para acceder a esta información.",
+        }).then(() => {
+          navigate('/loginAdmin');
+        });
+        return;
+      }
 
-  // Función para manejar el cambio en el botón de confirmar
-  const handleConfirmChange = (row) => {
-    alert(`Confirmar venta de: ${row.email}`);
-  };
+      try {
+        const response = await fetch("http://localhost:3000/sales/getInformationSale", {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
 
-  // Función para manejar el cambio en el botón de rechazar
-  const handleRechazarChange = (row) => {
-    alert(`Rechazar venta de: ${row.email}`);
-  };
+        if (response.status === 401) {
+          // Token expirado o no autorizado
+          Swal.fire({
+            icon: "warning",
+            title: "Sesión expirada",
+            text: "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.",
+          }).then(() => {
+            localStorage.removeItem("jwtToken"); // Elimina el token del almacenamiento local
+            navigate('/loginAdmin'); // Redirige a la página de inicio de sesión
+          });
+          return;
+        }
 
-  // Función para manejar el clic en el botón de enviar
-  const handleEnvioClick = (row) => {
-    setShowLinkModal(true);
-  };
+        if (response.ok) {
+          const dataJSON = await response.json();
+          const information = dataJSON.map((detailsSale) => ({
+            idPedido: detailsSale.idPedido,
+            email: detailsSale.email,
+            fechaCompra: new Date(detailsSale.fecha).toISOString().split("T")[0],
+            precioTotal: detailsSale.total,
+          }));
+          setData(information);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error al obtener la información.",
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error de conexión. Intenta de nuevo más tarde.",
+        });
+      }
+    };
 
-  // Función para cerrar los modales
+    fetchData();
+  }, [token, navigate]);
+
+  const handleDetailClick = (row) => setModalData(row);
+  const handleReciboClick = () => setShowReciboModal(true);
+  const handleEnvioClick = () => setShowLinkModal(true);
+
   const closeModal = () => {
     setModalData(null);
     setShowLinkModal(false);
     setShowReciboModal(false);
   };
 
-  // Columnas de la tabla
   const columns = [
     {
       name: "Detalles",
-      cell: (row) => <DetalleButton onClick={() => handleDetailClick(row)} />,
+      cell: (row) => <Button onClick={() => handleDetailClick(row)} icon={FrameOjo} altText="Detalles" style={styles.detalleButton} />,
       center: true,
     },
     {
@@ -136,58 +151,32 @@ export default function DetalleVenta() {
       center: true,
     },
     {
-      name: "PrecioTotal",
+      name: "Precio Total",
       selector: (row) => `$${row.precioTotal}`,
       sortable: true,
       center: true,
     },
     {
       name: "Recibo",
-      cell: (row) => <ReciboButton onClick={() => handleReciboClick(row)} />,
+      cell: (row) => <Button onClick={() => handleReciboClick(row)} icon={FrameRecibo} altText="Recibo" style={styles.reciboButton} />,
       center: true,
     },
     {
       name: "Confirmar",
-      cell: (row) => <ConfirmButton onClick={() => handleConfirmChange(row)} />,
+      cell: (row) => <Button onClick={() => alert(`Confirmar venta de: ${row.email}`)} icon={FrameConfirmar} altText="Confirmar" style={styles.confirmButton} />,
       center: true,
     },
     {
       name: "Rechazar",
-      cell: (row) => <CancelButton onClick={() => handleRechazarChange(row)} />,
+      cell: (row) => <Button onClick={() => alert(`Rechazar venta de: ${row.email}`)} icon={FrameCancelar} altText="Rechazar" style={styles.cancelButton} />,
       center: true,
     },
     {
       name: "Editar Estatus",
-      cell: (row) => <EnvioButton onClick={() => handleEnvioClick(row)} />,
+      cell: (row) => <Button onClick={() => handleEnvioClick(row)} icon={FrameEnvio} altText="Enviar" style={styles.envioButton} />,
       center: true,
     },
   ];
-
-  //Consumir API para mostrar email, fecha compra, precio total de la compra respecto a un cliente
-  const showDetailsOrder = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/sales/getInformationSale"
-      );
-
-      if (response.ok) {
-        const dataJSON = await response.json();
-        const information = dataJSON.map((detailsSale) => ({
-          idPedido: detailsSale.idPedido,
-          email: detailsSale.email,
-          fechaCompra: new Date(detailsSale.fecha).toISOString().split("T")[0],
-          precioTotal: detailsSale.total,
-        }));
-        setData(information);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    showDetailsOrder();
-  });
 
   return (
     <>
@@ -203,13 +192,9 @@ export default function DetalleVenta() {
         {modalData && (
           <div className={styles.modal}>
             <div className={styles.modalContent}>
-              <span className={styles.close} onClick={closeModal}>
-                &times;
-              </span>
+              <span className={styles.close} onClick={closeModal}>&times;</span>
               <DetalleVentaProductos data={modalData} />
-              <button className={styles.confirmButton} onClick={closeModal}>
-                Cerrar
-              </button>
+              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
             </div>
           </div>
         )}
@@ -217,13 +202,9 @@ export default function DetalleVenta() {
         {showLinkModal && (
           <div className={styles.modal}>
             <div className={styles.modalContent}>
-              <span className={styles.close} onClick={closeModal}>
-                &times;
-              </span>
+              <span className={styles.close} onClick={closeModal}>&times;</span>
               <LinkProducto />
-              <button className={styles.confirmButton} onClick={closeModal}>
-                Cerrar
-              </button>
+              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
             </div>
           </div>
         )}
@@ -231,13 +212,9 @@ export default function DetalleVenta() {
         {showReciboModal && (
           <div className={styles.modal}>
             <div className={styles.modalContent}>
-              <span className={styles.close} onClick={closeModal}>
-                &times;
-              </span>
+              <span className={styles.close} onClick={closeModal}>&times;</span>
               <ReciboProducto />
-              <button className={styles.confirmButton} onClick={closeModal}>
-                Cerrar
-              </button>
+              <button className={styles.confirmButton} onClick={closeModal}>Cerrar</button>
             </div>
           </div>
         )}

@@ -35,7 +35,7 @@ const authenticateJWT = (req, res, next) => {
       next();
     });
   } else {
-    res.sendStatus(401); // No autorizado (sin token)
+    res.sendStatus(401);
   }
 };
 

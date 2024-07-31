@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../Estilos/AddProduct.css";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProduct({ onAddProduct, onClose }) {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ export default function AddProduct({ onAddProduct, onClose }) {
   const [description, setDescription] = useState("");
   const [equipment, setEquipment] = useState("");
   const [images, setImages] = useState([]);
-  let nameCategory;
+  const navigate = useNavigate();
 
   const listeEquipment = [
     { idEquipment: 1, name: "Alpine" },
@@ -36,23 +37,22 @@ export default function AddProduct({ onAddProduct, onClose }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (
-      document.getElementById("name").value == "" ||
-      document.getElementById("category") == "" ||
-      document.getElementById("price").value == "" ||
-      document.getElementById("description").value == "" ||
-      document.getElementById("lEquipment").value == ""
+      !name ||
+      !category ||
+      !price ||
+      !description ||
+      !equipment
     ) {
-
       Swal.fire({
-        icon: "errorr",
+        icon: "error",
         title: "Oops...",
-        text: `No pueden quedar campos vacíos`,
+        text: "No pueden quedar campos vacíos",
       });
-    } else if(images.length <3){
+    } else if (images.length < 3) {
       Swal.fire({
-        icon: "errorr",
+        icon: "error",
         title: "Cantidad de imágenes",
-        text: `EL sistema admite 3 imágenes`,
+        text: "El sistema admite 3 imágenes",
       });
     } else {
       const data = new FormData();
@@ -65,26 +65,34 @@ export default function AddProduct({ onAddProduct, onClose }) {
         data.append("imagen", image);
       });
 
-      console.log(data);
-
       try {
-        const response = await fetch(
-          "http://localhost:3000/products/addProduct/",
-          {
-            method: "POST",
-            body: data,
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch("http://localhost:3000/products/addProduct/", {
+          method: "POST",
+          body: data,
+          headers: {
+            'Authorization': `Bearer ${token}`
           }
-        );
+        });
+
+        if (response.status === 401) {
+          // Token expirado o no autorizado
+          Swal.fire({
+            icon: "error",
+            title: "Sesión expirada",
+            text: "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.",
+          }).then(() => {
+            localStorage.removeItem('jwtToken');
+            navigate('/loginAdmin');
+          });
+          return;
+        }
 
         if (!response.ok) {
-          throw new Error(HTTP`error! status: ${response.status}`);
+          throw new Error(`Error! status: ${response.status}`);
         }
 
-        if(category == 1){
-          nameCategory = "Casco";
-        }else{
-          nameCategory = "Overol"
-        }
+        const nameCategory = category === "1" ? "Casco" : "Overol";
 
         onAddProduct({
           nombre: name,
@@ -112,9 +120,9 @@ export default function AddProduct({ onAddProduct, onClose }) {
         onClose();
       } catch (error) {
         Swal.fire({
-          icon: "errorr",
+          icon: "error",
           title: "Oops...",
-          text: `Error al eviar la solicitud`,
+          text: `Error al enviar la solicitud: ${error.message}`,
         });
       }
     }

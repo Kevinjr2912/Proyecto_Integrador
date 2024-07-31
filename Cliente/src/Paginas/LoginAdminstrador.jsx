@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import FrameCasco from "../Icons/FrameCasco.svg";
 import '../Estilos/Login.css';
 
-export default function LoginPagina({ setIsLoggedIn, setIsAdmin }) {
+export default function LoginPagina(){
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,26 +23,28 @@ export default function LoginPagina({ setIsLoggedIn, setIsAdmin }) {
       email: email,
       password: password,
     };
-
-    console.log(data);
-
+  
     try {
       const response = await fetch("http://localhost:3000/admins/login", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
+  
       if (response.ok) {
-        setIsLoggedIn(true);
-        setIsAdmin(true);
+        const result = await response.json();
+        const token = result.token;
+  
+        // Guardar el token en localStorage
+        localStorage.setItem('jwtToken', token);
+  
         Swal.fire({
           icon: "success",
           title: 'Acceso concedido',
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          navigate('/GestionarProductosP');
+          navigate('/homeAdmin');
         });
       } else {
         Swal.fire({
@@ -60,6 +62,7 @@ export default function LoginPagina({ setIsLoggedIn, setIsAdmin }) {
       });
     }
   };
+  
 
   return (
     <>

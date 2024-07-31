@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ListaProducto from "../Componentes/GestionProductos/ListaProducto";
 import NavBar from "../Componentes/NavBar.jsx";
 import Footer from "../Componentes/Footer.jsx";
@@ -8,37 +9,46 @@ import '../Estilos/GestionarProductosP.css';
 export default function GestionarProductosP() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [products, setProducts] = useState([]);
-  
-  const showData = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/products/getAllProducts');
-      const data = await response.json();
-      
-      // Verifica si data es un arreglo antes de usarlo
-      if (Array.isArray(data)) {
-        setProducts(data);
-      } else {
-        console.error('La respuesta no es un arreglo:', data);
-      }
-    } catch (error) {
-      console.error('Error al obtener los datos:', error);
-    }
-  };
+  const navigate = useNavigate(); // Hook para redirección
 
   useEffect(() => {
+    const token = localStorage.getItem('jwtToken'); // Obtén el token JWT
+
+    if (!token) {
+      navigate('/loginAdmin'); // Redirige si no hay token
+      return;
+    }
+
+    const showData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/products/getAllProducts', {
+          headers: {
+            'Authorization': `Bearer ${token}` // Incluye el token en los headers
+          }
+        });
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else {
+          console.error('La respuesta no es un arreglo:', data);
+        }
+      } catch (error) {
+        console.error('Error al obtener los datos:', error);
+      }
+    };
+
     showData();
-  },[]);
+  }, [navigate]);
 
   const addProduct = (product) => {
     setProducts(prevProducts => [...prevProducts, product]);
   };
 
   const seccionesNav = [
-
     {
         id: 1,
         nombre: 'MENU',
-        
     },
     {
         id: 2,
@@ -48,7 +58,7 @@ export default function GestionarProductosP() {
         id: 3,
         nombre: 'DETALLES DE VENTA',
     }
-];
+  ];
 
   return (
     <div className="box-product">
