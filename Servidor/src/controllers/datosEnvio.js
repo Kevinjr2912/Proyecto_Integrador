@@ -38,7 +38,7 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-exports.addShippingInformation = async (req, res) => {
+exports.addShippingInformation = [authenticateJWT,async (req, res) => {
   const {
     codigo_postal,
     nombre_estado,
@@ -134,7 +134,7 @@ exports.addShippingInformation = async (req, res) => {
       error: "Error al procesar la información de envío: " + error,
     });
   }
-};
+}];
 
 const findOrInsert = (table, idField, nameField, value) => {
   return new Promise((resolve, reject) => {
@@ -164,7 +164,7 @@ const findOrInsert = (table, idField, nameField, value) => {
   });
 };
 
-exports.getCustomerAddress = (req, res) => {
+exports.getCustomerAddress = [authenticateJWT,(req, res) => {
   const idCliente = req.params.idCliente;
 
   db.query(
@@ -172,15 +172,19 @@ exports.getCustomerAddress = (req, res) => {
     [idCliente],
     (err, result) => {
       if (err) {
-        return res.json({ error: "Error al buscar dicha dirección de envío" });
+        return res.status(500).json({ error: "Error al buscar dicha dirección de envío" });
+      }
+
+      if(result.length == 0){
+        return res.status(400).json({error: "No se encontró un cliente con dichos datos"})
       }
 
       return res.json(result);
     }
   );
-};
+}];
 
-exports.getFormCustomerAddress = (req, res) => {
+exports.getFormCustomerAddress = [authenticateJWT,(req, res) => {
 const {idCliente} =req.params;
 console.log(idCliente)
   db.query(
@@ -217,6 +221,83 @@ console.log(idCliente)
       return res.status(200).json(infoEnvio);
     }
   );
-};
+}];
 
 
+exports.updateShippingInformation = [authenticateJWT,async (req, res) => {
+  const {
+    codigo_postal,
+    nombre_estado,
+    nombre_municipio,
+    nombre_colonia,
+    calle,
+    referencia,
+  } = req.body;
+  const idCliente = req.params.idCliente;
+  let { numeroExterior } = req.body;
+
+  if (numeroExterior === "") {
+    numeroExterior = "NA";
+  }
+
+  try {
+    let idCodigoPostal = await findOrInsert(
+      "CodigoPostal",
+      "id_codigo_postal",
+      "codigo_postal",
+      codigo_postal
+    );
+    let idEstado = await findOrInsert(
+      "Estado",
+      "id_estado",
+      "nombre_estado",
+      nombre_estado
+    );
+    let idMunicipio = await findOrInsert(
+      "Municipio",
+      "id_municipio",
+      "nombre_municipio",
+      nombre_municipio
+    );
+    let idColonia = await findOrInsert(
+      "Colonia",
+      "id_colonia",
+      "nombre_colonia",
+      nombre_colonia
+    );
+
+    // Actualizar datos de envío
+    db.query(
+      "UPDATE DatosEnvio SET id_codigo_postal = ?, id_estado = ?, id_municipio = ?, id_colonia = ? WHERE id_cliente = ?",
+      [idCodigoPostal, idEstado, idMunicipio, idColonia, idCliente],
+      (err, result) => {
+        if (err) {
+          return res.status(500).json({
+            error: "Error al actualizar los datos de envío",
+          });
+        }
+      }
+    );
+
+    // Actualizar datos de domicilio
+    db.query(
+      "UPDATE DatosDomicilio SET calle = ?, numeroExterior = ?, referencia = ? WHERE idCliente = ?",
+      [calle, numeroExterior, referencia, idCliente],
+      (err, result) => {
+        if (err) {
+          return res.status(500).json({
+            error: "Error al actualizar los datos de domicilio",
+          });
+        }
+
+        return res.status(200).json({
+          message: "Datos de envío actualizados exitosamente",
+        });
+      }
+    );
+  } catch (error) {
+    return res.status(500).json({
+      error: "Error al procesar la información de envío: " + error,
+    });
+  }
+}];

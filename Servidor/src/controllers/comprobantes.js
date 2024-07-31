@@ -62,7 +62,7 @@ const upload = multer({
   },
 }).single("comprobante");
 
-exports.addComprobante = (req, res) => {
+exports.addComprobante = [authenticateJWT,(req, res) => {
   upload(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       console.log(err);
@@ -120,5 +120,4 @@ exports.addComprobante = (req, res) => {
 
     });
   });
-};
-
+}];

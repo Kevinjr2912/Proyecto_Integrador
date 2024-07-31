@@ -94,6 +94,6 @@ exports.login = async (req, res) => {
         }
       );
       return res.json({ token });
-}
-);
+    }
+  );
 };

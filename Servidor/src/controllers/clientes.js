@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
   console.log(email, password);
 
-  db.query("SELECT email,password FROM CredencialAccesoCliente WHERE email = ?",[email],async (err, result) => {
+  db.query("SELECT email,password,id_cliente FROM CredencialAccesoCliente WHERE email = ?",[email],async (err, result) => {
     if (err) {
       res.status(500).send("Error en el servidor");
       throw err;
@@ -54,6 +54,7 @@ exports.login = async (req, res) => {
 
     const customer = result[0];
     console.log(customer.password);
+    console.log(customer.id_cliente);
 
     //Verificar contraseña (con bcrypt)
 
@@ -63,16 +64,12 @@ exports.login = async (req, res) => {
     }
     
     //generar JWT
-    const token = jwt.sign(
-      { id: customer.id_cliente },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "10h",
-      });
+    const token = jwt.sign({ id: customer.id_cliente },process.env.JWT_SECRET,{expiresIn: "10h",});
 
       console.log(token)
 
-      res.json({ token });
+      res.json({  token,
+        id_cliente: customer.id_cliente });
     }
   );
 };
