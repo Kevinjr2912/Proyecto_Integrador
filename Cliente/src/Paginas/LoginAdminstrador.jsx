@@ -1,70 +1,64 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import NavBar from "../Componentes/NavBar";
-import Swal from "sweetalert2";
+// LoginAdmin.js
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import FrameCasco from "../Icons/FrameCasco.svg";
-import '../Estilos/Login.css';
+import "../Estilos/Login.css";
+import Swal from "sweetalert2";
+import NavBar from "../Componentes/NavBar";
+import AuthContext from "../Componentes/Contexto/AuthContext";
 
-export default function LoginPagina(){
-    const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    
+
+export default function LoginAdmin() {
     const seccionesNav = [
         {
             id: 0,
             nombre: 'INICIO',
         }
     ];
-
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { handleLogin } = useContext(AuthContext);
+  
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = {
-            "email" : email,
-            "password" : password,
-        }
-
-        console.log(data)
-
-        try {
-          const response = await fetch("http://localhost:3000/admins/login", {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data),
+      event.preventDefault();
+      const data = { email, password };
+  
+      try {
+        const response = await fetch("http://localhost:3000/admins/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+  
+        if (response.ok) {
+          const { token } = await response.json();
+          handleLogin(true); // Indicar que es admin
+          localStorage.setItem("token", token);
+          Swal.fire({
+            icon: "success",
+            title: "Acceso concedido",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            navigate("/homeAdmin");
           });
-
-          if (response.ok) {
-            const token = await response.json();
-
-            document.getElementById('input-email').value = "";
-            document.getElementById('input-password').value = "";
-            
-            Swal.fire({
-                icon: "success",
-                title: 'Acceso concedido',
-                showConfirmButton: false,
-                timer: 1500,
-            }).then(() => {
-                navigate('/homeAdmin');
-            });
-          } else {
-            Swal.fire({
-                icon: "error",
-                title: 'Acceso denegado',
-                showConfirmButton: false,
-                timer: 1500,
-            });
-          }
-        } catch (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: `Error al hacer la petición al servidor ${error}`,
-            });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Acceso denegado, verifica tus credenciales de acceso",
+          });
         }
-      };
-
-    return(
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `Error al enviar la solicitud`,
+        });
+      }
+    };
+  return (
         <>
          <NavBar
             seccionesNav={seccionesNav}
@@ -86,4 +80,5 @@ export default function LoginPagina(){
         </div>
         </>
     );
+
 }

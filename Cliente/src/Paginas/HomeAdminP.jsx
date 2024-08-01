@@ -11,15 +11,10 @@ export default function HomeAdminP(){
 
         {
             id: 1,
-            nombre: 'MENU',
-            
-        },
-        {
-            id: 2,
             nombre: 'GESTIÓN PRODUCTO',
         },
         {
-            id: 3,
+            id: 2,
             nombre: 'DETALLES DE VENTA',
         }
     ];

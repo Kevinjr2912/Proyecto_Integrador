@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import FrameCasco from "../Icons/FrameCasco.svg";
 import "../Estilos/Login.css";
 import Swal from "sweetalert2";
-import AuthContext from "./Contexto/AuthContext";
+import AuthContext from "../Componentes/Contexto/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,8 +20,6 @@ export default function Login() {
       password: password,
     };
 
-    console.log("Datos enviados:", data);
-
     try {
       const response = await fetch(
         "http://localhost:3000/customers/loginCustomer/",
@@ -33,14 +31,18 @@ export default function Login() {
       );
 
       if (response.ok) {
-        handleLogin(false); 
+        const dataToke = await response.json();
+        const idCliente = dataToke.id_cliente;
+        localStorage.setItem('token', dataToke.token);
+        localStorage.setItem('idCliente', idCliente);
+        handleLogin(false); // Suponiendo que `false` indica que no es admin
         Swal.fire({
           icon: "success",
-          title: "Acceso concedido",
+          title: `Acceso concedido para el cliente con el id ${idCliente}`,
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          navigate('/');
+          navigate("/");
         });
       } else {
         Swal.fire({
@@ -82,7 +84,9 @@ export default function Login() {
           <button className="login-button">Log in</button>
         </form>
         <div className="registro-prompt">
-          <span>¿Todavía no tienes una cuenta? <br /></span>
+          <span>
+            ¿Todavía no tienes una cuenta? <br />
+          </span>
           <span
             className="registro-link"
             onClick={() => navigate("/RegistroPagina")}

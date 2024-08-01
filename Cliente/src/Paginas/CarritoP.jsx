@@ -33,6 +33,7 @@ export default function CarritoP() {
   const [purchaseSummary, setPurchaseSummary] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
+  
 
   const cargarProductosCarrito = async () => {
     try {

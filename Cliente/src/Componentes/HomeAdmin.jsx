@@ -16,7 +16,6 @@ export default function HomeAdmin() {
           <div className={styles.container_topDiv}>
             <h2>Adminstrador</h2>
             <h2>luisantonioC126@gmail.com</h2>
-            <button className={styles.sign_off} onClick={() => { navigate('/'); }}>Cerrar sesión</button>
           </div>
           <div className={styles.container_detalles}>
             <button className={styles.detalles_button} onClick={handleGestionarProductosClick}>Gestión de productos</button>

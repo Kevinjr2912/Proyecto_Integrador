@@ -115,7 +115,7 @@ exports.getAllProducts = [authenticateJWT,(req, res) => {
   );
 }];
 
-exports.getAllHelmets = [authenticateJWT,(req, res) => {
+exports.getAllHelmets = (req, res) => {
   db.query(
     "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Casco' GROUP BY IP.idProducto;",
     (err, result) => {
@@ -137,9 +137,9 @@ exports.getAllHelmets = [authenticateJWT,(req, res) => {
       return res.json(products);
     }
   );
-}];
+};
 
-exports.getAllOveralls = [authenticateJWT,(req, res) => {
+exports.getAllOveralls = (req, res) => {
   db.query(
     "SELECT P.idProductos, P.nombre, P.precio, P.descripcion, C.nombreCategoria, E.nombre_equipo,IP.filename FROM Productos P INNER JOIN Categoria C ON P.id_categoria = C.idCategoria INNER JOIN Equipo E ON P.id_equipo = E.idEquipo INNER JOIN ImagenProducto IP ON IP.idProducto = P.idProductos WHERE C.nombreCategoria = 'Overol' GROUP BY IP.idProducto",
     (err, result) => {
@@ -161,9 +161,9 @@ exports.getAllOveralls = [authenticateJWT,(req, res) => {
       return res.json(products);
     }
   );
-}];
+};
 
-exports.getInformationProduct = [authenticateJWT,(req, res) => {
+exports.getInformationProduct = (req, res) => {
   const idProducto = req.params.idProducto;
   console.log(idProducto);
   let objInformationProduct = {};
@@ -208,7 +208,7 @@ exports.getInformationProduct = [authenticateJWT,(req, res) => {
       return res.json(objInformationProduct);
     }
   );
-}];
+} ;
 
 exports.updateProduct = [authenticateJWT,(req, res) => {
   const productId = req.params.id;
