@@ -29,8 +29,7 @@ function TablaProducto({ products }) {
   const [isEditarModalOpen, setIsEditarModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [productToEdit, setProductToEdit] = useState(null);
-
-
+  const token = localStorage.getItem('token');
 
   const columns = [
     {
@@ -129,6 +128,9 @@ function TablaProducto({ products }) {
     try {
       const response = await fetch(`http://localhost:3000/products/deleteProduct/${productId}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
 
       if (response.ok) {

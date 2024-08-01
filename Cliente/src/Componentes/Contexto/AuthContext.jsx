@@ -1,10 +1,10 @@
-// AuthContext.js
 import React, { createContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
-
+import { useNavigate } from "react-router-dom"; 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate(); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   
@@ -40,8 +40,10 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("isAdmin");
         localStorage.removeItem("token");
-        localStorage.removeItem("idCliente"); // Eliminar el ID del usuario
+        localStorage.removeItem("idCliente"); 
         Swal.fire("¡Cerrado!", "Tu sesión ha sido cerrada.", "success");
+        navigate("/")
+        
       }
     });
   };

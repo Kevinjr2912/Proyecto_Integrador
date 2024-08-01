@@ -4,15 +4,21 @@ import EditarReseña from "./EditarReseña";
 import EliminarReseña from "./EliminarReseña";
 import Swal from "sweetalert2";
 
-export default function ListaReseñas({ idProducto, idCliente }) {
+export default function ListaReseñas({ idProducto }) {
   const [reseñas, setReseñas] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const token = localStorage.getItem('token');
+  const idCliente = localStorage.getItem('idCliente');
 
   const fetchReseñas = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/resenas/getResenas/${idProducto}`
+        `http://localhost:3000/resenas/getResenas/${idProducto}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -36,6 +42,7 @@ export default function ListaReseñas({ idProducto, idCliente }) {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(updatedReseña),
         }
@@ -63,6 +70,9 @@ export default function ListaReseñas({ idProducto, idCliente }) {
         `http://localhost:3000/resenas/deleteResena/${reseñas[index].idResenaProducto}`,
         {
           method: "DELETE",
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         }
       );
 

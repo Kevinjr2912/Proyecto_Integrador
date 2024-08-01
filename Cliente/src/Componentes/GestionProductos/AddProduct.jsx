@@ -9,6 +9,7 @@ export default function AddProduct({ onAddProduct, onClose }) {
   const [description, setDescription] = useState("");
   const [equipment, setEquipment] = useState("");
   const [images, setImages] = useState([]);
+  const token = localStorage.getItem('token');
   let nameCategory;
 
   const listeEquipment = [
@@ -73,6 +74,9 @@ export default function AddProduct({ onAddProduct, onClose }) {
           {
             method: "POST",
             body: data,
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
           }
         );
 

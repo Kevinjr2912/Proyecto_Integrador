@@ -8,9 +8,10 @@ export default function Reseñas({ reseñas, agregarReseña, idProducto }) {
   const [review, setReview] = useState("");
 
   //Tenemos que hacer que idCliente se vaya pasando en el front
-  const idCliente = 15;
+  const token = localStorage.getItem("token");
+  const idCliente = localStorage.getItem("idCliente");
 
-  console.log("Este es el id del producto que va a ser reseñado " + idProducto)
+  console.log("Este es el id del producto que va a ser reseñado " + idProducto);
 
   const handleRatingClick = (calificacion) => {
     setRating(calificacion);
@@ -27,7 +28,7 @@ export default function Reseñas({ reseñas, agregarReseña, idProducto }) {
         puntuacion: rating,
       };
 
-      console.log(objResena)
+      console.log(objResena);
 
       try {
         const response = await fetch(
@@ -36,6 +37,7 @@ export default function Reseñas({ reseñas, agregarReseña, idProducto }) {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(objResena),
           }
@@ -110,7 +112,6 @@ export default function Reseñas({ reseñas, agregarReseña, idProducto }) {
           reseñas={reseñas}
           setReseñas={agregarReseña}
           idProducto={idProducto}
-          idCliente={idCliente}
         />
       )}
     </div>

@@ -8,10 +8,15 @@ import '../Estilos/GestionarProductosP.css';
 export default function GestionarProductosP() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [products, setProducts] = useState([]);
+  const token = localStorage.getItem('token');
   
   const showData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/products/getAllProducts');
+      const response = await fetch('http://localhost:3000/products/getAllProducts',{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       
       // Verifica si data es un arreglo antes de usarlo

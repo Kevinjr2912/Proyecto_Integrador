@@ -38,8 +38,7 @@ const authenticateJWT = (req, res, next) => {
     res.sendStatus(401); // No autorizado (sin token)
   }
 };
-
-exports.addDetailsOrderCustomer = [authenticateJWT,(req, res) => {
+exports.addDetailsOrderCustomer = [authenticateJWT, (req, res) => {
   const { idCliente } = req.params;
   const { idPedido } = req.body;
 
@@ -53,13 +52,10 @@ exports.addDetailsOrderCustomer = [authenticateJWT,(req, res) => {
       }
 
       if (result.length === 0) {
-        return res
-          .status(404)
-          .json({ error: "No se encontró un carrito para el cliente" });
+        return res.status(404).json({ error: "No se encontró un carrito para el cliente" });
       }
 
       const idCar = result[0].idCarrito;
-      console.log(idCar);
 
       db.query(
         "SELECT CarritoProducto.idProductos, CarritoProducto.cantidad, Productos.precio FROM CarritoProducto INNER JOIN Productos ON CarritoProducto.idProductos = Productos.idProductos WHERE idCarrito = ?",
@@ -67,17 +63,11 @@ exports.addDetailsOrderCustomer = [authenticateJWT,(req, res) => {
         (err, result) => {
           if (err) {
             console.log(err);
-            return res
-              .status(500)
-              .json({
-                error: "Error al seleccionar los elementos del carrito",
-              });
+            return res.status(500).json({ error: "Error al seleccionar los elementos del carrito" });
           }
 
           if (result.length === 0) {
-            return res
-              .status(404)
-              .json({ error: "No se encontraron productos en el carrito" });
+            return res.status(404).json({ error: "No se encontraron productos en el carrito" });
           }
 
           const products = result.map((product) => [
@@ -87,17 +77,13 @@ exports.addDetailsOrderCustomer = [authenticateJWT,(req, res) => {
             product.precio,
           ]);
 
-          console.log(products);
-
           db.query(
             "INSERT INTO DetallePedido (id_pedido, id_producto, cantidad, precio) VALUES ?",
             [products],
-            (err, result) => {
+            (err) => {
               if (err) {
                 console.log(err);
-                return res
-                  .status(500)
-                  .json({ error: "Error al insertar los detalles del pedido" });
+                return res.status(500).json({ error: "Error al insertar los detalles del pedido" });
               }
 
               db.query(
@@ -106,40 +92,34 @@ exports.addDetailsOrderCustomer = [authenticateJWT,(req, res) => {
                 (err, result) => {
                   if (err) {
                     console.log(err);
-                    return res
-                      .status(500)
-                      .json({ error: "Error al calcular el total del pedido" });
+                    return res.status(500).json({ error: "Error al calcular el total del pedido" });
                   }
 
                   const total = result[0].total || 0;
-                  const currentDate = new Date()
-                    .toISOString()
-                    .slice(0, 19)
-                    .replace("T", " ");
+                  const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
 
                   db.query(
                     "UPDATE Pedido SET total = ?, fecha = ? WHERE idPedido = ?",
                     [total, currentDate, idPedido],
-                    (err, result) => {
+                    (err) => {
                       if (err) {
                         console.log(err);
                         return res.status(500).json({ error: "Error al actualizar el pedido" });
                       }
 
-                      db.query('DELETE FROM  CarritoProducto WHERE idCarrito = ?',[idCar],(err,result) => {
-                        if(err){
-                          console.log(err)
-                          return res.status(500).json({error: "Error al eliminar los registros correspondientes "});
+                      db.query('DELETE FROM CarritoProducto WHERE idCarrito = ?', [idCar], (err) => {
+                        if (err) {
+                          console.log(err);
+                          return res.status(500).json({ error: "Error al eliminar los registros correspondientes" });
                         }
 
-                        db.query('DELETE FROM Carrito WHERE idCarrito = ?',[idCar],(err,result) => {
-                          if(err){
-                            console.log(err)
-                            return res.status(500).json({error: "Error al eliminar el id"});
+                        db.query('DELETE FROM Carrito WHERE idCarrito = ?', [idCar], (err) => {
+                          if (err) {
+                            console.log(err);
+                            return res.status(500).json({ error: "Error al eliminar el id" });
                           }
-  
-                          return res.status(201).json({message:"Detalles del pedido insertados, total actualizado y fecha registrada exitosamente"});
-                          
+
+                          return res.status(201).json({ message: "Detalles del pedido insertados, total actualizado y fecha registrada exitosamente" });
                         });
                       });
                     }

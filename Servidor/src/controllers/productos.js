@@ -163,7 +163,7 @@ exports.getAllOveralls = (req, res) => {
   );
 };
 
-exports.getInformationProduct = (req, res) => {
+exports.getInformationProduct = [authenticateJWT,(req, res) => {
   const idProducto = req.params.idProducto;
   console.log(idProducto);
   let objInformationProduct = {};
@@ -180,7 +180,6 @@ exports.getInformationProduct = (req, res) => {
 
       let imagesReferences = result.map((imgFilename) => imgFilename.filename);
 
-      console.log(imagesReferences)
       objInformationProduct.img1Filename = imagesReferences[0];
       objInformationProduct.img2Filename = imagesReferences[1];
       objInformationProduct.img3Filename = imagesReferences[2];
@@ -208,7 +207,7 @@ exports.getInformationProduct = (req, res) => {
       return res.json(objInformationProduct);
     }
   );
-} ;
+} ];
 
 exports.updateProduct = [authenticateJWT,(req, res) => {
   const productId = req.params.id;
@@ -236,7 +235,6 @@ exports.updateProduct = [authenticateJWT,(req, res) => {
       }
 
       const product = result[0];
-      console.log(product)
       const updateProduct = {};
 
       if (nombre != product.nombre) {
@@ -256,7 +254,6 @@ exports.updateProduct = [authenticateJWT,(req, res) => {
         productFront.equipo = equipo;
       }
 
-      console.log(updateProduct)
 
       if (Object.keys(updateProduct).length === 0) {
         return res.status(400).json({
@@ -333,8 +330,6 @@ exports.getOchoHelmets = (req, res) => {
         return res.json({ error: "Error al obtener los cascos" });
       }
 
-      console.log("Raw result:", result);
-
       const products = result.map((product) => ({
         idProducto: product.idProductos,
         nombre: product.nombre, 
@@ -345,7 +340,6 @@ exports.getOchoHelmets = (req, res) => {
         filename: product.filename,
       }));
 
-      console.log("Processed products:", products);
 
       res.json(products);
     }
@@ -362,8 +356,6 @@ exports.getOchoOveroles = (req, res) => {
         return res.json({ error: "Error al obtener los overoles" });
       }
 
-      console.log("Raw result:", result);
-
       const products = result.map((product) => ({
         idProducto: product.idProductos,
         nombre: product.nombre, 
@@ -373,8 +365,6 @@ exports.getOchoOveroles = (req, res) => {
         nombreEquipo: product.nombre_equipo,
         filename: product.filename,
       }));
-
-      console.log("Processed products:", products);
 
       res.json(products);
     }

@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from "react";
 import "../Estilos/MetodoEnvio.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function MetodoEnvio() {
   const [customerAddress, setCustomerAddress] = useState([]);
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("token");
+  const idCliente = localStorage.getItem("idCliente");
   const handleContinuarClick = () => {
     if (customerAddress.length === 0) {
       Swal.fire({
-        title: '¡Atención!',
-        text: 'No tienes una dirección de envío. Agrega una antes de continuar.',
-        icon: 'warning',
-        confirmButtonText: 'Entendido'
+        title: "¡Atención!",
+        text: "No tienes una dirección de envío. Agrega una antes de continuar.",
+        icon: "warning",
+        confirmButtonText: "Entendido",
       });
     } else {
-      navigate('/carritoPago/metodoEnvio/metodoPago');
+      navigate("/carritoPago/metodoEnvio/metodoPago");
     }
   };
 
   const handleDireccionEnvio = () => {
     navigate("/datosEnvio");
-  }
-
-  const idCliente = 15;
+  };
 
   const verifyShippingInformation = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/shippingData/getCustomerAddress/${idCliente}`);
+      const response = await fetch(
+        `http://localhost:3000/shippingData/getCustomerAddress/${idCliente}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -37,7 +43,7 @@ export default function MetodoEnvio() {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     verifyShippingInformation();
@@ -54,16 +60,21 @@ export default function MetodoEnvio() {
           <div className="textoDireccion">
             {customerAddress.length > 0 ? (
               <p>
-                {customerAddress[0].calle} {customerAddress[0].numeroExterior} {customerAddress[0].nombre_municipio}
+                {customerAddress[0].calle} {customerAddress[0].numeroExterior}{" "}
+                {customerAddress[0].nombre_municipio}
               </p>
             ) : (
               <p> No tienes una dirección de envío</p>
             )}
           </div>
           <hr />
-          <button onClick={handleDireccionEnvio} className="direccion-button">Editar o agregar nueva dirección</button>
+          <button onClick={handleDireccionEnvio} className="direccion-button">
+            Editar o agregar nueva dirección
+          </button>
         </div>
-        <button onClick={handleContinuarClick} className="continuar-button">Continuar</button>
+        <button onClick={handleContinuarClick} className="continuar-button">
+          Continuar
+        </button>
       </div>
     </div>
   );

@@ -1,6 +1,4 @@
 require("dotenv").config();
-
-//Cargar las variables de entorno
 const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -18,25 +16,24 @@ db.connect((err) => {
   if (err) {
     throw err;
   }
-
   console.log("Conexión a la base de datos MySQL establecida");
 });
 
 // Middleware de autenticación
 const authenticateJWT = (req, res, next) => {
-const authHeader = req.headers.authorization;
-if (authHeader) {
-const token = authHeader.split(" ")[1];
-jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-if (err) {
-return res.sendStatus(403); // Prohibido (token inválido)
-}
-req.user = user;
-next();
-});
-} else {
-res.sendStatus(401); // No autorizado (sin token)
-}
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      if (err) {
+        return res.sendStatus(403); // Prohibido (token inválido)
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401); // No autorizado (sin token)
+  }
 };
 
 const storage = multer.memoryStorage();
@@ -62,7 +59,7 @@ const upload = multer({
   },
 }).single("comprobante");
 
-exports.addComprobante = [authenticateJWT,(req, res) => {
+exports.addComprobante = [authenticateJWT, (req, res) => {
   upload(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       console.log(err);
@@ -74,50 +71,54 @@ exports.addComprobante = [authenticateJWT,(req, res) => {
 
     const { idCliente } = req.body;
     const archivo = req.file.buffer;
-    console.log(idCliente)
-    console.log(archivo)
 
     if (!req.file) {
       return res.status(404).json({ message: "Archivo no recibido" });
     }
 
-    db.query('SELECT idPedido FROM Pedido WHERE idCliente = ?',[idCliente],(err,result)=>{
-      if(err){
-        console.log(err)
-        return res.status(500).json({error: "Error al buscar dicho idPedido"});
+    db.query('SELECT idPedido FROM Pedido WHERE idCliente = ?', [idCliente], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Error al buscar dicho idPedido" });
       }
 
-      if(result.length == 0){
-        console.log("Entrando")
-        db.query('INSERT INTO Pedido (idCliente) VALUES (?)',[idCliente],(err,result)=>{
-          if(err){
-            console.log(err)
-            return res.status(500).json({error: "Error al insertar dicho idCliente en la tabla pedido"});
+      if (result.length === 0) {
+        db.query('INSERT INTO Pedido (idCliente) VALUES (?)', [idCliente], (err, result) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({ error: "Error al insertar dicho idCliente en la tabla pedido" });
           }
-  
+
           const idPedido = result.insertId;
-  
-          console.log('Este es el id de pedido ' + idPedido)
-  
+
           db.query(
             "INSERT INTO ComprobantePago (comprobante_pago, id_Pedido) VALUES (?, ?)",
             [archivo, idPedido],
             (err, result) => {
               if (err) {
                 console.error("Error al insertar el comprobante de pago:", err);
-                return res
-                  .status(500)
-                  .json({ message: "Error al insertar el comprobante de pago" });
+                return res.status(500).json({ message: "Error al insertar el comprobante de pago" });
               }
-      
-              console.log("Éxito");
-      
-              return res.status(201).json({idPedido: idPedido});
+
+              return res.status(201).json({ idPedido: idPedido });
             }
           );
         });
-      }
+      } else {
+        const idPedido = result[0].idPedido;
+        db.query(
+          "INSERT INTO ComprobantePago (comprobante_pago, id_Pedido) VALUES (?, ?)",
+          [archivo, idPedido],
+          (err, result) => {
+            if (err) {
+              console.error("Error al insertar el comprobante de pago:", err);
+              return res.status(500).json({ message: "Error al insertar el comprobante de pago" });
+            }
 
+            return res.status(201).json({ idPedido: idPedido });
+          }
+        );
+      }
     });
   });
 }];

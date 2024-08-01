@@ -35,13 +35,15 @@ const authenticateJWT = (req, res, next) => {
       next();
     });
   } else {
+    console.log('no existe un token')
     res.sendStatus(401);
   }
 };
 
 
 exports.addCar = [authenticateJWT,(req, res) => {
-  const { idCliente, idProducto, cantidad } = req.body;
+  const { idProducto, cantidad } = req.body;
+  const idCliente = req.params.idCustomer;
   console.log(req.body);
   db.query(
     "SELECT idCarrito FROM Carrito WHERE idCliente = ? ",
@@ -135,6 +137,8 @@ exports.addCar = [authenticateJWT,(req, res) => {
 
 exports.getProductsCar = [authenticateJWT,(req, res) => {
   const idCliente = req.params.idCustomer;
+
+  console.log("ver prodtcos:" , idCliente)
 
   db.query(
     "SELECT idCarrito FROM Carrito WHERE idCliente = ?",

@@ -13,12 +13,17 @@ export default function ShippingData() {
   const [numeroExterior, setNumeroExterior] = useState("");
   const [referencia, setReferencia] = useState("");
   const navigate = useNavigate();
-  const idCliente = 15 ;
+  const token = localStorage.getItem('token');
+  const idCliente = localStorage.getItem('idCliente');
 
   const blurCP = async (postalCode) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/codigo_postal?cp=${postalCode}`
+        `http://localhost:3000/api/codigo_postal?cp=${postalCode}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
       );
 
       if (!response.ok) {
@@ -78,7 +83,10 @@ export default function ShippingData() {
           http://localhost:3000/shippingData/addShippingInformation/${idCliente}`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(data),
           }
         );

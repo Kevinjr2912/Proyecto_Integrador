@@ -33,13 +33,23 @@ export default function CarritoP() {
   const [purchaseSummary, setPurchaseSummary] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  
+  const token = localStorage.getItem('token');
+  const idCliente = localStorage.getItem('idCliente');
+  console.log("carrito p:", token, idCliente)
 
   const cargarProductosCarrito = async () => {
     try {
       const [response1, response2] = await Promise.all([
-        fetch(`http://localhost:3000/cars/getProductsCar/15`),
-        fetch(`http://localhost:3000/cars/getPurchaseSummary/15`),
+        fetch(`http://localhost:3000/cars/getProductsCar/${idCliente}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }),
+        fetch(`http://localhost:3000/cars/getPurchaseSummary/${idCliente}`,{
+          headers: {
+                'Authorization': `Bearer ${token}`
+              }
+        })
       ]);
 
       if (response1.ok && response2.ok) {
@@ -56,6 +66,10 @@ export default function CarritoP() {
   };
 
   useEffect(() => {
+    if (!token) {
+      navigate('/loginUsuario');
+      return;
+    }
     cargarProductosCarrito();
   }, []);
 
@@ -102,7 +116,7 @@ export default function CarritoP() {
       const response = await fetch(`http://localhost:3000/cars//deleteProductCar/${producto.idProducto}`,{
         method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({idCliente: 15
           

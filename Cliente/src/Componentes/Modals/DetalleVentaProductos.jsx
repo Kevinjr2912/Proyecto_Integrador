@@ -4,12 +4,21 @@ import DataTable from "react-data-table-component";
 export default function DetalleVentaProductos({ data }) {
   const [productos, setProductos] = useState([]);
   const [customerAddress, setCustomerAddress] = useState({});
+  const token = localStorage.getItem('token');
 
   const handleDetails = async () => {
     try {
       const [response1, response2] = await Promise.all([
-        fetch(`http://localhost:3000/sales/getDetailsOrder/${data.idPedido}`),
-        fetch(`http://localhost:3000/sales/shippingDetail/${data.idPedido}`),
+        fetch(`http://localhost:3000/sales/getDetailsOrder/${data.idPedido}`,{
+              headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }),
+        fetch(`http://localhost:3000/sales/shippingDetail/${data.idPedido}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }),
       ]);
 
       if (response1.ok && response2.ok) {
@@ -30,6 +39,10 @@ export default function DetalleVentaProductos({ data }) {
   };
 
   useEffect(() => {
+    if (!token) {
+      navigate('/loginUsuario');
+      return;
+    }
     handleDetails();
   }, []);
 

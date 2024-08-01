@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import styles from '../Estilos/MetodoPago.module.css';
 import FramePayPalPago from "../Icons/FramePayPalPago.svg";
 import FrameTransferencia from "../Icons/FrameTransferencia.svg";
+import Swal from 'sweetalert2';
 
 export default function MetodoPago() {
-  const idCliente = 15;
   const [metodoSelect, setMetodoSelect] = useState("");
   const [archivo, setArchivo] = useState(null);
+  const token = localStorage.getItem('token');
+  const idCliente = localStorage.getItem('idCliente');
 
   const handleMetodoCambio = (metodo) => {
     setMetodoSelect(metodo);
@@ -18,7 +20,12 @@ export default function MetodoPago() {
 
   const handleSubmit = async () => {
     if (!archivo) {
-      alert('Por favor, selecciona un archivo antes de pagar.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, selecciona un archivo antes de pagar.',
+        confirmButtonText: 'Aceptar'
+      });
       return;
     }
 
@@ -29,6 +36,9 @@ export default function MetodoPago() {
     try {
       const response1 = await fetch("http://localhost:3000/comprobantes/addComprobante", {
         method: "POST",
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
         body: formData
       });
 
@@ -38,21 +48,42 @@ export default function MetodoPago() {
           method: 'POST',
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({ idPedido: data.idPedido })
         });
 
         if (response2.ok) {
-          alert('Tu compra ha pasado al proceso de validación, te pedimos paciencia');
+          Swal.fire({
+            icon: 'success',
+            title: 'Compra Validada',
+            text: 'Tu compra ha pasado al proceso de validación, te pedimos paciencia.',
+            confirmButtonText: 'Aceptar'
+          });
         } else {
-          alert('Error al agregar detalles del pedido');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al agregar detalles del pedido.',
+            confirmButtonText: 'Aceptar'
+          });
         }
       } else {
-        alert('Error al subir el comprobante');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al subir el comprobante.',
+          confirmButtonText: 'Aceptar'
+        });
       }
     } catch (error) {
       console.error('Error al subir el comprobante:', error);
-      alert('Error al subir el comprobante');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al subir el comprobante.',
+        confirmButtonText: 'Aceptar'
+      });
     }
   };
 

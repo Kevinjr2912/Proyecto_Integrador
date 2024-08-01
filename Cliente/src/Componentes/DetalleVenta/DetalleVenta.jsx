@@ -10,6 +10,7 @@ import DetalleVentaProductos from "../Modals/DetalleVentaProductos";
 import LinkProducto from "../Modals/LinkProducto";
 import ReciboProducto from "../Modals/ReciboProducto";
 
+const token = localStorage.getItem('token');
 // Componente para el botón de Detalles
 const DetalleButton = ({ onClick }) => (
   <button onClick={onClick} className={styles.detalleButton}>
@@ -167,7 +168,11 @@ export default function DetalleVenta() {
   const showDetailsOrder = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/sales/getInformationSale"
+        "http://localhost:3000/sales/getInformationSale",{
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
       );
 
       if (response.ok) {
@@ -186,6 +191,10 @@ export default function DetalleVenta() {
   };
 
   useEffect(() => {
+    if (!token) {
+      navigate('/loginUsuario');
+      return;
+    }
     showDetailsOrder();
   });
 

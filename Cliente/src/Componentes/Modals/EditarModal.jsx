@@ -7,6 +7,8 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [equipment, setEquipment] = useState("");
+  const token = localStorage.getItem('token');
+
   const listeEquipment = [
     { idEquipment: 1, name: "Alpine" },
     { idEquipment: 2, name: "Kick Sauber" },
@@ -46,7 +48,10 @@ export default function EditarModal({ isOpen, onClose, onEditProduct, product })
     try {
       const response = await fetch(`http://localhost:3000/products/updateProduct/${idProducto}`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(data),
       });
 
